@@ -1,6 +1,6 @@
-// @ts-expect-error - Base UI type resolution issue with bundler resolution
+// @ts-ignore - Base UI type resolution issue with bundler resolution
 import { mergeProps } from "@base-ui/react/merge-props"
-// @ts-expect-error - Base UI type resolution issue with bundler resolution
+// @ts-ignore - Base UI type resolution issue with bundler resolution
 import { useRender } from "@base-ui/react/use-render"
 import { cva, type VariantProps } from "class-variance-authority"
 

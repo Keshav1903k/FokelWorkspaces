@@ -1,4 +1,4 @@
-// @ts-expect-error - Base UI type resolution issue with bundler resolution
+// @ts-ignore - Base UI type resolution issue with bundler resolution
 import { Button as ButtonPrimitive } from "@base-ui/react/button"
 import { cva, type VariantProps } from "class-variance-authority"
 

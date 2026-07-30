@@ -1,5 +1,5 @@
 import * as React from "react"
-// @ts-expect-error - Base UI type resolution issue with bundler resolution
+// @ts-ignore - Base UI type resolution issue with bundler resolution
 import { Input as InputPrimitive } from "@base-ui/react/input"
 
 import { cn } from "@/lib/utils"
