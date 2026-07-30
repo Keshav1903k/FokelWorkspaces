@@ -1,0 +1,163 @@
+@import "tailwindcss";
+@import "shadcn/tailwind.css";
+
+@theme inline {
+  --color-background: var(--background);
+  --color-background-alt: var(--background-alt);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-sans);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-hover: var(--secondary-hover);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+
+  /* Specific color utilities from color system */
+  --color-brand-blue: #305789;
+  --color-brand-teal: #51818C;
+  --color-brand-gold: #D9BD9C;
+  --color-success-green: #3F5719;
+  --color-dark-heading: #24374A;
+  --color-dark-teal-heading: #365956;
+  --color-para-gray: #5C6B76;
+  --color-label-gray: #7A8A96;
+  --color-border-light: #E8EDF2;
+  --color-border-filter: #D9E4EC;
+  --color-footer-bg: #24374A;
+  --color-footer-text: #C9D6E3;
+
+  /* Refined professional shadows */
+  --shadow-card: 0 6px 24px rgba(0, 0, 0, 0.06);
+  --shadow-section: 0 12px 36px rgba(15, 23, 42, 0.02);
+}
+
+/* ─── Final Color System Variables ────────────────────────────────── */
+:root {
+  /* Background: Pure White as main background */
+  --background: #FFFFFF;
+  --background-alt: #DEE9F4; /* Alternate Sections */
+
+  /* Foreground / text: Dark heading color */
+  --foreground: #24374A;
+  --foreground-secondary: #5C6B76; /* Paragraph */
+
+  /* Cards: White cards */
+  --card: #FFFFFF;
+  --card-foreground: #24374A;
+
+  /* Popovers */
+  --popover: #FFFFFF;
+  --popover-foreground: #24374A;
+
+  /* Brand primary: #305789 */
+  --primary: #305789;
+  --primary-hover: #4F7AA4;
+  --primary-foreground: #FFFFFF;
+
+  /* Brand secondary: #51818C */
+  --secondary: #51818C;
+  --secondary-hover: #6393A6;
+  --secondary-foreground: #FFFFFF;
+
+  /* Muted: Paragraph and labels */
+  --muted: #E8EDF2;
+  --muted-foreground: #5C6B76;
+
+  /* Accent: #D9BD9C (Premium touches, text: #365956) */
+  --accent: #D9BD9C;
+  --accent-foreground: #365956;
+
+  /* Semantic Success: #3F5719 */
+  --success: #3F5719;
+  --warning: #FBBF24;
+  --destructive: #EF4444;
+
+  /* Borders & inputs: #E8EDF2 */
+  --border: #E8EDF2;
+  --input: #E8EDF2;
+  --ring: #305789;
+
+  /* Charts */
+  --chart-1: #305789;
+  --chart-2: #51818C;
+  --chart-3: #D9BD9C;
+  --chart-4: #3F5719;
+  --chart-5: #24374A;
+
+  /* Radius: 12-16px -> 0.875rem = 14px */
+  --radius: 0.875rem;
+
+  /* Sidebar */
+  --sidebar: #FFFFFF;
+  --sidebar-foreground: #24374A;
+  --sidebar-primary: #305789;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #DEE9F4;
+  --sidebar-accent-foreground: #24374A;
+  --sidebar-border: #E8EDF2;
+  --sidebar-ring: #305789;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased selection:bg-primary/20 selection:text-foreground;
+  }
+
+  html {
+    @apply font-sans scroll-smooth;
+    font-size: 17.5px;
+  }
+}
+
+/* ─── Gradient utility matching brand colors ────────────── */
+.gradient-brand {
+  background: linear-gradient(135deg, #305789 0%, #51818C 100%);
+}
+
+.text-gradient-brand {
+  background: linear-gradient(135deg, #305789 0%, #51818C 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
