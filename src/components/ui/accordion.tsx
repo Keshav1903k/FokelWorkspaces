@@ -1,4 +1,4 @@
-// @ts-expect-error - Base UI type resolution issue with bundler resolution
+// @ts-ignore - Base UI type resolution issue with bundler resolution
 import { Accordion as AccordionPrimitive } from "@base-ui/react/accordion"
 
 import { cn } from "@/lib/utils"
