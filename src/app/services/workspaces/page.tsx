@@ -297,7 +297,7 @@ function WorkspacesPageContent() {
                   <div
                     key={card.type}
                     onClick={() => handleCardClick(card.type)}
-                    className={`flex-shrink-0 w-[305px] sm:w-[335px] text-left bg-white border rounded-2xl overflow-hidden shadow-sm transition-all duration-300 snap-start flex flex-col h-[415px] cursor-pointer hover:shadow-md ${
+                    className={`flex-shrink-0 w-[305px] sm:w-[335px] text-left bg-white border rounded-2xl overflow-hidden shadow-sm transition-all duration-300 snap-start flex flex-col h-[385px] cursor-pointer hover:shadow-md ${
                       isActive
                         ? "border-primary ring-1 ring-primary/45 shadow-[0_8px_30px_rgb(48,87,137,0.06)]"
                         : "border-[#E8EDF2] hover:border-[#c4d6e9]"
@@ -307,7 +307,7 @@ function WorkspacesPageContent() {
                     <div className={`h-1.5 w-full transition-colors duration-300 ${isActive ? "bg-primary" : "bg-transparent"}`} />
 
                     {/* Image */}
-                    <div className="relative aspect-[16/9] w-full overflow-hidden bg-slate-50 border-b border-slate-100 shrink-0">
+                    <div className="relative w-full h-[135px] overflow-hidden bg-slate-50 border-b border-slate-100 shrink-0">
                       <img
                         src={card.image}
                         alt={card.title}
