@@ -9,12 +9,10 @@ import {
   HelpCircle, 
   FilterX, 
   ChevronDown, 
-  ChevronLeft,
-  ChevronRight,
   Sparkles 
 } from "lucide-react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { useEffect, Suspense, useRef } from "react";
+import { useEffect, Suspense } from "react";
 import { WORKSPACES, CITIES, WORKSPACE_TYPES } from "@/constants/data";
 import { AdvancedSearch } from "@/components/search/AdvancedSearch";
 
@@ -127,19 +125,6 @@ const CITY_CARDS = [
 function WorkspacesPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const sliderRef = useRef<HTMLDivElement>(null);
-
-  const scrollLeft = () => {
-    if (sliderRef.current) {
-      sliderRef.current.scrollBy({ left: -340, behavior: "smooth" });
-    }
-  };
-
-  const scrollRight = () => {
-    if (sliderRef.current) {
-      sliderRef.current.scrollBy({ left: 340, behavior: "smooth" });
-    }
-  };
 
   const cityParam = searchParams.get("city");
   const typeParam = searchParams.get("type");
@@ -308,7 +293,6 @@ function WorkspacesPageContent() {
           {/* Category Cards Slider */}
           <div className="relative mb-14 group">
             <div
-              ref={sliderRef}
               className="flex gap-6 overflow-x-auto pb-4 scrollbar-none snap-x snap-mandatory scroll-smooth"
               style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
             >
@@ -366,20 +350,6 @@ function WorkspacesPageContent() {
                 );
               })}
             </div>
-
-            {/* Navigation Slider Buttons */}
-            <button
-              onClick={scrollLeft}
-              className="absolute left-[-18px] top-1/2 -translate-y-1/2 z-30 w-9 h-9 rounded-full bg-white border border-slate-200/80 shadow-[0_2px_8px_rgba(0,0,0,0.06)] flex items-center justify-center text-slate-600 hover:text-primary hover:border-primary hover:scale-[1.05] active:scale-[0.98] transition-all cursor-pointer opacity-0 group-hover:opacity-100"
-            >
-              <ChevronLeft className="w-4 h-4" />
-            </button>
-            <button
-              onClick={scrollRight}
-              className="absolute right-[-18px] top-1/2 -translate-y-1/2 z-30 w-9 h-9 rounded-full bg-white border border-slate-200/80 shadow-[0_2px_8px_rgba(0,0,0,0.06)] flex items-center justify-center text-slate-600 hover:text-primary hover:border-primary hover:scale-[1.05] active:scale-[0.98] transition-all cursor-pointer"
-            >
-              <ChevronRight className="w-4 h-4" />
-            </button>
           </div>
 
           {/* Cities Filter Slider */}
