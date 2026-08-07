@@ -9,10 +9,12 @@ import {
   HelpCircle, 
   FilterX, 
   ChevronDown, 
+  ChevronLeft,
+  ChevronRight,
   Sparkles 
 } from "lucide-react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { useEffect, Suspense } from "react";
+import { useEffect, Suspense, useRef } from "react";
 import { WORKSPACES, CITIES, WORKSPACE_TYPES } from "@/constants/data";
 import { AdvancedSearch } from "@/components/search/AdvancedSearch";
 
@@ -40,14 +42,87 @@ const WORKSPACE_OPTIONS = [
   }
 ];
 
+const CATEGORY_CARDS = [
+  {
+    title: "Coworking Space",
+    tagline: "Full-time offices for teams of all sizes",
+    features: [
+      "Dedicated seats & private cabins",
+      "Fully-equipped coworking spaces",
+      "Ideal for individual or small teams"
+    ],
+    exploreText: "Explore Coworking Space",
+    type: "Coworking Space",
+    image: "https://images.unsplash.com/photo-1527192491265-7e15c55b1ed2?auto=format&fit=crop&q=80&w=600"
+  },
+  {
+    title: "Managed Office",
+    tagline: "Dedicated office space managed by a provider",
+    features: [
+      "Fully furnished customized office",
+      "Fully managed operations & housekeeping",
+      "Ideal for 50+ team size"
+    ],
+    exploreText: "Explore Managed Office",
+    type: "Managed Office",
+    image: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&q=80&w=600"
+  },
+  {
+    title: "Office/Commercial Spaces",
+    tagline: "Rent/Lease office space for your company",
+    features: [
+      "Long term contracts (3 or more years)",
+      "Full customizations with self managed amenities",
+      "Ideal for 100+ team size"
+    ],
+    exploreText: "Explore Office/Commercial",
+    type: "Office/Commercial Spaces",
+    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=600"
+  },
+  {
+    title: "Virtual Office",
+    tagline: "Professional business address and compliance setup",
+    features: [
+      "Premium corporate mailing address",
+      "GST registration and business license support",
+      "Mail handling & dedicated reception services"
+    ],
+    exploreText: "Explore Virtual Office",
+    type: "Virtual Office",
+    image: "https://images.unsplash.com/photo-1431540015161-0bf868a2d407?auto=format&fit=crop&q=80&w=600"
+  }
+];
+
 function WorkspacesPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const sliderRef = useRef<HTMLDivElement>(null);
+
+  const scrollLeft = () => {
+    if (sliderRef.current) {
+      sliderRef.current.scrollBy({ left: -340, behavior: "smooth" });
+    }
+  };
+
+  const scrollRight = () => {
+    if (sliderRef.current) {
+      sliderRef.current.scrollBy({ left: 340, behavior: "smooth" });
+    }
+  };
+
   const cityParam = searchParams.get("city");
   const typeParam = searchParams.get("type");
 
   const selectedCity = cityParam || "All";
   const selectedType = typeParam || "All";
+
+  const handleCardClick = (type: string) => {
+    if (selectedType === type) {
+      updateFilters(selectedCity, "All");
+    } else {
+      updateFilters(selectedCity, type);
+    }
+  };
 
   const filteredWorkspaces = WORKSPACES.filter((w) => {
     const matchesCity = selectedCity === "All" || w.city === selectedCity;
@@ -178,6 +253,83 @@ function WorkspacesPageContent() {
                 </button>
               )}
             </div>
+          </div>
+
+          {/* Category Cards Slider */}
+          <div className="relative mb-14 group">
+            <div
+              ref={sliderRef}
+              className="flex gap-6 overflow-x-auto pb-4 scrollbar-none snap-x snap-mandatory scroll-smooth"
+              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+            >
+              {CATEGORY_CARDS.map((card) => {
+                const isActive = selectedType === card.type;
+                return (
+                  <div
+                    key={card.type}
+                    onClick={() => handleCardClick(card.type)}
+                    className={`flex-shrink-0 w-[280px] sm:w-[310px] text-left bg-white border rounded-2xl overflow-hidden shadow-sm transition-all duration-300 snap-start flex flex-col h-[390px] cursor-pointer hover:shadow-md ${
+                      isActive
+                        ? "border-primary ring-1 ring-primary/45 shadow-[0_8px_30px_rgb(48,87,137,0.06)]"
+                        : "border-[#E8EDF2] hover:border-[#c4d6e9]"
+                    }`}
+                  >
+                    {/* Top Accent Highlight for Active Card */}
+                    <div className={`h-1.5 w-full transition-colors duration-300 ${isActive ? "bg-primary" : "bg-transparent"}`} />
+
+                    {/* Image */}
+                    <div className="relative aspect-[16/9] w-full overflow-hidden bg-slate-50 border-b border-slate-100">
+                      <img
+                        src={card.image}
+                        alt={card.title}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+
+                    {/* Content */}
+                    <div className="p-5 flex flex-col flex-grow justify-between gap-4">
+                      <div>
+                        <h3 className="text-sm font-bold text-slate-800 mb-1 group-hover:text-primary transition-colors">
+                          {card.title}
+                        </h3>
+                        <p className="text-[#5C6B76] text-[10px] leading-relaxed font-semibold min-h-[2.5rem]">
+                          {card.tagline}
+                        </p>
+                        
+                        {/* Bullet points */}
+                        <ul className="flex flex-col gap-2 pt-4 border-t border-slate-100 mt-4">
+                          {card.features.map((feature, fIdx) => (
+                            <li key={fIdx} className="flex items-start gap-2 text-[10px] font-semibold text-slate-500">
+                              <div className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 shrink-0" />
+                              <span className="leading-tight">{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      <div className="mt-2 flex items-center gap-1 text-[10px] font-bold text-primary group-hover:text-primary-hover transition-colors">
+                        <span>{card.exploreText}</span>
+                        <ArrowRight className="w-3.5 h-3.5 transition-transform duration-250 group-hover:translate-x-0.5" />
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Navigation Slider Buttons */}
+            <button
+              onClick={scrollLeft}
+              className="absolute left-[-18px] top-1/2 -translate-y-1/2 z-30 w-9 h-9 rounded-full bg-white border border-slate-200/80 shadow-[0_2px_8px_rgba(0,0,0,0.06)] flex items-center justify-center text-slate-600 hover:text-primary hover:border-primary hover:scale-[1.05] active:scale-[0.98] transition-all cursor-pointer opacity-0 group-hover:opacity-100"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+            <button
+              onClick={scrollRight}
+              className="absolute right-[-18px] top-1/2 -translate-y-1/2 z-30 w-9 h-9 rounded-full bg-white border border-slate-200/80 shadow-[0_2px_8px_rgba(0,0,0,0.06)] flex items-center justify-center text-slate-600 hover:text-primary hover:border-primary hover:scale-[1.05] active:scale-[0.98] transition-all cursor-pointer"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
           </div>
 
           {/* Properties Grid */}

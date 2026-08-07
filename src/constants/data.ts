@@ -4,7 +4,7 @@ export interface WorkspaceSpace {
   location: string;
   city: string;
   price: string;
-  type: "Virtual Office" | "Coworking Space" | "Private Office" | "Enterprise Office" | "Meeting Room";
+  type: "Coworking Space" | "Managed Office" | "Office/Commercial Spaces" | "Virtual Office";
   rating: number;
   amenities: string[];
   image: string;
@@ -60,11 +60,10 @@ export const CITIES = [
 ];
 
 export const WORKSPACE_TYPES = [
-  "Virtual Office",
   "Coworking Space",
-  "Private Office",
-  "Enterprise Office",
-  "Meeting Room"
+  "Managed Office",
+  "Office/Commercial Spaces",
+  "Virtual Office"
 ];
 
 export const STATS: StatItem[] = [
@@ -185,71 +184,188 @@ export const SERVICES: ServiceItem[] = [
 ];
 
 export const WORKSPACES: WorkspaceSpace[] = [
+  // COWORKING SPACE
   {
-    id: "prop-1",
-    title: "The Zenith Center",
+    id: "cowork-1",
+    title: "The Zenith Coworking",
     location: "Indiranagar, Bangalore",
     city: "Bangalore",
     price: "₹8,500/seat",
     type: "Coworking Space",
     rating: 4.9,
     amenities: ["24/7 Access", "High-speed Wi-Fi", "Coffee Bar", "Phone Booths"],
+    image: "https://images.unsplash.com/photo-1527192491265-7e15c55b1ed2?auto=format&fit=crop&q=80&w=800"
+  },
+  {
+    id: "cowork-2",
+    title: "WeWork Galaxy",
+    location: "MG Road, Bangalore",
+    city: "Bangalore",
+    price: "₹12,000/seat",
+    type: "Coworking Space",
+    rating: 4.8,
+    amenities: ["Hot Desks", "Conference Rooms", "Printing Services", "Community Events"],
     image: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=800"
   },
   {
-    id: "prop-2",
-    title: "Signature Corporate Tower",
+    id: "cowork-3",
+    title: "Innov8 Coworking",
+    location: "Connaught Place, Delhi NCR",
+    city: "Delhi NCR",
+    price: "₹9,000/seat",
+    type: "Coworking Space",
+    rating: 4.7,
+    amenities: ["Ergonomic Seating", "Pantry Access", "Secure Lockers", "High-speed Internet"],
+    image: "https://images.unsplash.com/photo-1542744094-3a31f103e35f?auto=format&fit=crop&q=80&w=800"
+  },
+  {
+    id: "cowork-4",
+    title: "Awfis One BKC",
+    location: "Bandra Kurla Complex, Mumbai",
+    city: "Mumbai",
+    price: "₹15,000/seat",
+    type: "Coworking Space",
+    rating: 4.8,
+    amenities: ["Meeting Rooms", "Lounge Area", "Complimentary Tea/Coffee", "Acoustic Pods"],
+    image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&q=80&w=800"
+  },
+
+  // MANAGED OFFICE
+  {
+    id: "managed-1",
+    title: "Signature Managed Suites",
     location: "BKC, Mumbai",
     city: "Mumbai",
     price: "₹25,000/desk",
-    type: "Private Office",
-    rating: 4.8,
-    amenities: ["Reception Desk", "Parking", "Board Room", "IT Support"],
+    type: "Managed Office",
+    rating: 4.9,
+    amenities: ["Dedicated Pantry", "Biometric Security", "Housekeeping", "IT Helpdesk"],
     image: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80&w=800"
   },
   {
-    id: "prop-3",
-    title: "Capital Business Suite",
+    id: "managed-2",
+    title: "Ascendas IT Park",
+    location: "Whitefield, Bangalore",
+    city: "Bangalore",
+    price: "₹18,000/desk",
+    type: "Managed Office",
+    rating: 4.7,
+    amenities: ["Custom branding", "Reception Desk", "Parking Space", "Breakout Zone"],
+    image: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&q=80&w=800"
+  },
+  {
+    id: "managed-3",
+    title: "Cyber City Managed Office",
+    location: "DLF Phase 3, Delhi NCR",
+    city: "Delhi NCR",
+    price: "₹22,000/desk",
+    type: "Managed Office",
+    rating: 4.8,
+    amenities: ["Board Rooms", "Executive Lounge", "High-speed Fiber", "24/7 Security"],
+    image: "https://images.unsplash.com/photo-1568992687947-868a62a9f521?auto=format&fit=crop&q=80&w=800"
+  },
+  {
+    id: "managed-4",
+    title: "Hi-Tech Managed Spaces",
+    location: "Madhapur, Hyderabad",
+    city: "Hyderabad",
+    price: "₹16,500/desk",
+    type: "Managed Office",
+    rating: 4.9,
+    amenities: ["Custom Layout", "Centralized AC", "Cafeteria Access", "Visitor Lobby"],
+    image: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&q=80&w=800"
+  },
+
+  // OFFICE/COMMERCIAL SPACES
+  {
+    id: "office-1",
+    title: "Capital Towers Lease",
     location: "Connaught Place, Delhi NCR",
     city: "Delhi NCR",
-    price: "₹1,499/mo",
-    type: "Virtual Office",
+    price: "₹120/sq.ft",
+    type: "Office/Commercial Spaces",
     rating: 4.7,
-    amenities: ["Business Address", "Mail Scanning", "Meeting Access", "GST Registered"],
+    amenities: ["Bare shell option", "Centralized HVAC", "100% Power Backup", "Multi-level Parking"],
     image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=800"
   },
   {
-    id: "prop-4",
-    title: "Hi-Tech Hub",
+    id: "office-2",
+    title: "Prestige Commercial Hub",
+    location: "Outer Ring Road, Bangalore",
+    city: "Bangalore",
+    price: "₹150/sq.ft",
+    type: "Office/Commercial Spaces",
+    rating: 4.8,
+    amenities: ["Glass Facade", "Double Height Lobby", "High Speed Elevators", "Fire Safety Systems"],
+    image: "https://images.unsplash.com/photo-1554469384-e58fac16e23a?auto=format&fit=crop&q=80&w=800"
+  },
+  {
+    id: "office-3",
+    title: "One BKC Commercial",
+    location: "Bandra Kurla Complex, Mumbai",
+    city: "Mumbai",
+    price: "₹280/sq.ft",
+    type: "Office/Commercial Spaces",
+    rating: 4.9,
+    amenities: ["Grade-A Building", "Leed Certified", "Advanced Security Systems", "Executive Dining"],
+    image: "https://images.unsplash.com/photo-1577495508048-b635879837f1?auto=format&fit=crop&q=80&w=800"
+  },
+  {
+    id: "office-4",
+    title: "Phoenix Commercial Park",
     location: "Gachibowli, Hyderabad",
     city: "Hyderabad",
-    price: "₹12,000/seat",
-    type: "Enterprise Office",
-    rating: 4.9,
-    amenities: ["Custom Layout", "Dedicated Pantry", "Secure Server Room", "Recreation Area"],
-    image: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&q=80&w=800"
-  },
-  {
-    id: "prop-5",
-    title: "The Summit Executive",
-    location: "Kalyani Nagar, Pune",
-    city: "Pune",
-    price: "₹1,500/hr",
-    type: "Meeting Room",
+    price: "₹95/sq.ft",
+    type: "Office/Commercial Spaces",
     rating: 4.6,
-    amenities: ["4K TV Screen", "Video Conf Tech", "Whiteboards", "Catering Available"],
-    image: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&q=80&w=800"
+    amenities: ["Customizable Floor Plate", "Zero Maintenance Overhead", "High Security", "Metro Proximity"],
+    image: "https://images.unsplash.com/photo-1512403754473-278556139b0a?auto=format&fit=crop&q=80&w=800"
+  },
+
+  // VIRTUAL OFFICE
+  {
+    id: "virtual-1",
+    title: "Premium CP Virtual Address",
+    location: "Connaught Place, Delhi NCR",
+    city: "Delhi NCR",
+    price: "₹999/mo",
+    type: "Virtual Office",
+    rating: 4.8,
+    amenities: ["GST Registration NOC", "Company Incorporation NOC", "Mail Handling & Scanning", "Courier Forwarding"],
+    image: "https://images.unsplash.com/photo-1431540015161-0bf868a2d407?auto=format&fit=crop&q=80&w=800"
   },
   {
-    id: "prop-6",
-    title: "Elite Space",
-    location: "OMR, Chennai",
-    city: "Chennai",
-    price: "₹7,500/seat",
-    type: "Coworking Space",
+    id: "virtual-2",
+    title: "Indiranagar Corporate Address",
+    location: "Indiranagar, Bangalore",
+    city: "Bangalore",
+    price: "₹1,299/mo",
+    type: "Virtual Office",
+    rating: 4.9,
+    amenities: ["Premium Commercial Address", "NOC & Utility Bills", "Dedicated Receptionist", "GST Registry Support"],
+    image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&q=80&w=800"
+  },
+  {
+    id: "virtual-3",
+    title: "BKC Premium Virtual Hub",
+    location: "Bandra Kurla Complex, Mumbai",
+    city: "Mumbai",
+    price: "₹1,999/mo",
+    type: "Virtual Office",
+    rating: 4.9,
+    amenities: ["Prestigious Business Address", "GST Compliant Documents", "Bi-weekly Mail Dispatch", "Meeting Room Access"],
+    image: "https://images.unsplash.com/photo-1557223562-6c77ef16210f?auto=format&fit=crop&q=80&w=800"
+  },
+  {
+    id: "virtual-4",
+    title: "Cyber Gateway Virtual Office",
+    location: "Hitec City, Hyderabad",
+    city: "Hyderabad",
+    price: "₹1,199/mo",
+    type: "Virtual Office",
     rating: 4.7,
-    amenities: ["High-speed Wi-Fi", "Lounge Area", "Parking", "Cafeteria"],
-    image: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&q=80&w=800"
+    amenities: ["Business Registration NOC", "Utility Bill Copies", "Courier Alerts", "Reception Answering"],
+    image: "https://images.unsplash.com/photo-1549923746-c502d488f3aa?auto=format&fit=crop&q=80&w=800"
   }
 ];
 
