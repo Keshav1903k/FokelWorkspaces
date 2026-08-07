@@ -79,8 +79,8 @@ export default function ContactPage() {
                         <MapPin className="w-5 h-5 text-secondary" />
                       </div>
                       <div>
-                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">Corporate HQ Address</p>
-                        <p className="text-xs font-semibold text-foreground leading-relaxed">Indiranagar Double Road, Bangalore, India</p>
+                        <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-0.5">Corporate HQ Address</p>
+                        <p className="text-sm font-semibold text-foreground leading-relaxed">Indiranagar Double Road, Bangalore, India</p>
                       </div>
                     </div>
 
@@ -90,8 +90,8 @@ export default function ContactPage() {
                         <Mail className="w-5 h-5 text-secondary" />
                       </div>
                       <div>
-                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">Support Desk</p>
-                        <p className="text-xs font-semibold text-foreground leading-relaxed">
+                        <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-0.5">Support Desk</p>
+                        <p className="text-sm font-semibold text-foreground leading-relaxed">
                           <a href="mailto:support@fokel.com" className="hover:text-primary transition-colors">support@fokel.com</a>
                         </p>
                       </div>
@@ -103,8 +103,8 @@ export default function ContactPage() {
                         <Phone className="w-5 h-5 text-secondary" />
                       </div>
                       <div>
-                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">Direct Hotline</p>
-                        <p className="text-xs font-semibold text-foreground leading-relaxed">
+                        <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-0.5">Direct Hotline</p>
+                        <p className="text-sm font-semibold text-foreground leading-relaxed">
                           <a href="tel:+918045678910" className="hover:text-primary transition-colors">+91 (80) 4567-8910</a>
                         </p>
                       </div>
