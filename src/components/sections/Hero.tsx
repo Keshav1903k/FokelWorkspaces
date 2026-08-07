@@ -12,14 +12,17 @@ export function Hero() {
         id="home"
         className="relative z-20 h-[75vh] min-h-[520px] md:h-[80vh] flex items-center justify-center overflow-visible bg-slate-950 pt-[120px] -mt-[88px]"
       >
-        {/* Background Image with Dark Overlay */}
+        {/* Background Video with Dark Overlay */}
         <div className="absolute inset-0 z-0 overflow-hidden">
-          <img
-            src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1600"
-            alt="Fokel Premium Workspace Banner"
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
             className="w-full h-full object-cover opacity-35 select-none"
-            draggable="false"
-          />
+          >
+            <source src="/videos/hero-bg.mp4" type="video/mp4" />
+          </video>
           <div className="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-950/50 to-slate-950/90" />
         </div>
 
