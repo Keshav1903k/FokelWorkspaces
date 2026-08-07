@@ -2,7 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { Sparkles } from "lucide-react";
+
 
 const STATS = [
   { value: 15000, label: "Businesses Served", suffix: "+", color: "from-primary to-primary-hover" },
@@ -48,10 +48,7 @@ export function Statistics() {
           {/* Left Column: Title Block & Metrics Cards Grid */}
           <div className="lg:col-span-6 flex flex-col gap-8 order-first lg:order-last">
             <div className="text-left">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded bg-white border border-[#c4d6e9] text-[10px] font-bold tracking-wider uppercase text-primary mb-4">
-                <Sparkles className="w-3.5 h-3.5 text-primary" />
-                <span>Operational Scale</span>
-              </div>
+
               <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-4 leading-snug">
                 Designed to Support Enterprise Growth
               </h2>
