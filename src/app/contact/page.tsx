@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, CheckCircle, MessageCircle, Briefcase, Globe, Building2 } from "lucide-react";
+import { Mail, Phone, MapPin, CheckCircle, Building2 } from "lucide-react";
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
@@ -112,26 +112,6 @@ export default function ContactPage() {
                   </div>
                 </div>
 
-                {/* Social Links at the bottom of the card */}
-                <div className="border-t border-[#E8EDF2] pt-6 flex items-center justify-start gap-3">
-                  {[
-                    { icon: MessageCircle, href: "#" },
-                    { icon: Mail, href: "mailto:support@fokel.com" },
-                    { icon: Briefcase, href: "#" },
-                    { icon: Globe, href: "#" }
-                  ].map((social, idx) => {
-                    const IconComponent = social.icon;
-                    return (
-                      <a
-                        key={idx}
-                        href={social.href}
-                        className="w-10 h-10 rounded-xl bg-slate-50 border border-[#E8EDF2] flex items-center justify-center text-secondary hover:text-white hover:bg-primary hover:border-primary transition-all duration-200"
-                      >
-                        <IconComponent className="w-4 h-4" />
-                      </a>
-                    );
-                  })}
-                </div>
               </div>
             </div>
 
