@@ -108,11 +108,11 @@ const CITY_CARDS = [
   },
   {
     name: "Hyderabad",
-    image: "https://images.unsplash.com/photo-1696941515998-d83f24967aca?ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNzg2MDk5MjMzfA&ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=400" // Charminar
+    image: "https://images.unsplash.com/photo-1608958416719-7561f5f242e2?auto=format&fit=crop&q=80&w=400" // Fully visible Charminar
   },
   {
     name: "Pune",
-    image: "https://images.unsplash.com/photo-1666865824095-b744c8c09be8?ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNzg2MDk5MjY1fA&ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=400" // Shaniwar Wada
+    image: "https://images.unsplash.com/photo-1600454309261-3dc9b7597b97?auto=format&fit=crop&q=80&w=400" // Twilight Pune Cityscape
   },
   {
     name: "Chennai",
