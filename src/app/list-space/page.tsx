@@ -142,18 +142,18 @@ export default function ListSpacePage() {
   return (
     <div className="flex flex-col min-h-screen bg-white">
       {/* Light Premium Header Banner */}
-      <section className="bg-gradient-to-br from-slate-50 via-white to-slate-100/50 pt-28 pb-16 md:pt-36 md:pb-20 text-center relative border-b border-[#E8EDF2]">
+      <section className="bg-[#DEE9F4] pt-28 pb-16 md:pt-36 md:pb-20 text-center relative border-b border-[#c4d6e9]">
         {/* Subtle grid pattern overlay for clean tech canvas feel */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#00000002_1px,transparent_1px),linear-gradient(to_bottom,#00000002_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#00000003_1px,transparent_1px),linear-gradient(to_bottom,#00000003_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none" />
         
         <div className="relative z-10 container mx-auto px-6 max-w-5xl flex flex-col items-center">
-          <span className="px-3.5 py-1 rounded-full bg-primary/5 border border-primary/10 text-[10px] font-bold tracking-wider uppercase text-primary mb-6 shadow-sm">
+          <span className="px-3.5 py-1 rounded-full bg-white/60 border border-[#c4d6e9] text-[10px] font-bold tracking-wider uppercase text-primary mb-6 shadow-sm">
             Landlord Partnership Portal
           </span>
           <h1 className="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-4 max-w-3xl">
             Monetize Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary-hover">Commercial Property</span>
           </h1>
-          <p className="text-slate-500 text-xs sm:text-sm max-w-2xl leading-relaxed">
+          <p className="text-[#5C6B76] text-xs sm:text-sm max-w-2xl leading-relaxed font-medium">
             Partner with Fokel to convert empty spaces, managed cabins, or full floors into high-yield workspace assets. Get onboarded and reach thousands of verified clients.
           </p>
         </div>
