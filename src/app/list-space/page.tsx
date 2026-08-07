@@ -147,9 +147,6 @@ export default function ListSpacePage() {
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#00000003_1px,transparent_1px),linear-gradient(to_bottom,#00000003_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none" />
         
         <div className="relative z-10 container mx-auto px-6 max-w-5xl flex flex-col items-center">
-          <span className="px-3.5 py-1 rounded-full bg-white/60 border border-[#c4d6e9] text-[10px] font-bold tracking-wider uppercase text-primary mb-6 shadow-sm">
-            Landlord Partnership Portal
-          </span>
           <h1 className="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-4 max-w-3xl">
             Monetize Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary-hover">Commercial Property</span>
           </h1>
