@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Sparkles } from "lucide-react";
+
 import { FAQS } from "@/constants/data";
 
 export function FaqAndNewsletter() {
@@ -63,9 +63,7 @@ export function FaqAndNewsletter() {
               className="relative w-full max-w-md p-8 md:p-10 rounded-xl bg-slate-50 border border-slate-100 text-center shadow-sm"
             >
               <div className="relative z-10 flex flex-col items-center">
-                <div className="w-12 h-12 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-center mb-6 text-slate-600">
-                  <Sparkles className="w-5 h-5 text-primary" />
-                </div>
+
 
                  <h3 className="text-xl md:text-2xl font-bold text-slate-800 mb-3">Stay ahead of the market</h3>
                 <p className="text-slate-400 text-sm mb-6 leading-relaxed">
