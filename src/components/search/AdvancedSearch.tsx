@@ -18,6 +18,7 @@ export function AdvancedSearch({ className = "max-w-2xl" }: { className?: string
     const params = new URLSearchParams();
     params.set("city", selectedCity);
     params.set("type", selectedType);
+    params.set("scroll", "true");
     router.push(`/services/workspaces?${params.toString()}`);
   };
 

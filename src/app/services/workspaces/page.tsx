@@ -12,7 +12,7 @@ import {
   Sparkles 
 } from "lucide-react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { Suspense } from "react";
+import { useEffect, Suspense } from "react";
 import { WORKSPACES, CITIES, WORKSPACE_TYPES } from "@/constants/data";
 import { AdvancedSearch } from "@/components/search/AdvancedSearch";
 
@@ -54,6 +54,26 @@ function WorkspacesPageContent() {
     const matchesType = selectedType === "All" || w.type === selectedType;
     return matchesCity && matchesType;
   });
+
+  const shouldScroll = searchParams.get("scroll") === "true";
+
+  useEffect(() => {
+    if (shouldScroll) {
+      const timer = setTimeout(() => {
+        const element = document.getElementById("listings");
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+          
+          // Clean up the scroll parameter from the URL bar without triggering a reload
+          const newParams = new URLSearchParams(window.location.search);
+          newParams.delete("scroll");
+          const newRelativePathQuery = window.location.pathname + (newParams.toString() ? `?${newParams.toString()}` : "");
+          window.history.replaceState(null, "", newRelativePathQuery);
+        }
+      }, 300);
+      return () => clearTimeout(timer);
+    }
+  }, [shouldScroll, searchParams]);
 
   const handleGetStarted = () => {
     window.dispatchEvent(new Event("open-welcome-modal"));
@@ -103,7 +123,7 @@ function WorkspacesPageContent() {
       </section>
 
       {/* Real-time Matching Listings */}
-      <section className="py-24 bg-slate-50 border-b border-[#E8EDF2] relative z-20">
+      <section id="listings" className="py-24 bg-slate-50 border-b border-[#E8EDF2] relative z-20">
         <div className="container mx-auto px-6 max-w-7xl">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
             <div>
