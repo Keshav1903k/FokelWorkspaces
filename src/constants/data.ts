@@ -436,6 +436,7 @@ export const FAQS: FaqItem[] = [
 export const NAV_LINKS = [
   { name: "Services", href: "/services" },
   { name: "Pricing", href: "/pricing" },
+  { name: "List Your Space", href: "/list-space" },
   { name: "About Us", href: "/about-us" },
   { name: "Contact", href: "/contact" }
 ];
