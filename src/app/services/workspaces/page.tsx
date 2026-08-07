@@ -3,21 +3,16 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   Building2, 
-  ShieldCheck, 
   MapPin, 
   CheckCircle, 
   ArrowRight, 
-  Laptop, 
-  Users, 
   HelpCircle, 
-  Star, 
   FilterX, 
   ChevronDown, 
   Sparkles 
 } from "lucide-react";
-import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
-import { useState, useEffect, Suspense } from "react";
+import { Suspense } from "react";
 import { WORKSPACES, CITIES, WORKSPACE_TYPES } from "@/constants/data";
 import { AdvancedSearch } from "@/components/search/AdvancedSearch";
 
@@ -51,27 +46,14 @@ function WorkspacesPageContent() {
   const cityParam = searchParams.get("city");
   const typeParam = searchParams.get("type");
 
-  const [selectedCity, setSelectedCity] = useState(cityParam || "All");
-  const [selectedType, setSelectedType] = useState(typeParam || "All");
-  const [filteredWorkspaces, setFilteredWorkspaces] = useState(WORKSPACES);
+  const selectedCity = cityParam || "All";
+  const selectedType = typeParam || "All";
 
-  // Synchronize state when query parameters change
-  useEffect(() => {
-    setSelectedCity(cityParam || "All");
-    setSelectedType(typeParam || "All");
-  }, [cityParam, typeParam]);
-
-  // Filter workspaces based on active choices
-  useEffect(() => {
-    let result = WORKSPACES;
-    if (selectedCity !== "All") {
-      result = result.filter((w) => w.city === selectedCity);
-    }
-    if (selectedType !== "All") {
-      result = result.filter((w) => w.type === selectedType);
-    }
-    setFilteredWorkspaces(result);
-  }, [selectedCity, selectedType]);
+  const filteredWorkspaces = WORKSPACES.filter((w) => {
+    const matchesCity = selectedCity === "All" || w.city === selectedCity;
+    const matchesType = selectedType === "All" || w.type === selectedType;
+    return matchesCity && matchesType;
+  });
 
   const handleGetStarted = () => {
     window.dispatchEvent(new Event("open-welcome-modal"));
@@ -205,12 +187,6 @@ function WorkspacesPageContent() {
                           {space.type}
                         </span>
                       </div>
-                      <div className="absolute top-4 right-4">
-                        <span className="text-[9px] font-bold px-2 py-1 rounded bg-primary text-white shadow-sm flex items-center gap-0.5">
-                          <Star className="w-2.5 h-2.5 fill-white text-amber-400" />
-                          {space.rating}
-                        </span>
-                      </div>
                     </div>
 
                     {/* Content */}
@@ -265,7 +241,7 @@ function WorkspacesPageContent() {
                   </div>
                   <h3 className="text-sm font-bold text-foreground mb-1">No matching properties found</h3>
                   <p className="text-muted-foreground text-xs max-w-sm mx-auto mb-4">
-                    We don't have workspaces matching both "{selectedCity}" and "{selectedType}" in this selection.
+                    We don&apos;t have workspaces matching both &quot;{selectedCity}&quot; and &quot;{selectedType}&quot; in this selection.
                   </p>
                   <button
                     onClick={clearFilters}
