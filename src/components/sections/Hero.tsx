@@ -19,11 +19,11 @@ export function Hero() {
             loop
             muted
             playsInline
-            className="w-full h-full object-cover opacity-35 select-none"
+            className="w-full h-full object-cover opacity-45 select-none"
           >
             <source src="/videos/hero-bg.mp4" type="video/mp4" />
           </video>
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-950/50 to-slate-950/90" />
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-950/65 via-slate-950/30 to-slate-950/80" />
         </div>
 
         {/* Content Container */}
