@@ -118,9 +118,9 @@ function WorkspacesPageContent() {
 
   const handleCardClick = (type: string) => {
     if (selectedType === type) {
-      updateFilters(selectedCity, "All");
+      updateFilters(selectedCity, "All", false);
     } else {
-      updateFilters(selectedCity, type);
+      updateFilters(selectedCity, type, true);
     }
   };
 
@@ -154,11 +154,20 @@ function WorkspacesPageContent() {
     window.dispatchEvent(new Event("open-welcome-modal"));
   };
 
-  const updateFilters = (city: string, type: string) => {
+  const updateFilters = (city: string, type: string, scrollToListings = false) => {
     const params = new URLSearchParams();
     if (city !== "All") params.set("city", city);
     if (type !== "All") params.set("type", type);
-    router.push(`/services/workspaces?${params.toString()}`);
+    router.push(`/services/workspaces?${params.toString()}`, { scroll: false });
+
+    if (scrollToListings) {
+      setTimeout(() => {
+        const element = document.getElementById("properties-grid");
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }, 100);
+    }
   };
 
   const clearFilters = () => {
@@ -191,9 +200,11 @@ function WorkspacesPageContent() {
           </p>
 
           {/* Search box directly in the Hero */}
-          <div className="w-full max-w-3xl mt-4">
-            <AdvancedSearch />
-          </div>
+          {selectedType === "All" && (
+            <div className="w-full max-w-3xl mt-4">
+              <AdvancedSearch />
+            </div>
+          )}
         </div>
       </section>
 
@@ -333,7 +344,7 @@ function WorkspacesPageContent() {
           </div>
 
           {/* Properties Grid */}
-          <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <motion.div id="properties-grid" layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <AnimatePresence mode="popLayout">
               {filteredWorkspaces.length > 0 ? (
                 filteredWorkspaces.map((space) => (
