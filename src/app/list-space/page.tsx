@@ -141,23 +141,19 @@ export default function ListSpacePage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
-      {/* Premium Header Banner with Abstract Radial Glows */}
-      <section className="bg-slate-950 pt-28 pb-20 md:pt-36 md:pb-28 text-center relative overflow-hidden">
-        {/* Glow Effects */}
-        <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-72 h-72 rounded-full bg-primary/20 blur-[100px] z-0 pointer-events-none" />
-        <div className="absolute top-1/3 right-1/4 -translate-y-1/2 w-80 h-80 rounded-full bg-indigo-500/15 blur-[120px] z-0 pointer-events-none" />
-        
-        {/* Fine grid overlay for high-tech premium feel */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none z-0" />
+      {/* Light Premium Header Banner */}
+      <section className="bg-gradient-to-br from-slate-50 via-white to-slate-100/50 pt-28 pb-16 md:pt-36 md:pb-20 text-center relative border-b border-[#E8EDF2]">
+        {/* Subtle grid pattern overlay for clean tech canvas feel */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#00000002_1px,transparent_1px),linear-gradient(to_bottom,#00000002_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none" />
         
         <div className="relative z-10 container mx-auto px-6 max-w-5xl flex flex-col items-center">
-          <span className="px-3.5 py-1 rounded-full bg-primary/10 border border-primary/20 text-[10px] font-bold tracking-wider uppercase text-primary mb-6 shadow-sm">
+          <span className="px-3.5 py-1 rounded-full bg-primary/5 border border-primary/10 text-[10px] font-bold tracking-wider uppercase text-primary mb-6 shadow-sm">
             Landlord Partnership Portal
           </span>
-          <h1 className="text-3xl md:text-5xl font-extrabold text-white tracking-tight leading-tight mb-4 max-w-3xl">
-            Monetize Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-indigo-400">Commercial Property</span>
+          <h1 className="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-4 max-w-3xl">
+            Monetize Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary-hover">Commercial Property</span>
           </h1>
-          <p className="text-slate-300 text-xs sm:text-sm max-w-2xl opacity-90 leading-relaxed">
+          <p className="text-slate-500 text-xs sm:text-sm max-w-2xl leading-relaxed">
             Partner with Fokel to convert empty spaces, managed cabins, or full floors into high-yield workspace assets. Get onboarded and reach thousands of verified clients.
           </p>
         </div>
