@@ -96,7 +96,7 @@ const CATEGORY_CARDS = [
 const CITY_CARDS = [
   {
     name: "Bangalore",
-    image: "https://images.unsplash.com/photo-1596176530529-78163a4f7af2?auto=format&fit=crop&q=80&w=400" // Vidhana Soudha
+    image: "https://images.unsplash.com/photo-1709967884183-7ffa9d168508?ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNzg2MDk5MTI2fA&ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=400" // Vidhana Soudha
   },
   {
     name: "Mumbai",
@@ -108,19 +108,19 @@ const CITY_CARDS = [
   },
   {
     name: "Hyderabad",
-    image: "https://images.unsplash.com/photo-1605007493699-af65834f8a00?auto=format&fit=crop&q=80&w=400" // Charminar
+    image: "https://images.unsplash.com/photo-1696941515998-d83f24967aca?ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNzg2MDk5MjMzfA&ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=400" // Charminar
   },
   {
     name: "Pune",
-    image: "https://images.unsplash.com/photo-1616843413587-9e3a37f7bbd8?auto=format&fit=crop&q=80&w=400" // Shaniwar Wada
+    image: "https://images.unsplash.com/photo-1666865824095-b744c8c09be8?ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNzg2MDk5MjY1fA&ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=400" // Shaniwar Wada
   },
   {
     name: "Chennai",
-    image: "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&q=80&w=400" // Central Railway Station
+    image: "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&q=80&w=400" // Kapaleeshwarar Temple
   },
   {
     name: "Kolkata",
-    image: "https://images.unsplash.com/photo-1558431382-27e303142255?auto=format&fit=crop&q=80&w=400" // Howrah Bridge
+    image: "https://images.unsplash.com/photo-1536421469767-80559bb6f5e1?ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNzg2MDk5MjkzfA&ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=400" // Howrah Bridge
   }
 ];
 
@@ -383,12 +383,12 @@ function WorkspacesPageContent() {
           </div>
 
           {/* Cities Filter Slider */}
-          <div className="mb-12">
-            <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wider mb-4 text-center md:text-left">
+          <div className="mb-12 flex flex-col items-center">
+            <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wider mb-4 text-center">
               Select Metro City
             </h3>
             <div
-              className="flex gap-4 overflow-x-auto pb-2 scrollbar-none snap-x snap-mandatory scroll-smooth"
+              className="flex w-full gap-4 overflow-x-auto pb-2 scrollbar-none snap-x snap-mandatory scroll-smooth lg:justify-center"
               style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
             >
               {CITY_CARDS.map((city) => {
