@@ -1,15 +1,9 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles, Star, ShieldCheck, MapPin } from "lucide-react";
 import { AdvancedSearch } from "@/components/search/AdvancedSearch";
-import gsap from "gsap";
 
 export function Hero() {
-  const handleConsultClick = () => {
-    window.dispatchEvent(new Event("open-welcome-modal"));
-  };
 
   return (
     <div className="relative w-full">
@@ -18,15 +12,21 @@ export function Hero() {
         id="home"
         className="relative z-20 h-[75vh] min-h-[520px] md:h-[80vh] flex items-center justify-center overflow-visible bg-slate-950 pt-[120px] -mt-[88px]"
       >
-        {/* Background Image with Dark Overlay */}
+        {/* Background Video with Dark Overlay */}
         <div className="absolute inset-0 z-0 overflow-hidden">
-          <img
-            src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1600"
-            alt="Fokel Premium Workspace Banner"
-            className="w-full h-full object-cover opacity-35 select-none"
-            draggable="false"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-950/50 to-slate-950/90" />
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover opacity-30 select-none pointer-events-none"
+          >
+            <source
+              src="https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c054ba208d8c30fe643d674f4ddb3c5a&profile_id=165&oauth2_token_id=57447761"
+              type="video/mp4"
+            />
+          </video>
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-950/85 via-slate-950/40 to-slate-950/90" />
         </div>
 
         {/* Content Container */}
