@@ -163,50 +163,50 @@ export default function ContactPage() {
                     <div className="flex flex-col gap-5 flex-1">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <div className="flex flex-col gap-1.5">
-                          <label className="text-[10px] font-semibold text-slate-600 ml-1">Full Name*</label>
+                          <label className="text-xs font-semibold text-slate-600 ml-1">Full Name*</label>
                           <input
                             type="text"
                             required
                             value={formData.name}
                             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                             placeholder="Your Name"
-                            className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-primary/45 focus:ring-1 focus:ring-primary/45 transition-all text-xs"
+                            className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-primary/45 focus:ring-1 focus:ring-primary/45 transition-all text-sm"
                           />
                         </div>
 
                         <div className="flex flex-col gap-1.5">
-                          <label className="text-[10px] font-semibold text-slate-600 ml-1">Work Email*</label>
+                          <label className="text-xs font-semibold text-slate-600 ml-1">Work Email*</label>
                           <input
                             type="email"
                             required
                             value={formData.email}
                             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                             placeholder="you@company.com"
-                            className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-primary/45 focus:ring-1 focus:ring-primary/45 transition-all text-xs"
+                            className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-primary/45 focus:ring-1 focus:ring-primary/45 transition-all text-sm"
                           />
                         </div>
                       </div>
 
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <div className="flex flex-col gap-1.5">
-                          <label className="text-[10px] font-semibold text-slate-600 ml-1">Phone Number*</label>
+                          <label className="text-xs font-semibold text-slate-600 ml-1">Phone Number*</label>
                           <input
                             type="tel"
                             required
                             value={formData.phone}
                             onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                             placeholder="e.g. +91 98765 43210"
-                            className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-primary/45 focus:ring-1 focus:ring-primary/45 transition-all text-xs"
+                            className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-primary/45 focus:ring-1 focus:ring-primary/45 transition-all text-sm"
                           />
                         </div>
 
                         <div className="flex flex-col gap-1.5">
-                          <label className="text-[10px] font-semibold text-slate-600 ml-1">I am interested in*</label>
+                          <label className="text-xs font-semibold text-slate-600 ml-1">I am interested in*</label>
                           <select
                             required
                             value={formData.interest}
                             onChange={(e) => setFormData({ ...formData, interest: e.target.value })}
-                            className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 text-slate-800 focus:outline-none focus:border-primary/45 focus:ring-1 focus:ring-primary/45 transition-all text-xs cursor-pointer"
+                            className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 text-slate-800 focus:outline-none focus:border-primary/45 focus:ring-1 focus:ring-primary/45 transition-all text-sm cursor-pointer"
                           >
                             <option value="virtual-office">Virtual Office (GST / Business address)</option>
                             <option value="coworking">Coworking Space (Dedicated seat)</option>
@@ -217,20 +217,20 @@ export default function ContactPage() {
                       </div>
 
                       <div className="flex flex-col gap-1.5 flex-1">
-                        <label className="text-[10px] font-semibold text-slate-600 ml-1">Message / Requirements</label>
+                        <label className="text-xs font-semibold text-slate-600 ml-1">Message / Requirements</label>
                         <textarea
                           rows={6}
                           value={formData.message}
                           onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                           placeholder="Tell us about your team size, budget, and specific location requirements..."
-                          className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-primary/45 focus:ring-1 focus:ring-primary/45 transition-all text-xs resize-none flex-grow flex-1 min-h-[160px]"
+                          className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-primary/45 focus:ring-1 focus:ring-primary/45 transition-all text-sm resize-none flex-grow flex-1 min-h-[160px]"
                         />
                       </div>
                     </div>
 
                     <button
                       type="submit"
-                      className="w-full mt-6 bg-primary text-white font-semibold rounded-lg px-6 py-3.5 hover:bg-primary-hover transition-colors flex items-center justify-center gap-2 cursor-pointer text-xs shadow-sm font-heading shrink-0"
+                      className="w-full mt-6 bg-primary text-white font-semibold rounded-lg px-6 py-3.5 hover:bg-primary-hover transition-colors flex items-center justify-center gap-2 cursor-pointer text-sm shadow-sm font-heading shrink-0"
                     >
                       Send Message
                     </button>
