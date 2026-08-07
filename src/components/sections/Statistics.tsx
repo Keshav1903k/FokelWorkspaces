@@ -94,12 +94,7 @@ export function Statistics() {
                 className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500 ease-out"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/10 to-transparent pointer-events-none" />
-              <div className="absolute bottom-6 left-6 right-6 text-white">
-                <p className="text-xs font-bold uppercase tracking-wider mb-1">Corporate Lounge</p>
-                <p className="text-[10px] text-white/80 leading-relaxed">
-                  Compliant, premium business lounges optimized for executive presence and focused work.
-                </p>
-              </div>
+
             </div>
           </motion.div>
  

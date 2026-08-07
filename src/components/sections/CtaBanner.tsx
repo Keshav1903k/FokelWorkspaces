@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 export function CtaBanner() {
   const handleOpenModal = () => {
@@ -64,10 +64,7 @@ export function CtaBanner() {
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 to-transparent pointer-events-none" />
-                <div className="absolute bottom-4 left-4 right-4 text-white text-[10px]">
-                  <p className="font-bold uppercase tracking-wider mb-0.5">Compliant Grade-A Centers</p>
-                  <p className="opacity-90">Instant setup and virtual office boardings.</p>
-                </div>
+
               </div>
             </div>
 

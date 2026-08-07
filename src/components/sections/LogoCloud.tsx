@@ -174,10 +174,7 @@ export function LogoCloud() {
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent" />
-              <div className="absolute bottom-4 left-4 right-4 text-white">
-                <p className="text-[10px] font-bold uppercase tracking-wider mb-0.5 opacity-90">Corporate Networking</p>
-                <p className="text-[10px] font-medium opacity-80 leading-relaxed">Collaborative workspaces built to fuel innovation.</p>
-              </div>
+
             </div>
           </motion.div>
 
