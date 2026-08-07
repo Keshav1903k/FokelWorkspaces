@@ -297,7 +297,7 @@ function WorkspacesPageContent() {
                   <div
                     key={card.type}
                     onClick={() => handleCardClick(card.type)}
-                    className={`flex-shrink-0 w-[280px] sm:w-[310px] text-left bg-white border rounded-2xl overflow-hidden shadow-sm transition-all duration-300 snap-start flex flex-col h-[390px] cursor-pointer hover:shadow-md ${
+                    className={`flex-shrink-0 w-[305px] sm:w-[335px] text-left bg-white border rounded-2xl overflow-hidden shadow-sm transition-all duration-300 snap-start flex flex-col h-[445px] cursor-pointer hover:shadow-md ${
                       isActive
                         ? "border-primary ring-1 ring-primary/45 shadow-[0_8px_30px_rgb(48,87,137,0.06)]"
                         : "border-[#E8EDF2] hover:border-[#c4d6e9]"
@@ -307,7 +307,7 @@ function WorkspacesPageContent() {
                     <div className={`h-1.5 w-full transition-colors duration-300 ${isActive ? "bg-primary" : "bg-transparent"}`} />
 
                     {/* Image */}
-                    <div className="relative aspect-[16/9] w-full overflow-hidden bg-slate-50 border-b border-slate-100">
+                    <div className="relative aspect-[16/9] w-full overflow-hidden bg-slate-50 border-b border-slate-100 shrink-0">
                       <img
                         src={card.image}
                         alt={card.title}
@@ -318,17 +318,17 @@ function WorkspacesPageContent() {
                     {/* Content */}
                     <div className="p-5 flex flex-col flex-grow justify-between gap-4">
                       <div>
-                        <h3 className="text-sm font-bold text-slate-800 mb-1 group-hover:text-primary transition-colors">
+                        <h3 className="text-base font-bold text-slate-800 mb-1 group-hover:text-primary transition-colors">
                           {card.title}
                         </h3>
-                        <p className="text-[#5C6B76] text-[10px] leading-relaxed font-semibold min-h-[2.5rem]">
+                        <p className="text-[#5C6B76] text-xs leading-relaxed font-semibold min-h-[2.75rem]">
                           {card.tagline}
                         </p>
                         
                         {/* Bullet points */}
                         <ul className="flex flex-col gap-2 pt-4 border-t border-slate-100 mt-4">
                           {card.features.map((feature, fIdx) => (
-                            <li key={fIdx} className="flex items-start gap-2 text-[10px] font-semibold text-slate-500">
+                            <li key={fIdx} className="flex items-start gap-2 text-[11px] sm:text-xs font-semibold text-slate-500">
                               <div className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 shrink-0" />
                               <span className="leading-tight">{feature}</span>
                             </li>
@@ -336,7 +336,7 @@ function WorkspacesPageContent() {
                         </ul>
                       </div>
 
-                      <div className="mt-2 flex items-center gap-1 text-[10px] font-bold text-primary group-hover:text-primary-hover transition-colors">
+                      <div className="mt-2 flex items-center gap-1 text-xs font-bold text-primary group-hover:text-primary-hover transition-colors">
                         <span>{card.exploreText}</span>
                         <ArrowRight className="w-3.5 h-3.5 transition-transform duration-250 group-hover:translate-x-0.5" />
                       </div>
