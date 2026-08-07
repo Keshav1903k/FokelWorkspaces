@@ -160,7 +160,7 @@ export default function ContactPage() {
                   </motion.div>
                 ) : (
                   <form onSubmit={handleSubmit} className="flex flex-col gap-5 h-full justify-between">
-                    <div className="flex flex-col gap-5">
+                    <div className="flex flex-col gap-5 flex-1">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <div className="flex flex-col gap-1.5">
                           <label className="text-[10px] font-semibold text-slate-600 ml-1">Full Name*</label>
@@ -216,21 +216,21 @@ export default function ContactPage() {
                         </div>
                       </div>
 
-                      <div className="flex flex-col gap-1.5">
+                      <div className="flex flex-col gap-1.5 flex-1">
                         <label className="text-[10px] font-semibold text-slate-600 ml-1">Message / Requirements</label>
                         <textarea
-                          rows={4}
+                          rows={6}
                           value={formData.message}
                           onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                           placeholder="Tell us about your team size, budget, and specific location requirements..."
-                          className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-primary/45 focus:ring-1 focus:ring-primary/45 transition-all text-xs resize-none"
+                          className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-primary/45 focus:ring-1 focus:ring-primary/45 transition-all text-xs resize-none flex-grow flex-1 min-h-[160px]"
                         />
                       </div>
                     </div>
 
                     <button
                       type="submit"
-                      className="w-full mt-6 bg-primary text-white font-semibold rounded-lg px-6 py-3.5 hover:bg-primary-hover transition-colors flex items-center justify-center gap-2 cursor-pointer text-xs shadow-sm font-heading"
+                      className="w-full mt-6 bg-primary text-white font-semibold rounded-lg px-6 py-3.5 hover:bg-primary-hover transition-colors flex items-center justify-center gap-2 cursor-pointer text-xs shadow-sm font-heading shrink-0"
                     >
                       Send Message
                     </button>
