@@ -8,8 +8,7 @@ import {
   ArrowRight, 
   HelpCircle, 
   FilterX, 
-  ChevronDown, 
-  Sparkles 
+  ChevronDown 
 } from "lucide-react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, Suspense } from "react";
@@ -237,10 +236,6 @@ function WorkspacesPageContent() {
         <div className="container mx-auto px-6 max-w-7xl">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
             <div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded bg-white border border-[#c4d6e9] text-[10px] font-bold tracking-wider uppercase text-primary mb-3">
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>Real-Time Listings</span>
-              </div>
               <h2 className="text-3xl font-bold text-foreground tracking-tight">
                 Available Spaces in Selected Areas
               </h2>
