@@ -388,7 +388,7 @@ function WorkspacesPageContent() {
               Select Metro City
             </h3>
             <div
-              className="flex w-full gap-4 overflow-x-auto pb-2 scrollbar-none snap-x snap-mandatory scroll-smooth lg:justify-center"
+              className="flex w-full gap-4 overflow-x-auto pt-3 pb-3 scrollbar-none snap-x snap-mandatory scroll-smooth lg:justify-center"
               style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
             >
               {CITY_CARDS.map((city) => {
