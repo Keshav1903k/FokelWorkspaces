@@ -93,6 +93,33 @@ const CATEGORY_CARDS = [
   }
 ];
 
+const CITY_CARDS = [
+  {
+    name: "Bangalore",
+    image: "https://images.unsplash.com/photo-1596176530529-78163a4f7af2?auto=format&fit=crop&q=80&w=400"
+  },
+  {
+    name: "Mumbai",
+    image: "https://images.unsplash.com/photo-1562157873-818bc0726f68?auto=format&fit=crop&q=80&w=400"
+  },
+  {
+    name: "Delhi NCR",
+    image: "https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&q=80&w=400"
+  },
+  {
+    name: "Hyderabad",
+    image: "https://images.unsplash.com/photo-1605007493699-af65834f8a00?auto=format&fit=crop&q=80&w=400"
+  },
+  {
+    name: "Pune",
+    image: "https://images.unsplash.com/photo-1601999109332-542b18dbec57?auto=format&fit=crop&q=80&w=400"
+  },
+  {
+    name: "Chennai",
+    image: "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&q=80&w=400"
+  }
+];
+
 function WorkspacesPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -121,6 +148,14 @@ function WorkspacesPageContent() {
       updateFilters(selectedCity, "All", false);
     } else {
       updateFilters(selectedCity, type, true);
+    }
+  };
+
+  const handleCityCardClick = (city: string) => {
+    if (selectedCity === city) {
+      updateFilters("All", selectedType, false);
+    } else {
+      updateFilters(city, selectedType, true);
     }
   };
 
@@ -341,6 +376,57 @@ function WorkspacesPageContent() {
             >
               <ChevronRight className="w-4 h-4" />
             </button>
+          </div>
+
+          {/* Cities Filter Slider */}
+          <div className="mb-12">
+            <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wider mb-4 text-center md:text-left">
+              Select Metro City
+            </h3>
+            <div
+              className="flex gap-4 overflow-x-auto pb-2 scrollbar-none snap-x snap-mandatory scroll-smooth"
+              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+            >
+              {CITY_CARDS.map((city) => {
+                const isActive = selectedCity === city.name;
+                return (
+                  <div
+                    key={city.name}
+                    onClick={() => handleCityCardClick(city.name)}
+                    className={`flex-shrink-0 w-[140px] sm:w-[160px] h-[90px] rounded-xl overflow-hidden relative cursor-pointer snap-start transition-all duration-300 group hover:shadow-md ${
+                      isActive 
+                        ? "ring-2 ring-primary ring-offset-2 scale-[1.02]" 
+                        : "border border-[#E8EDF2] opacity-85 hover:opacity-100"
+                    }`}
+                  >
+                    {/* Background City Image */}
+                    <img
+                      src={city.image}
+                      alt={city.name}
+                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                    {/* Dark overlay */}
+                    <div className={`absolute inset-0 transition-colors duration-300 ${
+                      isActive ? "bg-primary/40" : "bg-black/45 group-hover:bg-black/35"
+                    }`} />
+                    
+                    {/* City Name Center Text */}
+                    <div className="absolute inset-0 flex items-center justify-center p-2 text-center z-10">
+                      <span className="text-xs font-extrabold uppercase tracking-widest text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                        {city.name}
+                      </span>
+                    </div>
+
+                    {/* Active Check Indicator */}
+                    {isActive && (
+                      <div className="absolute top-2 right-2 bg-primary text-white rounded-full p-0.5 shadow-sm z-20">
+                        <CheckCircle className="w-3 h-3 text-white fill-white" />
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
           </div>
 
           {/* Properties Grid */}
