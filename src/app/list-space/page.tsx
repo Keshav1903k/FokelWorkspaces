@@ -9,7 +9,6 @@ import {
   ArrowLeft, 
   CheckCircle, 
   UploadCloud, 
-  Sparkles, 
   Wifi, 
   Coffee, 
   Tv, 
@@ -142,41 +141,25 @@ export default function ListSpacePage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
-      {/* Dark Header Banner */}
-      <section className="bg-slate-950 pt-24 pb-16 md:pt-32 md:pb-24 text-center relative overflow-hidden">
-        <div className="absolute inset-0 z-0 opacity-20">
-          <img
-            src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1600"
-            alt="List Workspace"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-slate-950/80" />
-        </div>
+      {/* Premium Header Banner with Abstract Radial Glows */}
+      <section className="bg-slate-950 pt-28 pb-20 md:pt-36 md:pb-28 text-center relative overflow-hidden">
+        {/* Glow Effects */}
+        <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-72 h-72 rounded-full bg-primary/20 blur-[100px] z-0 pointer-events-none" />
+        <div className="absolute top-1/3 right-1/4 -translate-y-1/2 w-80 h-80 rounded-full bg-indigo-500/15 blur-[120px] z-0 pointer-events-none" />
+        
+        {/* Fine grid overlay for high-tech premium feel */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none z-0" />
         
         <div className="relative z-10 container mx-auto px-6 max-w-5xl flex flex-col items-center">
-          <span className="px-3.5 py-1 rounded bg-white/5 border border-white/10 text-[10px] font-bold tracking-wider uppercase text-white/80 mb-6">
+          <span className="px-3.5 py-1 rounded-full bg-primary/10 border border-primary/20 text-[10px] font-bold tracking-wider uppercase text-primary mb-6 shadow-sm">
             Landlord Partnership Portal
           </span>
-          <h1 className="text-3xl md:text-5xl font-semibold text-white tracking-tight leading-tight mb-4">
-            Monetize Your Commercial Property
+          <h1 className="text-3xl md:text-5xl font-extrabold text-white tracking-tight leading-tight mb-4 max-w-3xl">
+            Monetize Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-indigo-400">Commercial Property</span>
           </h1>
-          <p className="text-[#C9D6E3] text-xs sm:text-sm max-w-2xl opacity-90 leading-relaxed mb-6">
+          <p className="text-slate-300 text-xs sm:text-sm max-w-2xl opacity-90 leading-relaxed">
             Partner with Fokel to convert empty spaces, managed cabins, or full floors into high-yield workspace assets. Get onboarded and reach thousands of verified clients.
           </p>
-
-          <div className="flex flex-wrap gap-4 justify-center mt-2">
-            {[
-              { value: "Zero Listing Fee", label: "100% Free Setup" },
-              { value: "15,000+ Clients", label: "Active Corporates" },
-              { value: "Premium Branding", label: "Custom Marketing" }
-            ].map((feature, idx) => (
-              <div key={idx} className="bg-white/5 border border-white/10 rounded-full px-5 py-2 flex items-center gap-2">
-                <Sparkles className="w-3.5 h-3.5 text-primary shrink-0" />
-                <span className="text-[10px] font-bold text-white tracking-wide uppercase">{feature.value}</span>
-                <span className="text-[10px] text-[#C9D6E3] opacity-80">({feature.label})</span>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
