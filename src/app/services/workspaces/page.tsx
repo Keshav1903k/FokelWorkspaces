@@ -108,11 +108,11 @@ const CITY_CARDS = [
   },
   {
     name: "Hyderabad",
-    image: "https://images.unsplash.com/photo-1608958416719-7561f5f242e2?auto=format&fit=crop&q=80&w=400" // Fully visible Charminar
+    image: "/images/hyderabad.jpg" // User Charminar
   },
   {
     name: "Pune",
-    image: "https://images.unsplash.com/photo-1600454309261-3dc9b7597b97?auto=format&fit=crop&q=80&w=400" // Twilight Pune Cityscape
+    image: "/images/pune.jpg" // User Shaniwar Wada
   },
   {
     name: "Chennai",
