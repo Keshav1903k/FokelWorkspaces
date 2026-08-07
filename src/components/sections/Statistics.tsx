@@ -14,7 +14,7 @@ const STATS = [
 function Counter({ from, to, suffix }: { from: number, to: number, suffix: string }) {
   const [count, setCount] = useState(from);
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
+  const inView = useInView(ref, { once: true, margin: "-20px" });
 
   useEffect(() => {
     if (inView) {
