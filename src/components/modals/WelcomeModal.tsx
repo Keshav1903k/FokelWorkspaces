@@ -205,7 +205,7 @@ export function WelcomeModal() {
 
             {/* Mode Switch Toggle Footer */}
             <div className="mt-5 pt-4 border-t border-slate-100 text-center">
-              <p className="text-[10px] text-slate-400">
+              <p className="text-xs text-slate-400">
                 {mode === "signup" ? (
                   <>
                     Already have an account?{" "}
