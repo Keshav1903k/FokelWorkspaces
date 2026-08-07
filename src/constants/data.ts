@@ -56,7 +56,8 @@ export const CITIES = [
   "Delhi NCR",
   "Hyderabad",
   "Pune",
-  "Chennai"
+  "Chennai",
+  "Kolkata"
 ];
 
 export const WORKSPACE_TYPES = [
@@ -366,6 +367,51 @@ export const WORKSPACES: WorkspaceSpace[] = [
     rating: 4.7,
     amenities: ["Business Registration NOC", "Utility Bill Copies", "Courier Alerts", "Reception Answering"],
     image: "https://images.unsplash.com/photo-1549923746-c502d488f3aa?auto=format&fit=crop&q=80&w=800"
+  },
+  // KOLKATA LISTINGS
+  {
+    id: "kolkata-cowork",
+    title: "Salt Lake Sector V Hub",
+    location: "Sector V, Salt Lake, Kolkata",
+    city: "Kolkata",
+    price: "₹6,000/seat",
+    type: "Coworking Space",
+    rating: 4.8,
+    amenities: ["Metro Connectivity", "High-speed Internet", "Free Coffee", "Modern Cafeteria"],
+    image: "https://images.unsplash.com/photo-1527192491265-7e15c55b1ed2?auto=format&fit=crop&q=80&w=800"
+  },
+  {
+    id: "kolkata-managed",
+    title: "Rajarhat Managed Offices",
+    location: "Rajarhat, New Town, Kolkata",
+    city: "Kolkata",
+    price: "₹14,000/desk",
+    type: "Managed Office",
+    rating: 4.7,
+    amenities: ["Customizable Layout", "Biometric Lock", "Reception Desk", "Parking"],
+    image: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80&w=800"
+  },
+  {
+    id: "kolkata-office",
+    title: "Park Street Commercial Space",
+    location: "Park Street, Kolkata",
+    city: "Kolkata",
+    price: "₹85/sq.ft",
+    type: "Office/Commercial Spaces",
+    rating: 4.9,
+    amenities: ["Grade-A Building", "Centralized AC", "100% Power Backup", "Elevators"],
+    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=800"
+  },
+  {
+    id: "kolkata-virtual",
+    title: "Camac Street Virtual Office",
+    location: "Camac Street, Kolkata",
+    city: "Kolkata",
+    price: "₹899/mo",
+    type: "Virtual Office",
+    rating: 4.8,
+    amenities: ["GST Compliant NOC", "Business Address NOC", "Mail Scanning", "Courier Alerts"],
+    image: "https://images.unsplash.com/photo-1431540015161-0bf868a2d407?auto=format&fit=crop&q=80&w=800"
   }
 ];
 
