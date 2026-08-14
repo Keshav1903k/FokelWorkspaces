@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Building2, Eye, EyeOff } from "lucide-react";
+import { loginUser } from "@/utils/auth";
 
 export function WelcomeModal() {
   const [isOpen, setIsOpen] = useState(false);
@@ -48,13 +49,14 @@ export function WelcomeModal() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    alert(
-      mode === "signup"
-        ? "Account successfully created! Welcome to Fokel."
-        : "Thank you! Our workspace consultant will contact you shortly."
-    );
+    if (mode === "signup") {
+      loginUser(formData.name, formData.email);
+      alert("Account successfully created! Welcome to Fokel.");
+    } else {
+      alert("Thank you! Our workspace consultant will contact you shortly.");
+    }
     setIsOpen(false);
-    setFormData((prev) => ({ ...prev, password: "" }));
+    setFormData((prev) => ({ ...prev, name: "", email: "", password: "", phone: "" }));
   };
 
   return (

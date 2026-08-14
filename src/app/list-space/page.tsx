@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { CITIES } from "@/constants/data";
+import { getCurrentUser } from "@/utils/auth";
 
 const PARTNER_ROLES = [
   { value: "owner", label: "Property Owner" },
@@ -135,7 +136,33 @@ export default function ListSpacePage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Final mock submission
+    
+    const user = getCurrentUser();
+    const userEmail = user ? user.email : "anonymous@fokel.com";
+    
+    const newProperty = {
+      ...formData,
+      id: "prop_" + Date.now(),
+      ownerEmail: userEmail,
+      status: "Pending IT Audit",
+      dateListed: new Date().toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      }),
+      photosCount: uploadedPhotos.length,
+    };
+
+    const existingProperties = localStorage.getItem("listed_properties");
+    let propertiesArray = [];
+    if (existingProperties) {
+      try {
+        propertiesArray = JSON.parse(existingProperties);
+      } catch (err) {}
+    }
+    propertiesArray.push(newProperty);
+    localStorage.setItem("listed_properties", JSON.stringify(propertiesArray));
+
     setSubmitted(true);
   };
 

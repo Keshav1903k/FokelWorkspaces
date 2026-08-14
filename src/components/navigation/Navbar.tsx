@@ -2,24 +2,41 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Building2 } from "lucide-react";
+import { Menu, X, Building2, User as UserIcon, LogOut, LayoutDashboard, ChevronDown, PlusCircle } from "lucide-react";
 import { NAV_LINKS } from "@/constants/data";
 import { Button } from "@/components/ui/button";
+import { getCurrentUser, logoutUser } from "@/utils/auth";
 
 export function Navbar() {
+  const router = useRouter();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
   const isHomepage = pathname === "/";
 
+  const [currentUser, setCurrentUser] = useState<any>(null);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
+
+    setCurrentUser(getCurrentUser());
+
+    const handleAuthChange = () => {
+      setCurrentUser(getCurrentUser());
+    };
+
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("auth-change", handleAuthChange);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("auth-change", handleAuthChange);
+    };
   }, []);
 
   const handleGetStarted = () => {
@@ -30,6 +47,12 @@ export function Navbar() {
   const handleOpenSignup = () => {
     window.dispatchEvent(new Event("open-signup-modal"));
     setMobileMenuOpen(false);
+  };
+
+  const handleLogout = () => {
+    logoutUser();
+    setDropdownOpen(false);
+    router.push("/");
   };
 
   const navClass = isHomepage
@@ -77,27 +100,96 @@ export function Navbar() {
  
           {/* Right: Action Button & Mobile Menu Toggle */}
           <div className="flex-1 flex justify-end items-center gap-3">
-            <Button
-              onClick={handleGetStarted}
-              className={`hidden md:inline-flex rounded-lg px-5 py-2.5 text-xs font-semibold tracking-wide transition-all shadow-sm cursor-pointer ${
-                isHomepage && !isScrolled
-                  ? "bg-white text-primary hover:bg-white/90"
-                  : "bg-primary hover:bg-primary-hover text-white"
-              }`}
-            >
-              Get Started
-            </Button>
+            {currentUser ? (
+              <div className="relative">
+                <button
+                  onClick={() => setDropdownOpen(!dropdownOpen)}
+                  className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border transition-all cursor-pointer select-none text-xs font-semibold ${
+                    isHomepage && !isScrolled
+                      ? "bg-white/10 border-white/15 text-white hover:bg-white/15"
+                      : "bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100"
+                  }`}
+                >
+                  <div className="w-6 h-6 rounded-full bg-primary text-white flex items-center justify-center font-bold text-[10px]">
+                    {currentUser.name ? currentUser.name.split(" ").map((n: string) => n[0]).join("").toUpperCase().slice(0, 2) : "U"}
+                  </div>
+                  <span className="hidden sm:inline max-w-[100px] truncate">{currentUser.name}</span>
+                  <ChevronDown className="w-3.5 h-3.5 opacity-60" />
+                </button>
 
-            <button
-              onClick={handleOpenSignup}
-              className={`hidden md:inline-flex rounded-lg px-5 py-2.5 text-xs font-semibold tracking-wide transition-all shadow-sm cursor-pointer ${
-                isHomepage && !isScrolled
-                  ? "bg-white text-primary hover:bg-white/90"
-                  : "bg-primary hover:bg-primary-hover text-white"
-              }`}
-            >
-              Login / Signup
-            </button>
+                <AnimatePresence>
+                  {dropdownOpen && (
+                    <>
+                      <div className="fixed inset-0 z-40" onClick={() => setDropdownOpen(false)} />
+                      <motion.div
+                        initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 10, scale: 0.98 }}
+                        transition={{ duration: 0.15 }}
+                        className="absolute right-0 mt-2 w-56 bg-white border border-slate-100 rounded-xl shadow-lg z-50 overflow-hidden text-slate-700 p-1.5"
+                      >
+                        <div className="px-3.5 py-2.5 bg-slate-50/50 rounded-lg mb-1">
+                          <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Signed In As</p>
+                          <p className="text-xs font-bold text-slate-800 truncate">{currentUser.name}</p>
+                          <p className="text-[11px] text-slate-500 truncate mt-0.5">{currentUser.email}</p>
+                        </div>
+
+                        <Link
+                          href="/profile"
+                          onClick={() => setDropdownOpen(false)}
+                          className="flex items-center gap-2.5 px-3 py-2 text-xs font-semibold rounded-lg hover:bg-slate-50 transition-colors text-slate-600 hover:text-slate-800"
+                        >
+                          <LayoutDashboard className="w-4 h-4 opacity-75" />
+                          Go to Dashboard
+                        </Link>
+                        <Link
+                          href="/list-space"
+                          onClick={() => setDropdownOpen(false)}
+                          className="flex items-center gap-2.5 px-3 py-2 text-xs font-semibold rounded-lg hover:bg-slate-50 transition-colors text-slate-600 hover:text-slate-800"
+                        >
+                          <PlusCircle className="w-4 h-4 opacity-75" />
+                          List a Workspace
+                        </Link>
+
+                        <div className="h-px bg-slate-100 my-1" />
+
+                        <button
+                          onClick={handleLogout}
+                          className="w-full flex items-center gap-2.5 px-3 py-2 text-xs font-semibold rounded-lg hover:bg-rose-50 hover:text-rose-600 transition-colors text-slate-600 text-left cursor-pointer"
+                        >
+                          <LogOut className="w-4 h-4 opacity-75" />
+                          Log Out
+                        </button>
+                      </motion.div>
+                    </>
+                  )}
+                </AnimatePresence>
+              </div>
+            ) : (
+              <>
+                <Button
+                  onClick={handleGetStarted}
+                  className={`hidden md:inline-flex rounded-lg px-5 py-2.5 text-xs font-semibold tracking-wide transition-all shadow-sm cursor-pointer ${
+                    isHomepage && !isScrolled
+                      ? "bg-white text-primary hover:bg-white/90"
+                      : "bg-primary hover:bg-primary-hover text-white"
+                  }`}
+                >
+                  Get Started
+                </Button>
+
+                <button
+                  onClick={handleOpenSignup}
+                  className={`hidden md:inline-flex rounded-lg px-5 py-2.5 text-xs font-semibold tracking-wide transition-all shadow-sm cursor-pointer ${
+                    isHomepage && !isScrolled
+                      ? "bg-white text-primary hover:bg-white/90"
+                      : "bg-primary hover:bg-primary-hover text-white"
+                  }`}
+                >
+                  Login / Signup
+                </button>
+              </>
+            )}
             
             {/* Mobile Toggle */}
             <button
@@ -131,13 +223,57 @@ export function Navbar() {
                 </Link>
               ))}
               <div className="pt-4 mt-2 border-t border-border">
-                <Button
-                  onClick={handleGetStarted}
-                  className="w-full rounded-lg"
-                  size="lg"
-                >
-                  Get Started
-                </Button>
+                {currentUser ? (
+                  <div className="flex flex-col gap-3">
+                    <div className="px-1 py-1">
+                      <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Logged In As</p>
+                      <p className="text-sm font-bold text-slate-800 truncate">{currentUser.name}</p>
+                      <p className="text-xs text-slate-500 truncate mt-0.5">{currentUser.email}</p>
+                    </div>
+                    <Link
+                      href="/profile"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="w-full rounded-lg bg-primary text-white py-3 text-center text-xs font-semibold hover:bg-primary-hover transition-colors animate-fade-in"
+                    >
+                      Go to Dashboard
+                    </Link>
+                    <Link
+                      href="/list-space"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="w-full rounded-lg border border-slate-200 text-slate-700 py-3 text-center text-xs font-semibold hover:bg-slate-50 transition-colors"
+                    >
+                      List a Workspace
+                    </Link>
+                    <button
+                      onClick={() => {
+                        handleLogout();
+                        setMobileMenuOpen(false);
+                      }}
+                      className="w-full rounded-lg bg-rose-50 text-rose-600 py-3 text-center text-xs font-semibold hover:bg-rose-100 transition-colors cursor-pointer"
+                    >
+                      Log Out
+                    </button>
+                  </div>
+                ) : (
+                  <div className="flex flex-col gap-3">
+                    <Button
+                      onClick={handleGetStarted}
+                      className="w-full rounded-lg"
+                      size="lg"
+                    >
+                      Get Started
+                    </Button>
+                    <button
+                      onClick={() => {
+                        handleOpenSignup();
+                        setMobileMenuOpen(false);
+                      }}
+                      className="w-full rounded-lg border border-slate-200 text-slate-700 py-3 text-center text-sm font-semibold hover:bg-slate-50 transition-colors cursor-pointer"
+                    >
+                      Login / Signup
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           </motion.div>
