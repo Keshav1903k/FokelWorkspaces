@@ -200,7 +200,7 @@ function WorkspacesPageContent() {
   return (
     <div className="flex flex-col min-h-screen bg-white">
       {/* Hero Banner */}
-      <section className="bg-slate-950 pt-24 pb-20 md:pt-32 md:pb-28 text-center relative z-30">
+      <section className="bg-slate-950 pt-24 pb-20 md:pt-32 md:pb-28 text-center relative z-30 -mt-6">
         {/* Background Image with Dark Overlay */}
         <div className="absolute inset-0 z-0 opacity-20 overflow-hidden">
           <img

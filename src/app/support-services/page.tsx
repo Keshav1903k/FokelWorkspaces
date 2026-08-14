@@ -35,7 +35,7 @@ export default function SupportServicesPage() {
   return (
     <div className="flex flex-col min-h-screen bg-white">
       {/* Hero Banner */}
-      <section className="bg-slate-950 py-16 md:py-24 text-center relative overflow-hidden">
+      <section className="bg-slate-950 py-16 md:py-24 text-center relative overflow-hidden -mt-6">
         <div className="absolute inset-0 z-0 opacity-30">
           <img
             src="https://images.unsplash.com/photo-1521791136368-1a8b27503462?auto=format&fit=crop&q=80&w=1600"

@@ -10,7 +10,7 @@ export function PricingComparison() {
   };
 
   return (
-    <section id="pricing" className="py-24 border-t border-slate-100 bg-slate-50 relative">
+    <section id="pricing" className="py-24 border-t border-slate-100 bg-slate-50 relative -mt-6">
       <div className="container mx-auto px-6 max-w-7xl relative z-10">
 
         {/* Header */}
