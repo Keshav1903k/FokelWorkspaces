@@ -212,9 +212,6 @@ function WorkspacesPageContent() {
         </div>
         
         <div className="relative z-10 container mx-auto px-6 max-w-5xl flex flex-col items-center">
-          <span className="px-3.5 py-1 rounded bg-white/5 border border-white/10 text-[10px] font-bold tracking-wider uppercase text-white/80 mb-6">
-            Workspace Solutions
-          </span>
           <h1 className="text-3xl md:text-5xl font-semibold text-white tracking-tight leading-tight mb-4">
             Flexible, Premium Workspaces
           </h1>
