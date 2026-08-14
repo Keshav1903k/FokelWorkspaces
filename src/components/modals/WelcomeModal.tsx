@@ -54,7 +54,7 @@ export function WelcomeModal() {
     loginUser(formData.name, formData.email);
     setIsOpen(false);
     setFormData((prev) => ({ ...prev, name: "", email: "", password: "", phone: "" }));
-    router.push("/profile");
+    router.push("/");
   };
 
   return (
