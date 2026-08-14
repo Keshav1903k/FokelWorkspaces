@@ -156,6 +156,7 @@ export default function ProfilePage() {
   };
 
   const handleLogout = () => {
+    if (!confirm("Are you sure you want to log out?")) return;
     logoutUser();
     router.push("/");
   };
