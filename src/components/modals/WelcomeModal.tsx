@@ -4,8 +4,10 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Building2, Eye, EyeOff } from "lucide-react";
 import { loginUser } from "@/utils/auth";
+import { useRouter } from "next/navigation";
 
 export function WelcomeModal() {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [mode, setMode] = useState<"consultation" | "signup">("consultation");
   const [showPassword, setShowPassword] = useState(false);
@@ -49,14 +51,10 @@ export function WelcomeModal() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (mode === "signup") {
-      loginUser(formData.name, formData.email);
-      alert("Account successfully created! Welcome to Fokel.");
-    } else {
-      alert("Thank you! Our workspace consultant will contact you shortly.");
-    }
+    loginUser(formData.name, formData.email);
     setIsOpen(false);
     setFormData((prev) => ({ ...prev, name: "", email: "", password: "", phone: "" }));
+    router.push("/profile");
   };
 
   return (
