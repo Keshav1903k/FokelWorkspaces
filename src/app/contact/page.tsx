@@ -24,7 +24,7 @@ export default function ContactPage() {
   return (
     <div className="flex flex-col min-h-screen bg-white">
       {/* Header Banner */}
-      <section className="bg-slate-950 py-16 md:py-20 text-center relative overflow-hidden">
+      <section className="bg-slate-950 py-16 md:py-20 text-center relative overflow-hidden -mt-6">
         <div className="absolute inset-0 z-0 opacity-25">
           <img
             src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&q=80&w=1600"

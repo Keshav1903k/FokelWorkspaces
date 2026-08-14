@@ -141,10 +141,7 @@ export default function ListSpacePage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
-      {/* Light Premium Header Banner */}
-      <section className="bg-[#DEE9F4] pt-40 pb-20 md:pt-48 md:pb-24 text-center relative border-b border-[#c4d6e9]">
-        {/* Subtle grid pattern overlay for clean tech canvas feel */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#00000003_1px,transparent_1px),linear-gradient(to_bottom,#00000003_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none" />
+      <section className="bg-[#DEE9F4] pt-20 pb-20 md:pt-28 md:pb-28 text-center relative border-b border-[#c4d6e9] -mt-6">
         
         <div className="relative z-10 container mx-auto px-6 max-w-5xl flex flex-col items-center justify-center">
           <h1 className="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-4 max-w-3xl text-center">

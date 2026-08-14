@@ -303,9 +303,6 @@ function WorkspacesPageContent() {
                         : "border-[#E8EDF2] hover:border-[#c4d6e9]"
                     }`}
                   >
-                    {/* Top Accent Highlight for Active Card */}
-                    <div className={`h-1.5 w-full transition-colors duration-300 ${isActive ? "bg-primary" : "bg-transparent"}`} />
-
                     {/* Image */}
                     <div className="relative w-full h-[135px] overflow-hidden bg-slate-50 border-b border-slate-100 shrink-0">
                       <img

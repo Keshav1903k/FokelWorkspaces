@@ -120,63 +120,41 @@ export function LogoCloud() {
   return (
     <section className="py-24 border-t border-slate-100 bg-slate-50 overflow-hidden">
       <div className="container mx-auto px-6 max-w-7xl">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+        <div className="flex flex-col items-center text-center gap-10 max-w-4xl mx-auto">
           
-          {/* Left Column: Sliding logos track */}
-          <div className="lg:col-span-7 flex flex-col gap-6 w-full overflow-hidden">
-            <div>
-              <p className="text-xs text-primary uppercase tracking-widest font-bold mb-2">
-                Our Clients
-              </p>
-              <h2 className="text-2xl md:text-3xl font-semibold text-slate-800 tracking-tight leading-tight">
-                Trusted by Top Enterprises & Startups
-              </h2>
-            </div>
-            
-            <div className="relative w-full pt-4">
-              {/* Left fade */}
-              <div className="absolute left-0 top-0 bottom-0 w-16 z-10 bg-gradient-to-r from-slate-50 to-transparent pointer-events-none" />
-              {/* Right fade */}
-              <div className="absolute right-0 top-0 bottom-0 w-16 z-10 bg-gradient-to-l from-slate-50 to-transparent pointer-events-none" />
-
-              <motion.div
-                animate={{ x: ["0%", "-33.33%"] }}
-                transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-                className="flex gap-4 w-max items-center"
-              >
-                {DOUBLED_CLIENTS.map((client, i) => {
-                  const LogoComponent = client.logo;
-                  return (
-                    <div
-                      key={i}
-                      className="flex items-center justify-center px-6 py-4 rounded-xl bg-white border border-slate-100 whitespace-nowrap group hover:border-primary/20 transition-colors duration-250 shadow-sm"
-                    >
-                      <LogoComponent />
-                    </div>
-                  );
-                })}
-              </motion.div>
-            </div>
+          <div className="flex flex-col items-center">
+            <p className="text-xs text-primary uppercase tracking-widest font-bold mb-2">
+              Our Clients
+            </p>
+            <h2 className="text-2xl md:text-3xl font-semibold text-slate-800 tracking-tight leading-tight">
+              Trusted by Top Enterprises & Startups
+            </h2>
           </div>
+          
+          <div className="relative w-full pt-4 overflow-hidden">
+            {/* Left fade */}
+            <div className="absolute left-0 top-0 bottom-0 w-24 z-10 bg-gradient-to-r from-slate-50 to-transparent pointer-events-none" />
+            {/* Right fade */}
+            <div className="absolute right-0 top-0 bottom-0 w-24 z-10 bg-gradient-to-l from-slate-50 to-transparent pointer-events-none" />
 
-          {/* Right Column: Visual Collaboration Photo */}
-          <motion.div
-            initial={{ opacity: 0, x: 15 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="lg:col-span-5 w-full flex justify-center"
-          >
-            <div className="relative w-full max-w-lg aspect-[4/3] rounded-xl overflow-hidden border border-slate-100 shadow-sm">
-              <img
-                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=600"
-                alt="Fokel Team Collaboration"
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent" />
-
-            </div>
-          </motion.div>
+            <motion.div
+              animate={{ x: ["0%", "-33.33%"] }}
+              transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+              className="flex gap-4 w-max items-center"
+            >
+              {DOUBLED_CLIENTS.map((client, i) => {
+                const LogoComponent = client.logo;
+                return (
+                  <div
+                    key={i}
+                    className="flex items-center justify-center px-6 py-4 rounded-xl bg-white border border-slate-100 whitespace-nowrap group hover:border-primary/20 transition-colors duration-250 shadow-sm"
+                  >
+                    <LogoComponent />
+                  </div>
+                );
+              })}
+            </motion.div>
+          </div>
 
         </div>
       </div>

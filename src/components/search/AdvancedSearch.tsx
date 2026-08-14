@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 
 export function AdvancedSearch({ className = "max-w-2xl" }: { className?: string }) {
   const router = useRouter();
-  const [selectedCity, setSelectedCity] = useState("Bangalore");
+  const [selectedCity, setSelectedCity] = useState("Delhi NCR");
   const [selectedType, setSelectedType] = useState("Coworking Space");
   const [cityOpen, setCityOpen] = useState(false);
   const [typeOpen, setTypeOpen] = useState(false);

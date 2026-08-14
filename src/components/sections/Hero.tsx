@@ -28,22 +28,13 @@ export function Hero() {
 
         {/* Content Container */}
         <div className="relative z-10 container mx-auto px-6 max-w-5xl text-center flex flex-col items-center gap-6">
-          {/* Tagline */}
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-3.5 py-1 rounded-md bg-white/5 border border-white/10 text-[10px] font-semibold tracking-wider uppercase text-white/80"
-          >
-            <span>Premium Office Infrastructure</span>
-          </motion.div>
 
           {/* Headline */}
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="text-2xl sm:text-3xl md:text-4xl font-semibold text-white tracking-tight leading-snug max-w-3xl"
+            className="text-xl sm:text-2xl md:text-3xl font-semibold text-white tracking-tight leading-snug max-w-3xl"
           >
             Premium Workspaces & Business Infrastructure{" "}
             <span className="text-sky-300 block mt-1.5 font-medium">

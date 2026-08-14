@@ -61,7 +61,7 @@ export function WorkspaceGallery() {
               </div>
 
               {/* Subtle persistent Title at the bottom (for fallback) */}
-              <div className="absolute bottom-4 left-4 bg-white/95 px-4 py-2 rounded-lg border border-slate-100 group-hover:opacity-0 transition-opacity duration-200 shadow-sm">
+              <div className="absolute bottom-4 left-4 bg-white/95 px-2.5 py-1 rounded-md border border-slate-100 group-hover:opacity-0 transition-opacity duration-200 shadow-sm">
                 <span className="text-[10px] font-bold text-slate-700">{item.title}</span>
               </div>
             </motion.div>

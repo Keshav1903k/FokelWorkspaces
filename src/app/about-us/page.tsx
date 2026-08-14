@@ -79,7 +79,7 @@ export default function AboutPage() {
   return (
     <div className="flex flex-col bg-white">
       {/* 1. Hero Section */}
-      <section className="relative pt-20 pb-28 md:pt-28 md:pb-36 bg-gradient-to-b from-[#F4F7FA] to-white overflow-hidden">
+      <section className="relative pt-20 pb-20 md:pt-28 md:pb-28 bg-gradient-to-b from-[#F4F7FA] to-white overflow-hidden -mt-6">
         {/* Colorful glowing backgrounds */}
         <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] rounded-full bg-[#DEE9F4] blur-[100px] opacity-60 pointer-events-none" />
         <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-[#51818C]/10 blur-[100px] opacity-40 pointer-events-none" />
@@ -224,7 +224,7 @@ export default function AboutPage() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="col-span-12 md:col-span-8 relative aspect-[16/10] md:aspect-[16/9] rounded-2xl overflow-hidden border border-[#E8EDF2] shadow-sm group"
+              className="col-span-12 md:col-span-8 relative h-[280px] sm:h-[360px] md:h-[420px] rounded-2xl overflow-hidden border border-[#E8EDF2] shadow-sm group"
             >
               <img
                 src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200"
@@ -244,7 +244,7 @@ export default function AboutPage() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="col-span-12 md:col-span-4 relative aspect-square rounded-2xl overflow-hidden border border-[#E8EDF2] shadow-sm group"
+              className="col-span-12 md:col-span-4 relative h-[280px] sm:h-[360px] md:h-[420px] rounded-2xl overflow-hidden border border-[#E8EDF2] shadow-sm group"
             >
               <img
                 src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=600"
@@ -264,7 +264,7 @@ export default function AboutPage() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="col-span-12 md:col-span-4 relative aspect-square rounded-2xl overflow-hidden border border-[#E8EDF2] shadow-sm group"
+              className="col-span-12 md:col-span-4 relative h-[280px] sm:h-[360px] md:h-[420px] rounded-2xl overflow-hidden border border-[#E8EDF2] shadow-sm group"
             >
               <img
                 src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80&w=600"
@@ -284,7 +284,7 @@ export default function AboutPage() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="col-span-12 md:col-span-8 relative aspect-[16/10] md:aspect-[16/9] rounded-2xl overflow-hidden border border-[#E8EDF2] shadow-sm group"
+              className="col-span-12 md:col-span-8 relative h-[280px] sm:h-[360px] md:h-[420px] rounded-2xl overflow-hidden border border-[#E8EDF2] shadow-sm group"
             >
               <img
                 src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&q=80&w=800"

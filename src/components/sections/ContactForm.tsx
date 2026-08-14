@@ -30,13 +30,13 @@ export function ContactForm() {
           {/* Left Column: Contact info */}
           <div className="lg:col-span-5 flex flex-col justify-between gap-8">
             <div>
-              <p className="text-xs text-primary uppercase tracking-widest font-bold mb-2">
+              <p className="text-xs sm:text-sm text-primary uppercase tracking-widest font-bold mb-2">
                 Get In Touch
               </p>
-              <h2 className="text-2xl md:text-3xl font-semibold text-slate-800 mb-4 tracking-tight">
+              <h2 className="text-3xl md:text-4xl font-semibold text-slate-800 mb-4 tracking-tight leading-tight">
                 Let's discuss your office workspace needs
               </h2>
-              <p className="text-slate-400 text-xs leading-relaxed max-w-md">
+              <p className="text-slate-500 text-sm leading-relaxed max-w-md">
                 Have questions about our premium virtual offices, collaborative coworking spaces, private cabins, or business legal compliance? Drop us a line, and our consultant will contact you within 24 hours.
               </p>
             </div>
@@ -47,8 +47,8 @@ export function ContactForm() {
                   <Phone className="w-4 h-4" />
                 </div>
                 <div>
-                  <p className="text-[9px] text-slate-400 uppercase font-bold tracking-wider">Call Us</p>
-                  <p className="text-xs font-semibold text-slate-800">+91 (80) 4567-8910</p>
+                  <p className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Call Us</p>
+                  <p className="text-sm font-semibold text-slate-800">+91 (80) 4567-8910</p>
                 </div>
               </div>
 
@@ -57,8 +57,8 @@ export function ContactForm() {
                   <Mail className="w-4 h-4" />
                 </div>
                 <div>
-                  <p className="text-[9px] text-slate-400 uppercase font-bold tracking-wider">Email Us</p>
-                  <p className="text-xs font-semibold text-slate-800">support@fokel.com</p>
+                  <p className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Email Us</p>
+                  <p className="text-sm font-semibold text-slate-800">support@fokel.com</p>
                 </div>
               </div>
 
@@ -67,13 +67,13 @@ export function ContactForm() {
                   <MapPin className="w-4 h-4" />
                 </div>
                 <div>
-                  <p className="text-[9px] text-slate-400 uppercase font-bold tracking-wider">Headquarters</p>
-                  <p className="text-xs font-semibold text-slate-800">Indiranagar Double Road, Bangalore, India</p>
+                  <p className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Headquarters</p>
+                  <p className="text-sm font-semibold text-slate-800">Indiranagar Double Road, Bangalore, India</p>
                 </div>
               </div>
             </div>
 
-            <p className="text-[10px] text-slate-400">
+            <p className="text-xs text-slate-400">
               By submitting this form you agree to our privacy policy and terms.
             </p>
           </div>
@@ -88,13 +88,13 @@ export function ContactForm() {
                   className="text-center py-12 flex flex-col items-center gap-4"
                 >
                   <CheckCircle2 className="w-12 h-12 text-emerald-500" />
-                  <h3 className="text-xl font-bold text-slate-800">Message Sent Successfully!</h3>
-                  <p className="text-slate-400 text-xs max-w-sm">
+                  <h3 className="text-2xl font-bold text-slate-800">Message Sent Successfully!</h3>
+                  <p className="text-slate-500 text-sm max-w-sm">
                     Thank you for reaching out. One of our workspace consultants will contact you shortly.
                   </p>
                   <button
                     onClick={() => setSubmitted(false)}
-                    className="mt-4 px-5 py-2 bg-primary hover:bg-primary-hover text-white text-xs font-semibold rounded-lg cursor-pointer transition-colors"
+                    className="mt-4 px-5 py-2 bg-primary hover:bg-primary-hover text-white text-sm font-semibold rounded-lg cursor-pointer transition-colors"
                   >
                     Send Another Message
                   </button>
@@ -103,50 +103,50 @@ export function ContactForm() {
                 <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="flex flex-col gap-1.5">
-                      <label className="text-[10px] font-semibold text-slate-600 ml-1">Full Name*</label>
+                      <label className="text-[11px] font-semibold text-slate-600 ml-1">Full Name*</label>
                       <input
                         type="text"
                         required
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         placeholder="Your Name"
-                        className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2.5 text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-primary/45 focus:ring-1 focus:ring-primary/45 transition-all text-xs"
+                        className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2.5 text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-primary/45 focus:ring-1 focus:ring-primary/45 transition-all text-sm"
                       />
                     </div>
 
                     <div className="flex flex-col gap-1.5">
-                      <label className="text-[10px] font-semibold text-slate-600 ml-1">Work Email*</label>
+                      <label className="text-[11px] font-semibold text-slate-600 ml-1">Work Email*</label>
                       <input
                         type="email"
                         required
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         placeholder="you@company.com"
-                        className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2.5 text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-primary/45 focus:ring-1 focus:ring-primary/45 transition-all text-xs"
+                        className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2.5 text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-primary/45 focus:ring-1 focus:ring-primary/45 transition-all text-sm"
                       />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="flex flex-col gap-1.5">
-                      <label className="text-[10px] font-semibold text-slate-600 ml-1">Phone Number*</label>
+                      <label className="text-[11px] font-semibold text-slate-600 ml-1">Phone Number*</label>
                       <input
                         type="tel"
                         required
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         placeholder="e.g. +91 98765 43210"
-                        className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2.5 text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-primary/45 focus:ring-1 focus:ring-primary/45 transition-all text-xs"
+                        className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2.5 text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-primary/45 focus:ring-1 focus:ring-primary/45 transition-all text-sm"
                       />
                     </div>
 
                     <div className="flex flex-col gap-1.5">
-                      <label className="text-[10px] font-semibold text-slate-600 ml-1">Interested In*</label>
+                      <label className="text-[11px] font-semibold text-slate-600 ml-1">Interested In*</label>
                       <select
                         required
                         value={formData.interest}
                         onChange={(e) => setFormData({ ...formData, interest: e.target.value })}
-                        className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2.5 text-slate-800 focus:outline-none focus:border-primary/45 focus:ring-1 focus:ring-primary/45 transition-all text-xs cursor-pointer"
+                        className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2.5 text-slate-800 focus:outline-none focus:border-primary/45 focus:ring-1 focus:ring-primary/45 transition-all text-sm cursor-pointer"
                       >
                         <option value="virtual-office">Virtual Office (Business Address)</option>
                         <option value="coworking">Coworking Spaces (Desk/Cabin)</option>
@@ -157,19 +157,19 @@ export function ContactForm() {
                   </div>
 
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-[10px] font-semibold text-slate-600 ml-1">Message / Requirements</label>
+                    <label className="text-[11px] font-semibold text-slate-600 ml-1">Message / Requirements</label>
                     <textarea
                       rows={3}
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       placeholder="Tell us about your team size, budget, and specific requirements..."
-                      className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2.5 text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-primary/45 focus:ring-1 focus:ring-primary/45 transition-all text-xs resize-none"
+                      className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2.5 text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-primary/45 focus:ring-1 focus:ring-primary/45 transition-all text-sm resize-none"
                     />
                   </div>
 
                   <button
                     type="submit"
-                    className="w-full mt-2 bg-primary text-white font-semibold rounded-lg px-6 py-3 hover:bg-primary-hover transition-colors flex items-center justify-center gap-2 cursor-pointer text-xs shadow-sm"
+                    className="w-full mt-2 bg-primary text-white font-semibold rounded-lg px-6 py-3 hover:bg-primary-hover transition-colors flex items-center justify-center gap-2 cursor-pointer text-sm shadow-sm"
                   >
                     Submit Inquiry
                   </button>
