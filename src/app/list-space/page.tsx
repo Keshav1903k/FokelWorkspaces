@@ -167,21 +167,24 @@ export default function ListSpacePage() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
-      <section className="bg-[#DEE9F4] pt-20 pb-20 md:pt-28 md:pb-28 text-center relative border-b border-[#c4d6e9] -mt-6">
+    <div className="flex flex-col min-h-screen bg-[#FAF8F5]">
+      <section className="bg-[#FAF8F5] pt-24 pb-16 md:pt-28 md:pb-20 text-center relative border-b border-[#E3DDD3]">
         
         <div className="relative z-10 container mx-auto px-6 max-w-5xl flex flex-col items-center justify-center">
-          <h1 className="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-4 max-w-3xl text-center">
-            Monetize Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary-hover">Commercial Property</span>
+          <span className="text-xs font-semibold text-primary block mb-1">
+            List your workspace
+          </span>
+          <h1 className="text-3xl md:text-5xl font-bold text-[#18191C] tracking-tight leading-tight mb-4 max-w-3xl text-center">
+            List your commercial property with Fokel
           </h1>
-          <p className="text-[#5C6B76] text-xs sm:text-sm max-w-2xl leading-relaxed font-medium text-center">
-            Partner with Fokel to convert empty spaces, managed cabins, or full floors into high-yield workspace assets. Get onboarded and reach thousands of verified clients.
+          <p className="text-[#5C5D61] text-sm max-w-2xl leading-relaxed font-normal text-center">
+            Partner with Fokel to list empty spaces, managed cabins, or full floors. Reach thousands of verified business tenants looking for flexible workspace solutions.
           </p>
         </div>
       </section>
 
       {/* Main Section */}
-      <section className="py-20 bg-slate-50 relative">
+      <section className="py-16 bg-[#FAF8F5] relative">
         <div className="container mx-auto px-6 max-w-4xl">
           
           <div className="bg-white border border-[#E8EDF2] rounded-2xl p-6 md:p-10 shadow-[0_6px_24px_rgba(0,0,0,0.03)] relative">

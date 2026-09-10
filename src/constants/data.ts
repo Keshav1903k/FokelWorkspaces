@@ -596,11 +596,12 @@ export const FAQS: FaqItem[] = [
 ];
 
 export const NAV_LINKS = [
-  { name: "Services", href: "/services" },
+  { name: "Explore", href: "/services/workspaces" },
+  { name: "Workspaces", href: "/services" },
+  { name: "Solutions", href: "/business-registration" },
   { name: "Pricing", href: "/pricing" },
   { name: "List Your Space", href: "/list-space" },
-  { name: "About Us", href: "/about-us" },
-  { name: "Contact", href: "/contact" }
+  { name: "About Us", href: "/about-us" }
 ];
 
 export const TESTIMONIALS: TestimonialItem[] = [

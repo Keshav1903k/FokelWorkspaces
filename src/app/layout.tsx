@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
+import { Inter } from "next/font/google";
 import { SmoothScrollProvider } from "@/components/providers/SmoothScrollProvider";
 import { Providers } from "@/components/providers/Providers";
 import { Navbar } from "@/components/navigation/Navbar";
@@ -7,15 +7,15 @@ import { Footer } from "@/components/navigation/Footer";
 import { WelcomeModal } from "@/components/modals/WelcomeModal";
 import "./globals.css";
 
-const plusJakartaSans = Plus_Jakarta_Sans({
+const inter = Inter({
   variable: "--font-sans",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800"],
+  weight: ["300", "400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
-  title: "Fokel | The Premium AI Aggregator Platform",
-  description: "Discover, compare, and leverage the best AI tools on the market. The ultimate AI aggregator for Series A startups and enterprises.",
+  title: "Fokel Workspaces | Find Coworking & Managed Offices in India",
+  description: "Discover, compare, and lease coworking spaces, managed offices, private suites, and virtual offices across India's top business districts.",
 };
 
 export default function RootLayout({
@@ -27,9 +27,9 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${plusJakartaSans.variable} h-full antialiased`}
+      className={`${inter.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col font-sans bg-background text-foreground overflow-x-hidden selection:bg-primary/30 selection:text-primary-foreground">
+      <body className="min-h-full flex flex-col font-sans bg-background text-foreground overflow-x-hidden selection:bg-primary/20 selection:text-primary">
         <WelcomeModal />
         <Providers>
           <SmoothScrollProvider>

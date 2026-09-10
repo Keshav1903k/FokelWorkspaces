@@ -207,9 +207,9 @@ export default function ProfilePage() {
     : "U";
 
   return (
-    <div className="min-h-screen bg-slate-50 pb-24 -mt-6">
+    <div className="min-h-screen bg-[#FAF8F5] pb-24 -mt-6">
       {/* 1. Header Banner */}
-      <section className="bg-[#DEE9F4] pt-20 pb-20 md:pt-24 md:pb-24 border-b border-[#c4d6e9] relative">
+      <section className="bg-[#FAF8F5] pt-24 pb-16 md:pt-28 md:pb-20 border-b border-[#E3DDD3] relative">
         <div className="container mx-auto px-6 max-w-7xl relative z-10">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             
@@ -218,13 +218,13 @@ export default function ProfilePage() {
                 {userInitials}
               </div>
               <div>
-                <span className="px-2.5 py-0.5 rounded bg-white/50 border border-white/50 text-[10px] font-bold tracking-wider uppercase text-primary mb-1 inline-block">
+                <span className="px-2.5 py-0.5 rounded bg-[#F3EFEA] border border-[#E3DDD3] text-[10px] font-bold tracking-wider uppercase text-primary mb-1 inline-block">
                   Workspace Partner
                 </span>
-                <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight leading-tight">
+                <h1 className="text-2xl sm:text-3xl font-bold text-[#18191C] tracking-tight leading-tight">
                   {user.name}
                 </h1>
-                <p className="text-[#5C6B76] text-xs font-medium flex items-center gap-1.5 mt-0.5">
+                <p className="text-[#5C5D61] text-xs font-medium flex items-center gap-1.5 mt-0.5">
                   <Mail className="w-3.5 h-3.5 opacity-75" /> {user.email}
                 </p>
               </div>
@@ -233,15 +233,15 @@ export default function ProfilePage() {
             <div className="flex gap-3">
               <Link
                 href="/list-space"
-                className="px-5 py-2.5 rounded-lg bg-white border border-[#c4d6e9] hover:border-[#a8c3df] text-slate-700 font-semibold hover:bg-slate-50/50 transition-colors text-xs flex items-center gap-1.5"
+                className="px-5 py-2.5 rounded-sm bg-white border border-[#E3DDD3] hover:border-primary text-[#18191C] font-semibold transition-colors text-xs flex items-center gap-1.5 shadow-sm"
               >
-                <PlusCircle className="w-4 h-4 text-primary" /> List Workspace
+                <PlusCircle className="w-4 h-4 text-primary" /> List workspace
               </Link>
               <button
                 onClick={handleLogout}
-                className="px-5 py-2.5 rounded-lg bg-rose-50 border border-rose-100 hover:bg-rose-100/50 text-rose-600 font-semibold transition-colors text-xs flex items-center gap-1.5 cursor-pointer"
+                className="px-5 py-2.5 rounded-sm bg-rose-50 border border-rose-100 hover:bg-rose-100 text-rose-600 font-semibold transition-colors text-xs flex items-center gap-1.5 cursor-pointer"
               >
-                <LogOut className="w-4 h-4" /> Log Out
+                <LogOut className="w-4 h-4" /> Log out
               </button>
             </div>
 

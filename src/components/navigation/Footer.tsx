@@ -1,132 +1,100 @@
+"use client";
+
 import Link from "next/link";
-import { Sparkles, ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 
 export function Footer() {
   return (
-    <footer className="bg-footer-bg pt-20 pb-10 relative overflow-hidden">
-      {/* Top glowing line */}
-      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-primary to-transparent opacity-80" />
-      <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent blur-[4px] opacity-40" />
+    <footer className="bg-[#151619] text-[#FAF8F5] pt-16 pb-12 border-t border-[#282A2E]">
+      <div className="container mx-auto px-6 max-w-7xl">
+        
+        {/* Header */}
+        <div className="pb-12 border-b border-[#282A2E] flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div>
+            <span className="text-xs font-semibold text-primary block mb-1">
+              Fokel Workspaces
+            </span>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-white max-w-2xl">
+              Your next workspace starts here.
+            </h2>
+          </div>
+          <Link
+            href="/services/workspaces"
+            className="bg-primary hover:bg-[#A93E1B] text-white px-5 py-2.5 rounded-sm text-xs font-semibold transition-colors inline-block self-start md:self-auto"
+          >
+            Explore all workspaces →
+          </Link>
+        </div>
 
-      {/* Background glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/10 blur-[120px] rounded-full pointer-events-none" />
-
-      <div className="container mx-auto px-6 max-w-7xl relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12 lg:gap-8 mb-16">
-          {/* Brand & Newsletter */}
-          <div className="lg:col-span-2 flex flex-col gap-6">
-            <Link href="/" className="flex items-center gap-2 group w-fit">
-              <div className="relative flex items-center justify-center w-8 h-8 rounded-lg bg-primary overflow-hidden">
-                <Sparkles className="w-4 h-4 text-white z-10" />
-              </div>
-              <span className="font-heading font-bold text-xl tracking-tight text-white">
-                Fokel Workspaces
-              </span>
-            </Link>
-            <p className="text-footer-text text-sm leading-relaxed max-w-xs">
-              Premium commercial real estate and business infrastructure solutions. Empowering businesses with flexible workspaces, virtual offices, and legal registrations.
+        {/* Links */}
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 py-10 border-b border-[#282A2E] text-xs">
+          
+          <div className="col-span-2 md:col-span-1">
+            <span className="text-xl font-bold tracking-tight text-white block mb-2">
+              Fokel
+            </span>
+            <p className="text-white/60 leading-relaxed">
+              India's commercial workspace aggregator for coworking, managed office suites, and flexible business spaces.
             </p>
-
-            <div className="mt-4">
-              <h4 className="text-white font-medium mb-3 text-sm">Subscribe to our newsletter</h4>
-              <div className="flex gap-2">
-                <Input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="bg-[#1a2938] border-[#374e66] text-white placeholder:text-[#C9D6E3]/40 focus-visible:ring-1 focus-visible:ring-[#D9BD9C]/50 h-10"
-                />
-                <Button className="h-10 px-4 shrink-0 bg-primary hover:bg-primary-hover text-white cursor-pointer transition-colors shadow-sm">
-                  <ArrowRight className="w-4 h-4" />
-                </Button>
-              </div>
-            </div>
           </div>
 
-          {/* Workspaces links */}
-          <div className="flex flex-col gap-4">
-            <h4 className="text-white font-semibold text-sm uppercase tracking-wider">Workspaces</h4>
-            <ul className="flex flex-col gap-3">
-              {[
-                { label: "Virtual Offices", href: "/services/workspaces?type=Virtual Office" },
-                { label: "Coworking Spaces", href: "/services/workspaces?type=Coworking Space" },
-                { label: "Private Offices", href: "/services/workspaces?type=Private Office" },
-                { label: "Enterprise Suites", href: "/services/workspaces?type=Enterprise Office" }
-              ].map((item) => (
-                <li key={item.label}>
-                  <Link href={item.href} className="text-footer-text hover:text-brand-gold transition-colors text-sm">
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
+          <div>
+            <h4 className="text-xs font-semibold text-primary mb-3">
+              Explore spaces
+            </h4>
+            <ul className="flex flex-col gap-2 text-white/70">
+              <li><Link href="/services/workspaces?type=Coworking+Space" className="hover:text-white transition-colors">Coworking spaces</Link></li>
+              <li><Link href="/services/workspaces?type=Managed+Office" className="hover:text-white transition-colors">Managed office suites</Link></li>
+              <li><Link href="/services/workspaces?type=Private+Office" className="hover:text-white transition-colors">Private cabins</Link></li>
+              <li><Link href="/services/workspaces?type=Virtual+Office" className="hover:text-white transition-colors">Virtual offices</Link></li>
+              <li><Link href="/services/workspaces" className="hover:text-white transition-colors">Meeting rooms</Link></li>
             </ul>
           </div>
 
-          {/* Services */}
-          <div className="flex flex-col gap-4">
-            <h4 className="text-white font-semibold text-sm uppercase tracking-wider">Business Setup</h4>
-            <ul className="flex flex-col gap-3">
-              {[
-                { label: "Company Incorporation", href: "/business-registration" },
-                { label: "GST Registration", href: "/business-registration" },
-                { label: "Trademark Filings", href: "/business-registration" },
-                { label: "Legal Contracts", href: "/business-registration" }
-              ].map((item) => (
-                <li key={item.label}>
-                  <Link href={item.href} className="text-footer-text hover:text-brand-gold transition-colors text-sm">
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
+          <div>
+            <h4 className="text-xs font-semibold text-primary mb-3">
+              Key business hubs
+            </h4>
+            <ul className="flex flex-col gap-2 text-white/70">
+              <li><Link href="/services/workspaces?city=Delhi+NCR" className="hover:text-white transition-colors">Delhi NCR</Link></li>
+              <li><Link href="/services/workspaces?city=Gurugram" className="hover:text-white transition-colors">Gurugram Cyber City</Link></li>
+              <li><Link href="/services/workspaces?city=Bangalore" className="hover:text-white transition-colors">Bangalore Indiranagar</Link></li>
+              <li><Link href="/services/workspaces?city=Mumbai" className="hover:text-white transition-colors">Mumbai BKC</Link></li>
+              <li><Link href="/services/workspaces?city=Noida" className="hover:text-white transition-colors">Noida Expressway</Link></li>
             </ul>
           </div>
 
-          {/* Locations */}
-          <div className="flex flex-col gap-4">
-            <h4 className="text-white font-semibold text-sm uppercase tracking-wider">Locations</h4>
-            <ul className="flex flex-col gap-3">
-              {[
-                { label: "Bangalore", href: "/services/workspaces?city=Bangalore" },
-                { label: "Mumbai", href: "/services/workspaces?city=Mumbai" },
-                { label: "Delhi NCR", href: "/services/workspaces?city=Delhi NCR" },
-                { label: "Hyderabad", href: "/services/workspaces?city=Hyderabad" }
-              ].map((item) => (
-                <li key={item.label}>
-                  <Link href={item.href} className="text-footer-text hover:text-brand-gold transition-colors text-sm">
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
+          <div>
+            <h4 className="text-xs font-semibold text-primary mb-3">
+              For businesses
+            </h4>
+            <ul className="flex flex-col gap-2 text-white/70">
+              <li><Link href="/list-space" className="hover:text-white transition-colors">List your workspace</Link></li>
+              <li><Link href="/business-registration" className="hover:text-white transition-colors">Enterprise managed suites</Link></li>
+              <li><Link href="/pricing" className="hover:text-white transition-colors">Pricing plans</Link></li>
+              <li><Link href="/contact" className="hover:text-white transition-colors">Partner program</Link></li>
             </ul>
           </div>
 
-          {/* Legal */}
-          <div className="flex flex-col gap-4">
-            <h4 className="text-white font-semibold text-sm uppercase tracking-wider">Company</h4>
-            <ul className="flex flex-col gap-3">
-              {[
-                { label: "About Us", href: "/about-us" },
-                { label: "Contact", href: "/contact" },
-                { label: "Terms of Service", href: "#" },
-                { label: "Privacy Policy", href: "#" }
-              ].map((item) => (
-                <li key={item.label}>
-                  <Link href={item.href} className="text-footer-text hover:text-brand-gold transition-colors text-sm">
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
+          <div>
+            <h4 className="text-xs font-semibold text-primary mb-3">
+              Company
+            </h4>
+            <ul className="flex flex-col gap-2 text-white/70">
+              <li><Link href="/about-us" className="hover:text-white transition-colors">About Fokel</Link></li>
+              <li><Link href="/contact" className="hover:text-white transition-colors">Contact support</Link></li>
+              <li><Link href="/about-us" className="hover:text-white transition-colors">Privacy policy</Link></li>
+              <li><Link href="/about-us" className="hover:text-white transition-colors">Terms of service</Link></li>
             </ul>
           </div>
+
         </div>
 
-        <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-footer-text/80 text-sm">
-            © {new Date().getFullYear()} Fokel. All rights reserved.
-          </p>
-          {/* Social icons removed */}
+        {/* Copyright */}
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-white/50">
+          <p>© {new Date().getFullYear()} Fokel Technologies India Pvt. Ltd. All rights reserved.</p>
+          <p className="mt-2 sm:mt-0">Designed for Indian business districts</p>
         </div>
+
       </div>
     </footer>
   );
