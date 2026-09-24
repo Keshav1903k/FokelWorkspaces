@@ -39,7 +39,7 @@ export default function SupportServicesPage() {
         <div className="absolute inset-0 z-0 opacity-30">
           <img
             src="https://images.unsplash.com/photo-1521791136368-1a8b27503462?auto=format&fit=crop&q=80&w=1600"
-            alt="Support Services Fokel"
+            alt="Support Services Officera"
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-[#18191C]/90" />

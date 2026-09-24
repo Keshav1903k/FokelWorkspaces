@@ -11,7 +11,7 @@ export function Footer() {
         <div className="pb-12 border-b border-[#282A2E] flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
             <span className="text-xs font-semibold text-primary block mb-1">
-              Fokel Workspaces
+              Officera Workspaces
             </span>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-white max-w-2xl">
               Your next workspace starts here.
@@ -30,7 +30,7 @@ export function Footer() {
           
           <div className="col-span-2 md:col-span-1">
             <span className="text-xl font-bold tracking-tight text-white block mb-2">
-              Fokel
+              Officera
             </span>
             <p className="text-white/60 leading-relaxed">
               India's commercial workspace aggregator for coworking, managed office suites, and flexible business spaces.
@@ -80,7 +80,7 @@ export function Footer() {
               Company
             </h4>
             <ul className="flex flex-col gap-2 text-white/70">
-              <li><Link href="/about-us" className="hover:text-white transition-colors">About Fokel</Link></li>
+              <li><Link href="/about-us" className="hover:text-white transition-colors">About Officera</Link></li>
               <li><Link href="/contact" className="hover:text-white transition-colors">Contact support</Link></li>
               <li><Link href="/about-us" className="hover:text-white transition-colors">Privacy policy</Link></li>
               <li><Link href="/about-us" className="hover:text-white transition-colors">Terms of service</Link></li>
@@ -91,7 +91,7 @@ export function Footer() {
 
         {/* Copyright */}
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-white/50">
-          <p>© {new Date().getFullYear()} Fokel Technologies India Pvt. Ltd. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Officera Technologies India Pvt. Ltd. All rights reserved.</p>
           <p className="mt-2 sm:mt-0">Designed for Indian business districts</p>
         </div>
 

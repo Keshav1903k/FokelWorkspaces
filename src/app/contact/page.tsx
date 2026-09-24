@@ -28,7 +28,7 @@ export default function ContactPage() {
         <div className="absolute inset-0 z-0 opacity-25">
           <img
             src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&q=80&w=1600"
-            alt="Contact Fokel Offices"
+            alt="Contact Officera Offices"
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-[#18191C]/90" />
@@ -66,7 +66,7 @@ export default function ContactPage() {
                   </div>
                   
                   <h2 className="text-2xl font-bold text-foreground mb-4 leading-snug">
-                    Fokel Operations HQ
+                    Officera Operations HQ
                   </h2>
                   <p className="text-para-gray text-xs leading-relaxed mb-8 max-w-md">
                     Have questions about premium virtual business addresses, collaborative coworking spaces, custom layouts, or corporate legal compliance? Reach out to our operational team directly.
@@ -92,7 +92,7 @@ export default function ContactPage() {
                       <div>
                         <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-0.5">Support Desk</p>
                         <p className="text-sm font-semibold text-foreground leading-relaxed">
-                          <a href="mailto:support@fokel.com" className="hover:text-primary transition-colors">support@fokel.com</a>
+                          <a href="mailto:support@officera.com" className="hover:text-primary transition-colors">support@officera.com</a>
                         </p>
                       </div>
                     </div>

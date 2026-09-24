@@ -95,13 +95,13 @@ export function WelcomeModal() {
                   <Building2 className="w-3.5 h-3.5" />
                 </div>
                 <span className="font-sans font-semibold text-xs text-slate-500">
-                  Fokel Workspaces
+                  Officera Workspaces
                 </span>
               </div>
               <h2 className="text-xl font-semibold text-slate-800 mb-1.5 leading-snug">
                 {mode === "signup" ? (
                   <>
-                    Create Your <span className="text-primary">Fokel Account</span>
+                    Create Your <span className="text-primary">Officera Account</span>
                   </>
                 ) : (
                   <>

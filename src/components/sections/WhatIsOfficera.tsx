@@ -60,7 +60,7 @@ const BENTO = [
   },
 ];
 
-export function WhatIsFokel() {
+export function WhatIsOfficera() {
   return (
     <section className="py-28 bg-secondary border-t border-border">
       <div className="container mx-auto px-6 max-w-7xl">
@@ -73,7 +73,7 @@ export function WhatIsFokel() {
             viewport={{ once: true }}
             className="text-primary font-semibold text-sm uppercase tracking-widest mb-4"
           >
-            Why Fokel
+            Why Officera
           </motion.p>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}

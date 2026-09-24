@@ -39,7 +39,7 @@ export default function BusinessRegistrationPage() {
         <div className="absolute inset-0 z-0 opacity-30">
           <img
             src="https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&q=80&w=1600"
-            alt="Business Registration Fokel"
+            alt="Business Registration Officera"
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-[#18191C]/90" />

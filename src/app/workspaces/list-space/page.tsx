@@ -138,7 +138,7 @@ export default function ListSpacePage() {
     e.preventDefault();
     
     const user = getCurrentUser();
-    const userEmail = user ? user.email : "anonymous@fokel.com";
+    const userEmail = user ? user.email : "anonymous@officera.com";
     
     const newProperty = {
       ...formData,
@@ -178,10 +178,10 @@ export default function ListSpacePage() {
             <span className="w-6 h-px bg-primary" />
           </div>
           <h1 className="text-3xl md:text-5xl font-bold text-white tracking-tight leading-tight mb-4 max-w-3xl text-center">
-            List your commercial property with Fokel
+            List your commercial property with Officera
           </h1>
           <p className="text-[#9E9EA5] text-sm max-w-2xl leading-relaxed font-normal text-center">
-            Partner with Fokel to list empty spaces, managed cabins, or full floors. Reach thousands of verified business tenants looking for flexible workspace solutions.
+            Partner with Officera to list empty spaces, managed cabins, or full floors. Reach thousands of verified business tenants looking for flexible workspace solutions.
           </p>
         </div>
       </section>
@@ -204,7 +204,7 @@ export default function ListSpacePage() {
                 </div>
                 <h2 className="text-2xl font-bold text-slate-800 tracking-tight">Property Listing Submitted!</h2>
                 <p className="text-slate-500 text-xs sm:text-sm max-w-md mx-auto leading-relaxed">
-                  Thank you for listing **{formData.spaceName}** with Fokel. Our partner success team will review your spaces details and schedule an IT compliance audit and physical inspection within 24 hours.
+                  Thank you for listing **{formData.spaceName}** with Officera. Our partner success team will review your spaces details and schedule an IT compliance audit and physical inspection within 24 hours.
                 </p>
 
                 {/* Listing Overview details */}

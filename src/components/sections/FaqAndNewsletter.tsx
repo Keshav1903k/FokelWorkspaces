@@ -13,8 +13,8 @@ export function FaqAndNewsletter() {
 
   const FAQS = [
     {
-      question: "How does Fokel make money as an aggregator?",
-      answer: "Fokel charges zero brokerage fees to tenants or businesses. Space operators and building owners pay a standardized referral fee when a lease is signed."
+      question: "How does Officera make money as an aggregator?",
+      answer: "Officera charges zero brokerage fees to tenants or businesses. Space operators and building owners pay a standardized referral fee when a lease is signed."
     },
     {
       question: "How are workspace listings verified?",
@@ -29,7 +29,7 @@ export function FaqAndNewsletter() {
       answer: "Yes. Our comparison feature lets you compare price per seat, lock-in terms, metro distance, and included amenities across operators."
     },
     {
-      question: "How do I list my workspace on Fokel?",
+      question: "How do I list my workspace on Officera?",
       answer: "Click 'List your space' in the top navigation, submit your property details, and our onboarding team will reach out within 24 hours."
     }
   ];

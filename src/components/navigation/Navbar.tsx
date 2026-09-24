@@ -69,7 +69,7 @@ export function Navbar() {
           <div className="flex items-center gap-6">
             <Link href="/" className="group flex items-center gap-2">
               <span className="text-xl font-bold tracking-tight text-[#18191C] group-hover:text-primary transition-colors">
-                Fokel
+                Officera
               </span>
               <span className="text-xs font-medium px-2 py-0.5 border border-[#E3DDD3] text-[#5C5D61] rounded-sm hidden sm:inline-block">
                 Workspaces

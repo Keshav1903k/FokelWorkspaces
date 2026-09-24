@@ -44,7 +44,7 @@ const AGGREGATOR_FLOW: StepItem[] = [
   }
 ];
 
-export function WhyChooseFokel() {
+export function WhyChooseOfficera() {
   return (
     <section className="py-24 bg-[#F3EFEA] border-b border-[#E3DDD3]">
       <div className="container mx-auto px-6 max-w-7xl">
@@ -52,13 +52,13 @@ export function WhyChooseFokel() {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-xs font-semibold text-primary block mb-1">
-            Why Fokel
+            Why Officera
           </span>
           <h2 className="text-3xl sm:text-4xl font-bold text-[#18191C] tracking-tight mb-4">
             One search. Many workspaces.
           </h2>
           <p className="text-sm sm:text-base text-[#5C5D61] leading-relaxed">
-            Instead of visiting dozens of operator sites, Fokel brings workspaces into one simple marketplace so you can compare options easily before deciding.
+            Instead of visiting dozens of operator sites, Officera brings workspaces into one simple marketplace so you can compare options easily before deciding.
           </p>
         </div>
 

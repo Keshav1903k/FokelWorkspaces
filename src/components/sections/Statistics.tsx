@@ -53,7 +53,7 @@ export function Statistics() {
                 Designed to Support Enterprise Growth
               </h2>
               <p className="text-para-gray text-xs leading-relaxed max-w-lg">
-                Fokel streamlines the complexity of physical expansion. Manage Grade-A cabins, hot desks, conference rooms, and business virtual address legal registrations from a centralized portal.
+                Officera streamlines the complexity of physical expansion. Manage Grade-A cabins, hot desks, conference rooms, and business virtual address legal registrations from a centralized portal.
               </p>
             </div>
  
@@ -90,7 +90,7 @@ export function Statistics() {
             <div className="relative w-full max-w-sm aspect-[16/10] sm:aspect-[16/9] lg:aspect-square rounded-xl overflow-hidden border border-[#2a4542] shadow-sm group">
               <img
                 src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80&w=800"
-                alt="Fokel Premium Workspace Lounge"
+                alt="Officera Premium Workspace Lounge"
                 className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500 ease-out"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/10 to-transparent pointer-events-none" />

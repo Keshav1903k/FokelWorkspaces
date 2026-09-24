@@ -23,7 +23,7 @@ export function WhyChooseUs() {
             viewport={{ once: true }}
             className="text-2xl md:text-3xl font-semibold text-foreground tracking-tight"
           >
-            Why Choose Fokel Workspaces?
+            Why Choose Officera Workspaces?
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}

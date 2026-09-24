@@ -18,7 +18,7 @@ export function Testimonials() {
           Loved by founders & operational leaders
         </h2>
         <p className="text-sm text-[#5C5D61] mt-3 max-w-xl mx-auto">
-          Here is what corporate team leads and growing startups say about sourcing their workspace through Fokel.
+          Here is what corporate team leads and growing startups say about sourcing their workspace through Officera.
         </p>
       </div>
 

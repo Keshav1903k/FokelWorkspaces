@@ -1,14 +1,14 @@
 <div align="center">
-  <h1>✨ Fokel AI Platform</h1>
-  <p><strong>The Premium AI Aggregator Platform</strong></p>
-  <p>Discover, compare, and integrate 1,000+ verified AI tools — handpicked for founders, creators, and teams who demand the best.</p>
+  <h1>✨ Officera Workspaces</h1>
+  <p><strong>The Premium Commercial Workspace Aggregator Platform</strong></p>
+  <p>Discover, compare, and book verified coworking desks, private office suites, and virtual offices across top business hubs.</p>
 </div>
 
 ---
 
 ## 🌟 About
 
-**Fokel AI Platform** is the #1 premium directory for discovering and comparing cutting-edge AI tools. Built with a modern tech stack, the platform delivers a lightning-fast, highly interactive user experience designed to help you find the perfect AI solution for your workflow.
+**Officera** is the premium directory for discovering and comparing cutting-edge commercial office spaces and business registration solutions. Built with a modern tech stack, the platform delivers a lightning-fast, highly interactive user experience designed to help you find the perfect workspace solution for your workflow.
 
 ## ✨ Key Features
 
