@@ -106,7 +106,7 @@ export function WhyChooseFokel() {
         {/* Bottom CTA */}
         <div className="mt-12 text-center">
           <Link
-            href="/services/workspaces"
+            href="/workspaces"
             className="inline-flex items-center gap-2 bg-[#18191C] hover:bg-primary text-white px-7 py-3 rounded-sm text-xs font-semibold transition-colors shadow-sm"
           >
             <span>Compare spaces</span>

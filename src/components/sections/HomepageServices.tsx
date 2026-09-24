@@ -10,21 +10,21 @@ const SERVICES_PREVIEW = [
     description: "Access premium corporate addresses, shared coworking desks, private office cabins, and managed enterprise suites fully certified for immediate business operations.",
     icon: Building2,
     bullets: ["Virtual Office Setup", "Coworking Desks", "Private Managed Cabins"],
-    href: "/services/workspaces",
+    href: "/workspaces",
   },
   {
     title: "Business Registration",
     description: "Launch your venture legally and seamlessly. We manage company incorporation, GST registrations, trademark filings, and structural compliance from start to finish.",
     icon: FileText,
     bullets: ["Company Incorporation", "GST & Tax Registration", "Trademark & IP Filings"],
-    href: "/business-registration",
+    href: "/solutions/business-registration",
   },
   {
     title: "Support & Operations",
     description: "Run your daily operations without hassle. Benefit from mail forwarding, reception services, premium high-speed IT setup, and professional legal contracting templates.",
     icon: HeartHandshake,
     bullets: ["Mail Handling & Dispatch", "Legal Contracts & Templates", "Receptionist & IT Support"],
-    href: "/support-services",
+    href: "/solutions/support-services",
   },
 ];
 
@@ -39,7 +39,7 @@ export function HomepageServices() {
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-3 py-1 rounded bg-[#DEE9F4] border border-[#c4d6e9] text-[10px] font-bold tracking-wider uppercase text-primary mb-4"
+            className="inline-flex items-center gap-2 px-3 py-1 rounded bg-[#FAF8F5] border border-[#E3DDD3] text-[10px] font-bold tracking-wider uppercase text-primary mb-4"
           >
             <span>Our Offerings</span>
           </motion.div>
@@ -76,7 +76,7 @@ export function HomepageServices() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: index * 0.08 }}
-                className="bg-white border border-[#E8EDF2] hover:border-[#c4d6e9] rounded-2xl p-8 flex flex-col justify-between shadow-[0_6px_24px_rgba(0,0,0,0.03)] hover:shadow-[0_12px_36px_rgba(0,0,0,0.06)] transition-all duration-300 group"
+                className="bg-white border border-[#E8EDF2] hover:border-[#E3DDD3] rounded-2xl p-8 flex flex-col justify-between shadow-[0_6px_24px_rgba(0,0,0,0.03)] hover:shadow-[0_12px_36px_rgba(0,0,0,0.06)] transition-all duration-300 group"
               >
                 <div>
                   {/* Icon */}
@@ -119,7 +119,7 @@ export function HomepageServices() {
         {/* Bottom Callout */}
         <div className="text-center">
           <Link
-            href="/services"
+            href="/solutions"
             className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-primary hover:bg-primary-hover text-white text-xs font-semibold tracking-wide transition-all shadow-sm cursor-pointer"
           >
             Explore Detailed Services <ArrowRight className="w-3.5 h-3.5" />

@@ -15,7 +15,7 @@ const LARGE_SERVICES = [
       "Biometric Private Office Cabins & Custom Enterprise Floors"
     ],
     icon: Building2,
-    href: "/services/workspaces",
+    href: "/workspaces",
     image: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=800"
   },
   {
@@ -28,7 +28,7 @@ const LARGE_SERVICES = [
       "Trademark Filings, Patent Search, & Regulatory Objections reply"
     ],
     icon: FileText,
-    href: "/business-registration",
+    href: "/solutions/business-registration",
     image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=800"
   },
   {
@@ -41,7 +41,7 @@ const LARGE_SERVICES = [
       "Dedicated high-speed fiber internet and custom VLAN servers"
     ],
     icon: HeartHandshake,
-    href: "/support-services",
+    href: "/solutions/support-services",
     image: "https://images.unsplash.com/photo-1497366858526-0766cadbe8fa?auto=format&fit=crop&q=80&w=800"
   }
 ];
@@ -86,7 +86,7 @@ export function PremiumServices() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className="bg-white border border-[#c4d6e9] rounded-2xl overflow-hidden shadow-[0_6px_24px_rgba(0,0,0,0.02)] hover:shadow-[0_12px_36px_rgba(0,0,0,0.05)] transition-all duration-300 grid grid-cols-1 lg:grid-cols-12 items-stretch"
+                className="bg-white border border-[#E3DDD3] rounded-2xl overflow-hidden shadow-[0_6px_24px_rgba(0,0,0,0.02)] hover:shadow-[0_12px_36px_rgba(0,0,0,0.05)] transition-all duration-300 grid grid-cols-1 lg:grid-cols-12 items-stretch"
               >
                 {/* Image Section */}
                 <div className={`lg:col-span-5 relative min-h-[250px] lg:min-h-auto ${
@@ -97,7 +97,7 @@ export function PremiumServices() {
                     alt={service.title}
                     className="w-full h-full object-cover absolute inset-0"
                   />
-                  <div className="absolute inset-0 bg-slate-900/10" />
+                  <div className="absolute inset-0 bg-[#18191C]/10" />
                 </div>
 
                 {/* Info Content Section */}

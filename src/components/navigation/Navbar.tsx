@@ -141,7 +141,7 @@ export function Navbar() {
                           Dashboard
                         </Link>
                         <Link
-                          href="/list-space"
+                          href="/workspaces/list-space"
                           onClick={() => setDropdownOpen(false)}
                           className="flex items-center gap-2.5 px-3 py-2 text-xs font-medium rounded-sm hover:bg-[#F3EFEA] transition-colors"
                         >

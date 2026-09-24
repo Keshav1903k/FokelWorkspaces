@@ -7,68 +7,44 @@ import Link from "next/link";
 interface CityCardItem {
   id: string;
   name: string;
-  count: string;
-  district: string;
   image: string;
-  badge: string;
 }
 
 const CITY_LISTINGS: CityCardItem[] = [
   {
     id: "bangalore",
     name: "Bangalore",
-    count: "310+ spaces",
-    district: "Indiranagar, Koramangala & Whitefield",
-    image: "https://images.unsplash.com/photo-1709967884183-7ffa9d168508?ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNzg2MDk5MTI2fA&ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=800",
-    badge: "Karnataka"
+    image: "https://images.unsplash.com/photo-1709967884183-7ffa9d168508?ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNzg2MDk5MTI2fA&ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=800"
   },
   {
     id: "mumbai",
     name: "Mumbai",
-    count: "195+ spaces",
-    district: "BKC, Lower Parel & Andheri",
-    image: "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&q=80&w=800",
-    badge: "Maharashtra"
+    image: "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&q=80&w=800"
   },
   {
     id: "delhi-ncr",
     name: "Delhi NCR",
-    count: "240+ spaces",
-    district: "Connaught Place, Cyber City & Aerocity",
-    image: "https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&q=80&w=800",
-    badge: "Delhi NCR"
+    image: "https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&q=80&w=800"
   },
   {
     id: "hyderabad",
     name: "Hyderabad",
-    count: "160+ spaces",
-    district: "HITECH City, Gachibowli & Madhapur",
-    image: "/images/hyderabad.jpg",
-    badge: "Telangana"
+    image: "/images/hyderabad.jpg"
   },
   {
     id: "pune",
     name: "Pune",
-    count: "125+ spaces",
-    district: "Hinjewadi, Baner & Viman Nagar",
-    image: "/images/pune.jpg",
-    badge: "Maharashtra"
+    image: "/images/pune.jpg"
   },
   {
     id: "chennai",
     name: "Chennai",
-    count: "110+ spaces",
-    district: "OMR, Guindy & T. Nagar",
-    image: "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&q=80&w=800",
-    badge: "Tamil Nadu"
+    image: "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&q=80&w=800"
   },
   {
     id: "kolkata",
     name: "Kolkata",
-    count: "95+ spaces",
-    district: "Salt Lake Sector V & New Town",
-    image: "https://images.unsplash.com/photo-1536421469767-80559bb6f5e1?ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNzg2MDk5MjkzfA&ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=800",
-    badge: "West Bengal"
+    image: "https://images.unsplash.com/photo-1536421469767-80559bb6f5e1?ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNzg2MDk5MjkzfA&ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=800"
   }
 ];
 
@@ -103,7 +79,7 @@ export function CityExplorer() {
               transition={{ duration: 0.5, delay: idx * 0.08 }}
             >
               <Link
-                href={`/services/workspaces?city=${encodeURIComponent(city.name)}`}
+                href={`/workspaces?city=${encodeURIComponent(city.name)}`}
                 className="group block bg-white border border-[#E3DDD3] rounded-sm overflow-hidden hover:border-primary transition-all shadow-sm"
               >
                 <div className="relative aspect-[16/10] overflow-hidden bg-[#F3EFEA]">
@@ -112,31 +88,22 @@ export function CityExplorer() {
                     alt={city.name}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter saturate-[0.95]"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
                   
                   <div className="absolute top-3 left-3">
-                    <span className="bg-white/90 backdrop-blur-md text-[#18191C] text-xs font-medium px-2.5 py-0.5 rounded-sm">
-                      {city.badge}
+                    <span className="bg-white/90 backdrop-blur-md text-[#18191C] text-xs font-semibold px-2.5 py-1 rounded-sm shadow-xs">
+                      {city.name}
                     </span>
                   </div>
 
-                  <div className="absolute bottom-3 left-3 right-3 text-white flex items-end justify-between">
-                    <div>
-                      <h3 className="text-xl font-bold tracking-tight">
-                        {city.name}
-                      </h3>
-                      <p className="text-xs text-white/80 font-normal">
-                        {city.district}
-                      </p>
-                    </div>
-                    <div className="w-8 h-8 rounded-sm bg-white/20 group-hover:bg-primary text-white flex items-center justify-center transition-colors">
+                  <div className="absolute bottom-3 right-3">
+                    <div className="w-8 h-8 rounded-sm bg-white/20 group-hover:bg-primary text-white flex items-center justify-center transition-colors backdrop-blur-xs">
                       <ArrowUpRight className="w-4 h-4" />
                     </div>
                   </div>
                 </div>
 
-                <div className="p-3.5 bg-white border-t border-[#E3DDD3] flex items-center justify-between text-xs text-[#18191C]">
-                  <span className="font-semibold">{city.count}</span>
+                <div className="p-3.5 bg-white border-t border-[#E3DDD3] flex items-center justify-end text-xs text-[#18191C]">
                   <span className="text-primary font-semibold group-hover:underline">Explore location →</span>
                 </div>
               </Link>

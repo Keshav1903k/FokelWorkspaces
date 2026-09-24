@@ -18,7 +18,7 @@ export function Footer() {
             </h2>
           </div>
           <Link
-            href="/services/workspaces"
+            href="/workspaces"
             className="bg-primary hover:bg-[#A93E1B] text-white px-5 py-2.5 rounded-sm text-xs font-semibold transition-colors inline-block self-start md:self-auto"
           >
             Explore all workspaces →
@@ -42,11 +42,11 @@ export function Footer() {
               Explore spaces
             </h4>
             <ul className="flex flex-col gap-2 text-white/70">
-              <li><Link href="/services/workspaces?type=Coworking+Space" className="hover:text-white transition-colors">Coworking spaces</Link></li>
-              <li><Link href="/services/workspaces?type=Managed+Office" className="hover:text-white transition-colors">Managed office suites</Link></li>
-              <li><Link href="/services/workspaces?type=Private+Office" className="hover:text-white transition-colors">Private cabins</Link></li>
-              <li><Link href="/services/workspaces?type=Virtual+Office" className="hover:text-white transition-colors">Virtual offices</Link></li>
-              <li><Link href="/services/workspaces" className="hover:text-white transition-colors">Meeting rooms</Link></li>
+              <li><Link href="/workspaces?type=Coworking+Space" className="hover:text-white transition-colors">Coworking spaces</Link></li>
+              <li><Link href="/workspaces?type=Managed+Office" className="hover:text-white transition-colors">Managed office suites</Link></li>
+              <li><Link href="/workspaces?type=Private+Office" className="hover:text-white transition-colors">Private cabins</Link></li>
+              <li><Link href="/workspaces?type=Virtual+Office" className="hover:text-white transition-colors">Virtual offices</Link></li>
+              <li><Link href="/workspaces" className="hover:text-white transition-colors">Meeting rooms</Link></li>
             </ul>
           </div>
 
@@ -55,11 +55,11 @@ export function Footer() {
               Key business hubs
             </h4>
             <ul className="flex flex-col gap-2 text-white/70">
-              <li><Link href="/services/workspaces?city=Delhi+NCR" className="hover:text-white transition-colors">Delhi NCR</Link></li>
-              <li><Link href="/services/workspaces?city=Gurugram" className="hover:text-white transition-colors">Gurugram Cyber City</Link></li>
-              <li><Link href="/services/workspaces?city=Bangalore" className="hover:text-white transition-colors">Bangalore Indiranagar</Link></li>
-              <li><Link href="/services/workspaces?city=Mumbai" className="hover:text-white transition-colors">Mumbai BKC</Link></li>
-              <li><Link href="/services/workspaces?city=Noida" className="hover:text-white transition-colors">Noida Expressway</Link></li>
+              <li><Link href="/workspaces?city=Delhi+NCR" className="hover:text-white transition-colors">Delhi NCR</Link></li>
+              <li><Link href="/workspaces?city=Gurugram" className="hover:text-white transition-colors">Gurugram</Link></li>
+              <li><Link href="/workspaces?city=Bangalore" className="hover:text-white transition-colors">Bangalore</Link></li>
+              <li><Link href="/workspaces?city=Mumbai" className="hover:text-white transition-colors">Mumbai</Link></li>
+              <li><Link href="/workspaces?city=Noida" className="hover:text-white transition-colors">Noida</Link></li>
             </ul>
           </div>
 
@@ -68,8 +68,8 @@ export function Footer() {
               For businesses
             </h4>
             <ul className="flex flex-col gap-2 text-white/70">
-              <li><Link href="/list-space" className="hover:text-white transition-colors">List your workspace</Link></li>
-              <li><Link href="/business-registration" className="hover:text-white transition-colors">Enterprise managed suites</Link></li>
+              <li><Link href="/workspaces/list-space" className="hover:text-white transition-colors">List your workspace</Link></li>
+              <li><Link href="/solutions/business-registration" className="hover:text-white transition-colors">Enterprise managed suites</Link></li>
               <li><Link href="/pricing" className="hover:text-white transition-colors">Pricing plans</Link></li>
               <li><Link href="/contact" className="hover:text-white transition-colors">Partner program</Link></li>
             </ul>

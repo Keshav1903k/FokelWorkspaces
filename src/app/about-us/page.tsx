@@ -79,50 +79,53 @@ export default function AboutPage() {
   return (
     <div className="flex flex-col bg-white">
       {/* 1. Hero Section */}
-      <section className="relative pt-20 pb-20 md:pt-28 md:pb-28 bg-gradient-to-b from-[#F4F7FA] to-white overflow-hidden -mt-6">
-        {/* Colorful glowing backgrounds */}
-        <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] rounded-full bg-[#DEE9F4] blur-[100px] opacity-60 pointer-events-none" />
-        <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-[#51818C]/10 blur-[100px] opacity-40 pointer-events-none" />
-
+      <section className="relative pt-24 pb-20 md:pt-28 md:pb-28 bg-[#121316] text-white overflow-hidden border-b border-[#2E2F34]">
         <div className="container mx-auto px-6 max-w-7xl relative z-10">
           <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="flex items-center justify-center gap-2.5 mb-4"
+            >
+              <span className="w-6 h-px bg-primary" />
+              <span className="text-xs font-semibold text-primary uppercase tracking-wider">
+                Our Story & Purpose
+              </span>
+              <span className="w-6 h-px bg-primary" />
+            </motion.div>
+
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-4xl sm:text-5xl md:text-6xl font-bold text-foreground tracking-tight leading-[1.1] mb-6"
+              className="text-4xl sm:text-5xl md:text-6xl font-bold text-white tracking-tight leading-[1.1] mb-6"
             >
               Architecting the Future of <br className="hidden sm:inline" />
-              <span className="text-gradient-brand">Flexible Workspaces</span>
+              <span className="text-primary font-bold">Flexible Workspaces</span>
             </motion.h1>
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-para-gray text-sm sm:text-base md:text-lg max-w-3xl leading-relaxed mb-8 opacity-95"
+              className="text-[#9E9EA5] text-sm sm:text-base md:text-lg max-w-3xl leading-relaxed mb-8"
             >
-              We combine grade-A physical corporate office cabins with automated compliance registration, high-performance managed networks, and instant GST certifications so companies can scale borderless.
+              We combine grade-A physical corporate office cabins with automated compliance registration, high-performance managed networks, and instant GST certifications.
             </motion.p>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="flex flex-col sm:flex-row gap-4"
+              className="flex justify-center"
             >
               <a
-                href="#mission"
-                className="inline-flex items-center justify-center px-6 py-3.5 rounded-xl bg-primary hover:bg-primary-hover text-white font-semibold text-xs tracking-wide transition-all shadow-md hover:shadow-lg cursor-pointer"
-              >
-                Explore Our Purpose
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </a>
-              <a
                 href="/contact"
-                className="inline-flex items-center justify-center px-6 py-3.5 rounded-xl bg-white border border-[#E8EDF2] hover:border-[#c4d6e9] hover:bg-[#F8FAFC] text-foreground font-semibold text-xs tracking-wide transition-all cursor-pointer"
+                className="inline-flex items-center justify-center px-8 py-3.5 rounded-sm bg-primary hover:bg-[#A93E1B] text-white font-semibold text-xs tracking-wide transition-all shadow-md cursor-pointer group"
               >
-                Connect With Us
+                <span>Connect With Us</span>
+                <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
               </a>
             </motion.div>
           </div>
@@ -160,9 +163,6 @@ export default function AboutPage() {
       <section id="mission" className="py-24 bg-background-alt border-y border-slate-200/50 relative">
         <div className="container mx-auto px-6 max-w-7xl">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="px-3.5 py-1 rounded bg-white border border-[#c4d6e9] text-[10px] font-bold tracking-wider uppercase text-primary">
-              Core Pillars
-            </span>
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mt-4 mb-4 tracking-tight">
               What Drives Our Focus
             </h2>
@@ -176,17 +176,14 @@ export default function AboutPage() {
               {
                 title: "Our Mission",
                 description: "To eliminate the operational overhead of physical real estate expansion. We build pre-configured commercial spaces that launch immediately without building delays.",
-                color: "bg-white"
               },
               {
                 title: "Our Vision",
                 description: "To make borderless company scaling frictionless. In addition to a physical workspace, we provide legal NOCs, digital mail scans, and corporate GST filing endpoints.",
-                color: "bg-white"
               },
               {
                 title: "Our Strategy",
                 description: "By integrating real estate selection, secure network engineering (isolated VLANs), and compliance coordination, we deliver 100% managed hubs within 48 hours.",
-                color: "bg-white"
               }
             ].map((pillar, index) => (
               <motion.div
@@ -195,13 +192,13 @@ export default function AboutPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className={`${pillar.color} border border-[#E8EDF2] hover:border-[#c4d6e9] rounded-2xl p-8 flex flex-col justify-between h-full hover:shadow-[0_12px_30px_rgba(48,87,137,0.06)] transition-all duration-300 group`}
+                className="bg-white border border-[#E8EDF2] hover:border-[#E3DDD3] rounded-2xl p-8 flex flex-col justify-between h-full shadow-sm hover:shadow-md transition-all duration-300 group"
               >
                 <div>
-                  <h3 className="text-lg font-bold text-foreground mb-3 tracking-tight">
+                  <h3 className="text-lg font-bold text-[#18191C] mb-3 tracking-tight group-hover:text-primary transition-colors">
                     {pillar.title}
                   </h3>
-                  <p className="text-para-gray text-xs sm:text-sm leading-relaxed">
+                  <p className="text-[#5C5D61] text-xs sm:text-sm leading-relaxed">
                     {pillar.description}
                   </p>
                 </div>
@@ -229,10 +226,10 @@ export default function AboutPage() {
               <img
                 src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200"
                 alt="Premium Collaboration Zone"
-                className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
+                className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-6 md:p-8">
-                <div className="text-white">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex items-end p-6 md:p-8 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                <div className="text-white transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
                   <p className="text-[10px] font-bold uppercase tracking-wider text-accent mb-1.5">Collaboration</p>
                   <h4 className="text-base md:text-lg font-bold">Integrated Common Lounge & Focus Rooms</h4>
                 </div>
@@ -249,10 +246,10 @@ export default function AboutPage() {
               <img
                 src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=600"
                 alt="Active Tech Team Meeting"
-                className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
+                className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-6">
-                <div className="text-white">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex items-end p-6 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                <div className="text-white transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
                   <p className="text-[10px] font-bold uppercase tracking-wider text-accent mb-1.5">Launch</p>
                   <h4 className="text-base font-bold">Series A & Enterprise Cabins</h4>
                 </div>
@@ -269,10 +266,10 @@ export default function AboutPage() {
               <img
                 src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80&w=600"
                 alt="Private Cabins"
-                className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
+                className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-6">
-                <div className="text-white">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex items-end p-6 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                <div className="text-white transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
                   <p className="text-[10px] font-bold uppercase tracking-wider text-accent mb-1.5">Compliance</p>
                   <h4 className="text-base font-bold">Secure Address & Mail Hubs</h4>
                 </div>
@@ -289,10 +286,10 @@ export default function AboutPage() {
               <img
                 src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&q=80&w=800"
                 alt="Premium Cafeteria"
-                className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
+                className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-6 md:p-8">
-                <div className="text-white">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex items-end p-6 md:p-8 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                <div className="text-white transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
                   <p className="text-[10px] font-bold uppercase tracking-wider text-accent mb-1.5">Lifestyle</p>
                   <h4 className="text-base md:text-lg font-bold">Grade-A Cafeteria & Wellness Pods</h4>
                 </div>
@@ -306,9 +303,6 @@ export default function AboutPage() {
       <section className="py-24 bg-background-alt border-y border-slate-200/50">
         <div className="container mx-auto px-6 max-w-7xl">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="px-3.5 py-1 rounded bg-white border border-[#c4d6e9] text-[10px] font-bold tracking-wider uppercase text-primary">
-              Core Values
-            </span>
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mt-4 mb-4 tracking-tight">
               Beliefs that Guide Us
             </h2>
@@ -327,9 +321,9 @@ export default function AboutPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: idx * 0.08 }}
-                  className="bg-white border border-[#E8EDF2] hover:border-[#c4d6e9] rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300 group flex flex-col h-full"
+                  className="bg-white border border-[#E8EDF2] hover:border-[#E3DDD3] rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300 group flex flex-col h-full"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-[#DEE9F4] text-primary flex items-center justify-center border border-[#c4d6e9] mb-5 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+                  <div className="w-10 h-10 rounded-xl bg-[#FAF8F5] text-primary flex items-center justify-center border border-[#E3DDD3] mb-5 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
                     <Icon className="w-5 h-5" />
                   </div>
                   <h3 className="text-base font-bold text-foreground mb-3 tracking-tight group-hover:text-primary transition-colors">

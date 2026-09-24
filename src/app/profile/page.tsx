@@ -232,7 +232,7 @@ export default function ProfilePage() {
 
             <div className="flex gap-3">
               <Link
-                href="/list-space"
+                href="/workspaces/list-space"
                 className="px-5 py-2.5 rounded-sm bg-white border border-[#E3DDD3] hover:border-primary text-[#18191C] font-semibold transition-colors text-xs flex items-center gap-1.5 shadow-sm"
               >
                 <PlusCircle className="w-4 h-4 text-primary" /> List workspace
@@ -321,7 +321,7 @@ export default function ProfilePage() {
                     Ready to set up your team desk, custom office suite, or business GST registration endpoint?
                   </p>
                   <Link 
-                    href="/services"
+                    href="/workspaces"
                     className="inline-flex items-center gap-1.5 px-4 py-2 bg-primary hover:bg-primary-hover text-white text-[10px] font-semibold rounded-lg transition-colors shadow-sm"
                   >
                     Browse Office Spaces <ArrowRight className="w-3.5 h-3.5" />
@@ -339,7 +339,7 @@ export default function ProfilePage() {
                 {RECOMMENDED_SPACES.map((space) => (
                   <div 
                     key={space.id}
-                    className="border border-[#E8EDF2] rounded-xl overflow-hidden flex flex-col justify-between group hover:border-[#c4d6e9] transition-all bg-white"
+                    className="border border-[#E8EDF2] rounded-xl overflow-hidden flex flex-col justify-between group hover:border-[#E3DDD3] transition-all bg-white"
                   >
                     <div className="aspect-[16/10] overflow-hidden bg-slate-50 border-b border-[#E8EDF2]">
                       <img src={space.image} alt={space.title} className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-300" />
@@ -423,7 +423,7 @@ export default function ProfilePage() {
                     Have empty office cabins, commercial halls, or building spaces to monetize? Get them audited by our IT success team.
                   </p>
                   <Link 
-                    href="/list-space"
+                    href="/workspaces/list-space"
                     className="inline-flex items-center gap-1.5 px-4 py-2 bg-primary hover:bg-primary-hover text-white text-[10px] font-semibold rounded-lg transition-colors shadow-sm"
                   >
                     List Your Property <Plus className="w-3.5 h-3.5" />

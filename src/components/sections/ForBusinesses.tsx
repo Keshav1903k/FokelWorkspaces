@@ -12,10 +12,6 @@ export function ForBusinesses() {
           
           {/* Left Column: Pitch */}
           <div className="lg:col-span-6 flex flex-col items-start gap-6">
-            <span className="text-xs font-semibold text-primary">
-              Enterprise teams
-            </span>
-            
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight text-white tracking-tight">
               Growing team? <br />
               <span className="text-primary font-bold">Your office doesn't have to be permanent.</span>
@@ -40,7 +36,7 @@ export function ForBusinesses() {
             </div>
 
             <Link
-              href="/business-registration"
+              href="/solutions/business-registration"
               className="bg-primary hover:bg-[#A93E1B] text-white px-7 py-3 rounded-sm text-xs font-semibold flex items-center gap-2 transition-all shadow-sm group cursor-pointer"
             >
               <span>Explore managed spaces</span>

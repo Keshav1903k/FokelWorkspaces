@@ -95,7 +95,7 @@ export function PricingComparison() {
                 className={`w-full py-3 px-5 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-colors cursor-pointer text-center ${
                   plan.popular
                     ? "bg-primary text-white hover:bg-primary-hover shadow-sm"
-                    : "bg-[#DEE9F4] text-primary hover:bg-[#c4d6e9] hover:text-[#23416a] transition-colors"
+                    : "bg-[#FAF8F5] border border-[#E3DDD3] text-[#18191C] hover:bg-primary hover:text-white hover:border-primary transition-colors"
                 }`}
               >
                 {plan.cta}

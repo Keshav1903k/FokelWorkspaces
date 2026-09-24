@@ -45,7 +45,7 @@ export function WhyChooseUs() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: index * 0.04 }}
-                className="group relative p-7 rounded-xl bg-white border border-[#c4d6e9] hover:border-slate-300 hover:shadow-sm transition-all duration-200"
+                className="group relative p-7 rounded-xl bg-white border border-[#E3DDD3] hover:border-slate-300 hover:shadow-sm transition-all duration-200"
               >
                 <div className={`w-10 h-10 rounded-lg border border-slate-100 flex items-center justify-center mb-6 relative z-10 text-slate-600 bg-slate-50 group-hover:bg-primary group-hover:text-white group-hover:border-primary transition-colors duration-200`}>
                   <FeatureIcon name={feature.icon} className="w-5 h-5" />

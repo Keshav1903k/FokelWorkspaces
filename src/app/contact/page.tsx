@@ -24,14 +24,14 @@ export default function ContactPage() {
   return (
     <div className="flex flex-col min-h-screen bg-white">
       {/* Header Banner */}
-      <section className="bg-slate-950 py-16 md:py-20 text-center relative overflow-hidden -mt-6">
+      <section className="bg-[#18191C] py-16 md:py-20 text-center relative overflow-hidden -mt-6">
         <div className="absolute inset-0 z-0 opacity-25">
           <img
             src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&q=80&w=1600"
             alt="Contact Fokel Offices"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-slate-950/80" />
+          <div className="absolute inset-0 bg-[#18191C]/90" />
         </div>
         
         <div className="relative z-10 container mx-auto px-6 max-w-5xl flex flex-col items-center">
@@ -41,7 +41,7 @@ export default function ContactPage() {
           <h1 className="text-3xl md:text-4xl font-semibold text-white tracking-tight leading-tight mb-3">
             Contact Our Workspace Consultants
           </h1>
-          <p className="text-[#C9D6E3] text-xs sm:text-sm max-w-xl opacity-90 leading-relaxed">
+          <p className="text-white/80 text-xs sm:text-sm max-w-xl leading-relaxed">
             Get customized office quote pricing, discuss landlord partnerships, or obtain virtual office compliance details in under 24 hours.
           </p>
         </div>

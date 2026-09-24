@@ -596,11 +596,11 @@ export const FAQS: FaqItem[] = [
 ];
 
 export const NAV_LINKS = [
-  { name: "Explore", href: "/services/workspaces" },
-  { name: "Workspaces", href: "/services" },
-  { name: "Solutions", href: "/business-registration" },
+  { name: "Explore", href: "/workspaces" },
+  { name: "Solutions", href: "/solutions" },
+  { name: "Registration", href: "/solutions/business-registration" },
   { name: "Pricing", href: "/pricing" },
-  { name: "List Your Space", href: "/list-space" },
+  { name: "List Your Space", href: "/workspaces/list-space" },
   { name: "About Us", href: "/about-us" }
 ];
 

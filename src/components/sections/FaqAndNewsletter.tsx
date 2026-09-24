@@ -40,9 +40,6 @@ export function FaqAndNewsletter() {
         
         {/* Section Header */}
         <div className="text-center mb-14">
-          <span className="text-xs font-semibold text-primary block mb-1">
-            FAQ
-          </span>
           <h2 className="text-3xl sm:text-4xl font-bold text-[#18191C] tracking-tight">
             Frequently asked questions
           </h2>

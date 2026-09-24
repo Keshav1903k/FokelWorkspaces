@@ -145,7 +145,7 @@ export function ComparisonPanel() {
           <div className="p-4 bg-[#FAF8F5] border-t border-[#E3DDD3] flex items-center justify-between">
             <span className="text-xs text-[#5C5D61]">Compare multiple listings before scheduling a visit.</span>
             <Link
-              href="/services/workspaces"
+              href="/workspaces"
               className="text-xs font-semibold text-primary hover:underline flex items-center gap-1"
             >
               <span>Explore all spaces</span>

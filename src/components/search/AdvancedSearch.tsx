@@ -22,7 +22,7 @@ export function AdvancedSearch({ className = "" }: { className?: string }) {
     params.set("city", selectedCity);
     params.set("type", selectedType);
     params.set("scroll", "true");
-    router.push(`/services/workspaces?${params.toString()}`);
+    router.push(`/workspaces?${params.toString()}`);
   };
 
   const handleQuickCitySelect = (city: string) => {
@@ -30,7 +30,7 @@ export function AdvancedSearch({ className = "" }: { className?: string }) {
     const params = new URLSearchParams();
     params.set("city", city);
     params.set("scroll", "true");
-    router.push(`/services/workspaces?${params.toString()}`);
+    router.push(`/workspaces?${params.toString()}`);
   };
 
   return (

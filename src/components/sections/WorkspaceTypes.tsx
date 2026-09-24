@@ -66,9 +66,6 @@ export function WorkspaceTypes() {
         
         {/* Section Header */}
         <div className="mb-14">
-          <span className="text-xs font-semibold text-primary block mb-1">
-            Workspace options
-          </span>
           <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
             How do you want to work?
           </h2>
@@ -154,7 +151,7 @@ export function WorkspaceTypes() {
                     {activeFormat.title}
                   </p>
                   <Link
-                    href="/services/workspaces"
+                    href="/workspaces"
                     className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:text-white transition-colors"
                   >
                     <span>Browse spaces in this format</span>
