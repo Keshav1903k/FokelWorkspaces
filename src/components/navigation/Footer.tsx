@@ -11,7 +11,7 @@ export function Footer() {
         <div className="pb-12 border-b border-[#282A2E] flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
             <span className="text-xs font-semibold text-primary block mb-1">
-              Officera Workspaces
+              Officera
             </span>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-white max-w-2xl">
               Your next workspace starts here.

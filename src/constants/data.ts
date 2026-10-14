@@ -595,10 +595,91 @@ export const FAQS: FaqItem[] = [
   }
 ];
 
-export const NAV_LINKS = [
+export interface CityHub {
+  name: string;
+  image: string;
+  popularAreas: string;
+  coworkingCount: string;
+  virtualCount: string;
+}
+
+export const CITY_HUBS: CityHub[] = [
+  {
+    name: "Bangalore",
+    image: "https://images.unsplash.com/photo-1709967884183-7ffa9d168508?ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNzg2MDk5MTI2fA&ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=800",
+    popularAreas: "Indiranagar, Koramangala, HSR, Whitefield",
+    coworkingCount: "35+ Hubs",
+    virtualCount: "20+ Locations"
+  },
+  {
+    name: "Mumbai",
+    image: "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&q=80&w=800",
+    popularAreas: "BKC, Andheri East, Lower Parel, Powai",
+    coworkingCount: "30+ Hubs",
+    virtualCount: "18+ Locations"
+  },
+  {
+    name: "Delhi NCR",
+    image: "https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&q=80&w=800",
+    popularAreas: "DLF Cyber City, Connaught Place, Noida",
+    coworkingCount: "40+ Hubs",
+    virtualCount: "25+ Locations"
+  },
+  {
+    name: "Hyderabad",
+    image: "/images/hyderabad.jpg",
+    popularAreas: "HITEC City, Gachibowli, Madhapur, Jubilee Hills",
+    coworkingCount: "25+ Hubs",
+    virtualCount: "15+ Locations"
+  },
+  {
+    name: "Pune",
+    image: "/images/pune.jpg",
+    popularAreas: "Baner, Hinjawadi, Viman Nagar, Magarpatta",
+    coworkingCount: "20+ Hubs",
+    virtualCount: "12+ Locations"
+  },
+  {
+    name: "Chennai",
+    image: "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&q=80&w=800",
+    popularAreas: "OMR, Guindy, Anna Nagar, T. Nagar",
+    coworkingCount: "18+ Hubs",
+    virtualCount: "10+ Locations"
+  },
+  {
+    name: "Kolkata",
+    image: "https://images.unsplash.com/photo-1536421469767-80559bb6f5e1?ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNzg2MDk5MjkzfA&ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=800",
+    popularAreas: "Salt Lake Sector V, Rajarhat, Park Street",
+    coworkingCount: "15+ Hubs",
+    virtualCount: "8+ Locations"
+  }
+];
+
+export interface NavLinkItem {
+  name: string;
+  href: string;
+  isCityDropdown?: boolean;
+  spaceType?: "Coworking Space" | "Virtual Office";
+  badge?: string;
+}
+
+export const NAV_LINKS: NavLinkItem[] = [
+  { 
+    name: "Coworking Spaces", 
+    href: "/coworking-spaces", 
+    isCityDropdown: true, 
+    spaceType: "Coworking Space",
+    badge: "Hot"
+  },
+  { 
+    name: "Virtual Offices", 
+    href: "/virtual-offices", 
+    isCityDropdown: true, 
+    spaceType: "Virtual Office",
+    badge: "Popular"
+  },
   { name: "Explore", href: "/workspaces" },
   { name: "Solutions", href: "/solutions" },
-  { name: "Registration", href: "/solutions/business-registration" },
   { name: "Pricing", href: "/pricing" },
   { name: "List Your Space", href: "/workspaces/list-space" },
   { name: "About Us", href: "/about-us" }

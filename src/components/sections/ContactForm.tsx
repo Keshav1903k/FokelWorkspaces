@@ -14,12 +14,31 @@ export function ContactForm() {
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate API call
-    setTimeout(() => {
+    setIsSubmitting(true);
+    try {
+      await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "Contact Inquiry",
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          interest: formData.interest,
+          details: formData.message,
+          sourceUrl: typeof window !== "undefined" ? window.location.href : ""
+        })
+      });
+    } catch (err) {
+      console.error("Failed to post contact inquiry to /api/leads:", err);
+    } finally {
+      setIsSubmitting(false);
       setSubmitted(true);
-    }, 600);
+    }
   };
 
   return (

@@ -49,12 +49,34 @@ export function WelcomeModal() {
     };
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    loginUser(formData.name, formData.email);
-    setIsOpen(false);
-    setFormData((prev) => ({ ...prev, name: "", email: "", password: "", phone: "" }));
-    router.push("/");
+    setIsSubmitting(true);
+
+    try {
+      await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: mode === "signup" ? "Account Registration" : "Consultation Request",
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          interest: formData.interest,
+          sourceUrl: typeof window !== "undefined" ? window.location.href : ""
+        })
+      });
+    } catch (err) {
+      console.error("Failed to sync lead to API:", err);
+    } finally {
+      setIsSubmitting(false);
+      loginUser(formData.name, formData.email);
+      setIsOpen(false);
+      setFormData((prev) => ({ ...prev, name: "", email: "", password: "", phone: "" }));
+      router.push("/");
+    }
   };
 
   return (
@@ -95,7 +117,7 @@ export function WelcomeModal() {
                   <Building2 className="w-3.5 h-3.5" />
                 </div>
                 <span className="font-sans font-semibold text-xs text-slate-500">
-                  Officera Workspaces
+                  Officera
                 </span>
               </div>
               <h2 className="text-xl font-semibold text-slate-800 mb-1.5 leading-snug">
@@ -197,9 +219,14 @@ export function WelcomeModal() {
 
               <button
                 type="submit"
-                className="w-full mt-2 bg-primary text-white font-semibold rounded-lg px-6 py-3 hover:bg-primary-hover transition-colors flex items-center justify-center cursor-pointer text-xs shadow-sm"
+                disabled={isSubmitting}
+                className="w-full mt-2 bg-primary text-white font-semibold rounded-lg px-6 py-3 hover:bg-primary-hover transition-colors flex items-center justify-center cursor-pointer text-xs shadow-sm disabled:opacity-60"
               >
-                {mode === "signup" ? "Create Account & Sign Up" : "Submit Consultation Request"}
+                {isSubmitting 
+                  ? "Submitting..." 
+                  : mode === "signup" 
+                    ? "Create Account & Sign Up" 
+                    : "Submit Consultation Request"}
               </button>
             </form>
 

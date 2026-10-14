@@ -146,10 +146,39 @@ export default function WorkspaceDetailPage({ params }: { params: Promise<{ id: 
                   <p className="text-[11px] text-emerald-700">Our workspace manager will contact you shortly to confirm timings.</p>
                 </div>
               ) : (
-                <form onSubmit={(e) => { e.preventDefault(); setBookingSuccess(true); }} className="flex flex-col gap-4">
+                <form 
+                  onSubmit={async (e) => { 
+                    e.preventDefault();
+                    const form = e.currentTarget;
+                    const name = (form.elements.namedItem("name") as HTMLInputElement).value;
+                    const email = (form.elements.namedItem("email") as HTMLInputElement).value;
+                    const phone = (form.elements.namedItem("phone") as HTMLInputElement).value;
+
+                    try {
+                      await fetch("/api/leads", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                          type: "Tour Schedule Request",
+                          name,
+                          email,
+                          phone,
+                          interest: `${space.title} (${space.type}) - ${space.price}`,
+                          city: space.city,
+                          sourceUrl: typeof window !== "undefined" ? window.location.href : ""
+                        })
+                      });
+                    } catch (err) {
+                      console.error("Failed to post tour schedule request:", err);
+                    }
+                    setBookingSuccess(true); 
+                  }} 
+                  className="flex flex-col gap-4"
+                >
                   <div>
                     <label className="text-xs font-semibold text-[#5C5D61] block mb-1">Your Full Name</label>
                     <input
+                      name="name"
                       type="text"
                       required
                       placeholder="e.g. Rohan Sharma"
@@ -159,6 +188,7 @@ export default function WorkspaceDetailPage({ params }: { params: Promise<{ id: 
                   <div>
                     <label className="text-xs font-semibold text-[#5C5D61] block mb-1">Work Email</label>
                     <input
+                      name="email"
                       type="email"
                       required
                       placeholder="rohan@company.com"
@@ -168,6 +198,7 @@ export default function WorkspaceDetailPage({ params }: { params: Promise<{ id: 
                   <div>
                     <label className="text-xs font-semibold text-[#5C5D61] block mb-1">Phone Number</label>
                     <input
+                      name="phone"
                       type="tel"
                       required
                       placeholder="+91 98765 43210"

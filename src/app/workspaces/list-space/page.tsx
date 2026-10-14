@@ -134,7 +134,7 @@ export default function ListSpacePage() {
     setUploadedPhotos((prev) => prev.filter((_, idx) => idx !== index));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     const user = getCurrentUser();
@@ -162,6 +162,24 @@ export default function ListSpacePage() {
     }
     propertiesArray.push(newProperty);
     localStorage.setItem("listed_properties", JSON.stringify(propertiesArray));
+
+    try {
+      await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "Property Partner Listing",
+          name: formData.fullName,
+          email: formData.email,
+          phone: formData.phone,
+          interest: `Role: ${formData.role} | Space: ${formData.spaceName} (${formData.capacitySeats} seats, ${formData.areaSqFt} sqft)`,
+          city: `${formData.locality}, ${formData.city}`,
+          sourceUrl: typeof window !== "undefined" ? window.location.href : ""
+        })
+      });
+    } catch (err) {
+      console.error("Failed to post partner listing to /api/leads:", err);
+    }
 
     setSubmitted(true);
   };

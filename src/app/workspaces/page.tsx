@@ -10,7 +10,7 @@ import {
   CheckCircle2
 } from "lucide-react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
 import { WORKSPACES, CITIES, WORKSPACE_TYPES } from "@/constants/data";
 import { AdvancedSearch } from "@/components/search/AdvancedSearch";
 import Link from "next/link";
@@ -24,6 +24,17 @@ function WorkspacesPageContent() {
 
   const selectedCity = cityParam || "All";
   const selectedType = typeParam || "All";
+
+  useEffect(() => {
+    if (cityParam || typeParam || searchParams.get("scroll")) {
+      const el = document.getElementById("listings");
+      if (el) {
+        setTimeout(() => {
+          el.scrollIntoView({ behavior: "smooth" });
+        }, 150);
+      }
+    }
+  }, [cityParam, typeParam, searchParams]);
 
   const filteredWorkspaces = WORKSPACES.filter((w) => {
     const matchesCity = selectedCity === "All" || w.city === selectedCity;

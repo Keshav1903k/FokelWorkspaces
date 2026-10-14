@@ -14,7 +14,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Officera Workspaces | Find Coworking & Managed Offices in India",
+  title: "Officera | Find Coworking & Managed Offices in India",
   description: "Discover, compare, and lease coworking spaces, managed offices, private suites, and virtual offices across India's top business districts.",
 };
 

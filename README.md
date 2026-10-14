@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>✨ Officera Workspaces</h1>
+  <h1>✨ Officera</h1>
   <p><strong>The Premium Commercial Workspace Aggregator Platform</strong></p>
   <p>Discover, compare, and book verified coworking desks, private office suites, and virtual offices across top business hubs.</p>
 </div>
