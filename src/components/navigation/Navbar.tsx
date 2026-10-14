@@ -107,10 +107,12 @@ export function Navbar() {
           
           {/* Brand Logo */}
           <div className="flex items-center gap-6">
-            <Link href="/" className="group flex items-center gap-2">
-              <span className="text-xl font-bold tracking-tight text-[#18191C] group-hover:text-primary transition-colors">
-                Officera
-              </span>
+            <Link href="/" className="group flex items-center">
+              <img
+                src="/images/logo-light.png"
+                alt="Officera"
+                className="h-8 sm:h-9 w-auto object-contain transition-opacity duration-200 group-hover:opacity-85"
+              />
             </Link>
           </div>
 

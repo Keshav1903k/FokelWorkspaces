@@ -29,9 +29,13 @@ export function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 py-10 border-b border-[#282A2E] text-xs">
           
           <div className="col-span-2 md:col-span-1">
-            <span className="text-xl font-bold tracking-tight text-white block mb-2">
-              Officera
-            </span>
+            <Link href="/" className="inline-block mb-3 group">
+              <img
+                src="/images/logo-dark.png"
+                alt="Officera"
+                className="h-8 sm:h-9 w-auto object-contain transition-opacity duration-200 group-hover:opacity-85"
+              />
+            </Link>
             <p className="text-white/60 leading-relaxed">
               India's commercial workspace aggregator for coworking, managed office suites, and flexible business spaces.
             </p>

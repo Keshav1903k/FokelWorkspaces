@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Building2, Eye, EyeOff } from "lucide-react";
+import { X, Eye, EyeOff } from "lucide-react";
 import { loginUser } from "@/utils/auth";
 import { useRouter } from "next/navigation";
 
@@ -112,13 +112,12 @@ export function WelcomeModal() {
 
             {/* Header */}
             <div className="mb-6">
-              <div className="flex items-center gap-2 mb-3">
-                <div className="flex items-center justify-center w-6 h-6 rounded bg-primary text-white">
-                  <Building2 className="w-3.5 h-3.5" />
-                </div>
-                <span className="font-sans font-semibold text-xs text-slate-500">
-                  Officera
-                </span>
+              <div className="mb-3">
+                <img
+                  src="/images/logo-light.png"
+                  alt="Officera"
+                  className="h-7 w-auto object-contain"
+                />
               </div>
               <h2 className="text-xl font-semibold text-slate-800 mb-1.5 leading-snug">
                 {mode === "signup" ? (
