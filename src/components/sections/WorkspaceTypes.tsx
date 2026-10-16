@@ -62,7 +62,7 @@ export function WorkspaceTypes() {
 
   return (
     <section className="py-24 bg-[#151619] text-[#FAF8F5] border-b border-[#282A2E]">
-      <div className="container mx-auto px-6 max-w-7xl">
+      <div className="container mx-auto px-6 max-w-7xl xl:max-w-[1380px] 2xl:max-w-[1480px]">
         
         {/* Section Header */}
         <div className="mb-14">
@@ -72,10 +72,10 @@ export function WorkspaceTypes() {
         </div>
 
         {/* Accordion Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div className="flex flex-col lg:flex-row gap-10 lg:gap-12 xl:gap-16 items-center justify-between">
           
           {/* Format Titles */}
-          <div className="lg:col-span-7 flex flex-col divide-y divide-[#282A2E]">
+          <div className="w-full lg:w-[660px] xl:w-[670px] shrink-0 flex flex-col divide-y divide-[#282A2E]">
             {WORKSPACE_FORMATS.map((item) => {
               const isActive = activeFormat.id === item.id;
               return (
@@ -127,9 +127,9 @@ export function WorkspaceTypes() {
           </div>
 
           {/* Right Column: Image Display */}
-          <div className="lg:col-span-5 relative">
+          <div className="w-full flex-1 min-w-0 relative">
             <div className="border border-[#282A2E] p-3 bg-[#1C1D22] rounded-sm">
-              <div className="relative aspect-[4/5] overflow-hidden bg-black rounded-sm">
+              <div className="relative aspect-[6/5] overflow-hidden bg-black rounded-sm">
                 <AnimatePresence mode="wait">
                   <motion.img
                     key={activeFormat.id}

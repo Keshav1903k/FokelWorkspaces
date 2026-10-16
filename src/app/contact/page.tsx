@@ -6,19 +6,40 @@ import { Mail, Phone, MapPin, CheckCircle, Building2 } from "lucide-react";
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
+    teamSize: "1-10",
     interest: "virtual-office",
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setTimeout(() => {
+    setIsSubmitting(true);
+    try {
+      await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "Contact Inquiry",
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          teamSize: formData.teamSize,
+          interest: formData.interest,
+          details: formData.message,
+          sourceUrl: typeof window !== "undefined" ? window.location.href : ""
+        })
+      });
+    } catch (err) {
+      console.error("Failed to post contact inquiry to /api/leads:", err);
+    } finally {
+      setIsSubmitting(false);
       setSubmitted(true);
-    }, 600);
+    }
   };
 
   return (
@@ -141,6 +162,20 @@ export default function ContactPage() {
                 ) : (
                   <form onSubmit={handleSubmit} className="flex flex-col gap-5 h-full justify-between">
                     <div className="flex flex-col gap-5 flex-1">
+                      
+                      {/* Form Header */}
+                      <div className="pb-3 border-b border-slate-100">
+                        <span className="text-[11px] font-bold text-primary uppercase tracking-wider block mb-1">
+                          Share your requirements
+                        </span>
+                        <h3 className="text-xl sm:text-2xl font-bold text-slate-800 tracking-tight">
+                          Our team will reach out to you
+                        </h3>
+                        <p className="text-slate-500 text-xs sm:text-sm mt-1.5 leading-relaxed">
+                          Tell us about your team size, preferred format, and location needs. Our workspace advisors will review your requirements, negotiate the best rates, and get in touch within 24 hours.
+                        </p>
+                      </div>
+
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <div className="flex flex-col gap-1.5">
                           <label className="text-xs font-semibold text-slate-600 ml-1">Full Name*</label>
@@ -181,19 +216,33 @@ export default function ContactPage() {
                         </div>
 
                         <div className="flex flex-col gap-1.5">
-                          <label className="text-xs font-semibold text-slate-600 ml-1">I am interested in*</label>
+                          <label className="text-xs font-semibold text-slate-600 ml-1">Team Size*</label>
                           <select
                             required
-                            value={formData.interest}
-                            onChange={(e) => setFormData({ ...formData, interest: e.target.value })}
+                            value={formData.teamSize}
+                            onChange={(e) => setFormData({ ...formData, teamSize: e.target.value })}
                             className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 text-slate-800 focus:outline-none focus:border-primary/45 focus:ring-1 focus:ring-primary/45 transition-all text-sm cursor-pointer"
                           >
-                            <option value="virtual-office">Virtual Office (GST / Business address)</option>
-                            <option value="coworking">Coworking Space (Dedicated seat)</option>
-                            <option value="private-office">Private Managed Cabin</option>
-                            <option value="enterprise">Custom Managed Floor</option>
+                            <option value="1-10">1-10</option>
+                            <option value="10-50">10-50</option>
+                            <option value="50+">50+</option>
                           </select>
                         </div>
+                      </div>
+
+                      <div className="flex flex-col gap-1.5">
+                        <label className="text-xs font-semibold text-slate-600 ml-1">I am interested in*</label>
+                        <select
+                          required
+                          value={formData.interest}
+                          onChange={(e) => setFormData({ ...formData, interest: e.target.value })}
+                          className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 text-slate-800 focus:outline-none focus:border-primary/45 focus:ring-1 focus:ring-primary/45 transition-all text-sm cursor-pointer"
+                        >
+                          <option value="virtual-office">Virtual Office (GST / Business address)</option>
+                          <option value="coworking">Coworking Space (Dedicated seat)</option>
+                          <option value="private-office">Private Managed Cabin</option>
+                          <option value="enterprise">Custom Managed Floor</option>
+                        </select>
                       </div>
 
                       <div className="flex flex-col gap-1.5 flex-1">
@@ -210,9 +259,10 @@ export default function ContactPage() {
 
                     <button
                       type="submit"
-                      className="w-full mt-6 bg-primary text-white font-semibold rounded-lg px-6 py-3.5 hover:bg-primary-hover transition-colors flex items-center justify-center gap-2 cursor-pointer text-sm shadow-sm font-heading shrink-0"
+                      disabled={isSubmitting}
+                      className="w-full mt-6 bg-primary text-white font-semibold rounded-lg px-6 py-3.5 hover:bg-primary-hover transition-colors flex items-center justify-center gap-2 cursor-pointer text-sm shadow-sm font-heading shrink-0 disabled:opacity-70"
                     >
-                      Send Message
+                      {isSubmitting ? "Submitting..." : "Submit Request"}
                     </button>
                   </form>
                 )}

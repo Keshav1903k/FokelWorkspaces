@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MapPin, Building, Users, ArrowRight, ChevronDown } from "lucide-react";
+import { MapPin, Building, ArrowRight, ChevronDown } from "lucide-react";
 import { CITIES, WORKSPACE_TYPES } from "@/constants/data";
 import { useRouter } from "next/navigation";
 
@@ -10,12 +10,27 @@ export function AdvancedSearch({ className = "" }: { className?: string }) {
   const router = useRouter();
   const [selectedCity, setSelectedCity] = useState("Delhi NCR");
   const [selectedType, setSelectedType] = useState("Coworking Space");
-  const [selectedSeats, setSelectedSeats] = useState("1–4 seats");
+  const [isCitySelected, setIsCitySelected] = useState(false);
+  const [isTypeSelected, setIsTypeSelected] = useState(false);
   const [cityOpen, setCityOpen] = useState(false);
   const [typeOpen, setTypeOpen] = useState(false);
-  const [seatsOpen, setSeatsOpen] = useState(false);
 
-  const TEAM_SIZES = ["1–4 seats", "5–15 seats", "16–50 seats", "50+ enterprise"];
+  // Check URL parameters on mount
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const city = params.get("city");
+      const type = params.get("type");
+      if (city) {
+        setSelectedCity(city);
+        setIsCitySelected(true);
+      }
+      if (type) {
+        setSelectedType(type);
+        setIsTypeSelected(true);
+      }
+    }
+  }, []);
 
   const handleSearch = () => {
     const params = new URLSearchParams();
@@ -27,6 +42,7 @@ export function AdvancedSearch({ className = "" }: { className?: string }) {
 
   const handleQuickCitySelect = (city: string) => {
     setSelectedCity(city);
+    setIsCitySelected(true);
     const params = new URLSearchParams();
     params.set("city", city);
     params.set("scroll", "true");
@@ -34,29 +50,39 @@ export function AdvancedSearch({ className = "" }: { className?: string }) {
   };
 
   return (
-    <div className={`w-full relative z-40 ${className}`}>
+    <div className={`w-full max-w-2xl relative z-40 ${className}`}>
       {/* Search Bar Container */}
-      <div className="bg-white border border-[#E3DDD3] rounded-sm p-3 shadow-md">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 divide-y md:divide-y-0 md:divide-x divide-[#E3DDD3]">
+      <div className="bg-white border border-[#E3DDD3] rounded-sm p-3.5 sm:p-4 shadow-sm hover:shadow-md transition-shadow">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 divide-y sm:divide-y-0 sm:divide-x divide-[#E3DDD3]">
           
           {/* City Selector */}
-          <div className="relative pt-1 md:pt-0 md:pr-3">
-            <label className="text-xs font-semibold text-[#5C5D61] block mb-1">
+          <div className="relative pt-1 sm:pt-0 sm:pr-4">
+            <label className="text-[11px] font-bold text-[#71717A] uppercase tracking-wider block mb-1.5">
               Location
             </label>
             <button
+              type="button"
               onClick={() => {
                 setCityOpen(!cityOpen);
                 setTypeOpen(false);
-                setSeatsOpen(false);
               }}
-              className="w-full flex items-center justify-between py-1.5 px-2 hover:bg-[#FAF8F5] transition-colors rounded-sm text-left group cursor-pointer"
+              className="w-full flex items-center justify-between h-11 px-3 bg-[#FAF8F5]/80 hover:bg-[#FAF8F5] border border-[#E3DDD3]/70 hover:border-primary/50 transition-all rounded-sm text-left group cursor-pointer"
             >
               <div className="flex items-center gap-2.5 min-w-0">
-                <MapPin className="w-4 h-4 text-primary shrink-0" />
-                <span className="text-sm font-semibold text-[#18191C] truncate">{selectedCity}</span>
+                <MapPin className={`w-4 h-4 shrink-0 transition-colors ${
+                  isCitySelected ? "text-primary" : "text-[#71717A]"
+                }`} />
+                <span className={`text-sm truncate transition-colors ${
+                  isCitySelected ? "font-semibold text-[#18191C]" : "font-medium text-[#71717A]"
+                }`}>
+                  {selectedCity}
+                </span>
               </div>
-              <ChevronDown className="w-3.5 h-3.5 text-[#5C5D61] shrink-0" />
+              <ChevronDown
+                className={`w-3.5 h-3.5 text-[#5C5D61] shrink-0 transition-transform duration-200 ${
+                  cityOpen ? "rotate-180 text-primary" : ""
+                }`}
+              />
             </button>
 
             <AnimatePresence>
@@ -67,17 +93,19 @@ export function AdvancedSearch({ className = "" }: { className?: string }) {
                     initial={{ opacity: 0, y: 4 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 4 }}
-                    className="absolute left-0 top-full mt-2 w-full min-w-[200px] bg-white border border-[#E3DDD3] rounded-sm shadow-xl z-50 p-1.5"
+                    className="absolute left-0 top-full mt-2 w-full min-w-[220px] bg-white border border-[#E3DDD3] rounded-sm shadow-xl z-50 p-1.5 max-h-60 overflow-y-auto"
                   >
                     {CITIES.map((city) => (
                       <button
                         key={city}
+                        type="button"
                         onClick={() => {
                           setSelectedCity(city);
+                          setIsCitySelected(true);
                           setCityOpen(false);
                         }}
                         className={`w-full text-left px-3 py-2 text-xs font-medium rounded-sm transition-colors text-[#18191C] ${
-                          selectedCity === city ? "bg-[#F3EFEA] text-primary font-semibold" : "hover:bg-[#FAF8F5]"
+                          selectedCity === city && isCitySelected ? "bg-[#F3EFEA] text-primary font-semibold" : "hover:bg-[#FAF8F5]"
                         }`}
                       >
                         {city}
@@ -90,23 +118,33 @@ export function AdvancedSearch({ className = "" }: { className?: string }) {
           </div>
 
           {/* Workspace Format Selector */}
-          <div className="relative pt-3 md:pt-0 md:px-3">
-            <label className="text-xs font-semibold text-[#5C5D61] block mb-1">
+          <div className="relative pt-3 sm:pt-0 sm:pl-4">
+            <label className="text-[11px] font-bold text-[#71717A] uppercase tracking-wider block mb-1.5">
               Workspace format
             </label>
             <button
+              type="button"
               onClick={() => {
                 setTypeOpen(!typeOpen);
                 setCityOpen(false);
-                setSeatsOpen(false);
               }}
-              className="w-full flex items-center justify-between py-1.5 px-2 hover:bg-[#FAF8F5] transition-colors rounded-sm text-left group cursor-pointer"
+              className="w-full flex items-center justify-between h-11 px-3 bg-[#FAF8F5]/80 hover:bg-[#FAF8F5] border border-[#E3DDD3]/70 hover:border-primary/50 transition-all rounded-sm text-left group cursor-pointer"
             >
               <div className="flex items-center gap-2.5 min-w-0">
-                <Building className="w-4 h-4 text-primary shrink-0" />
-                <span className="text-sm font-semibold text-[#18191C] truncate">{selectedType}</span>
+                <Building className={`w-4 h-4 shrink-0 transition-colors ${
+                  isTypeSelected ? "text-primary" : "text-[#71717A]"
+                }`} />
+                <span className={`text-sm truncate transition-colors ${
+                  isTypeSelected ? "font-semibold text-[#18191C]" : "font-medium text-[#71717A]"
+                }`}>
+                  {selectedType}
+                </span>
               </div>
-              <ChevronDown className="w-3.5 h-3.5 text-[#5C5D61] shrink-0" />
+              <ChevronDown
+                className={`w-3.5 h-3.5 text-[#5C5D61] shrink-0 transition-transform duration-200 ${
+                  typeOpen ? "rotate-180 text-primary" : ""
+                }`}
+              />
             </button>
 
             <AnimatePresence>
@@ -117,17 +155,19 @@ export function AdvancedSearch({ className = "" }: { className?: string }) {
                     initial={{ opacity: 0, y: 4 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 4 }}
-                    className="absolute left-0 top-full mt-2 w-full min-w-[210px] bg-white border border-[#E3DDD3] rounded-sm shadow-xl z-50 p-1.5"
+                    className="absolute left-0 top-full mt-2 w-full min-w-[220px] bg-white border border-[#E3DDD3] rounded-sm shadow-xl z-50 p-1.5 max-h-60 overflow-y-auto"
                   >
                     {WORKSPACE_TYPES.map((type) => (
                       <button
                         key={type}
+                        type="button"
                         onClick={() => {
                           setSelectedType(type);
+                          setIsTypeSelected(true);
                           setTypeOpen(false);
                         }}
                         className={`w-full text-left px-3 py-2 text-xs font-medium rounded-sm transition-colors text-[#18191C] ${
-                          selectedType === type ? "bg-[#F3EFEA] text-primary font-semibold" : "hover:bg-[#FAF8F5]"
+                          selectedType === type && isTypeSelected ? "bg-[#F3EFEA] text-primary font-semibold" : "hover:bg-[#FAF8F5]"
                         }`}
                       >
                         {type}
@@ -139,65 +179,16 @@ export function AdvancedSearch({ className = "" }: { className?: string }) {
             </AnimatePresence>
           </div>
 
-          {/* Capacity / Team Size */}
-          <div className="relative pt-3 md:pt-0 md:pl-3">
-            <label className="text-xs font-semibold text-[#5C5D61] block mb-1">
-              Team size
-            </label>
-            <button
-              onClick={() => {
-                setSeatsOpen(!seatsOpen);
-                setCityOpen(false);
-                setTypeOpen(false);
-              }}
-              className="w-full flex items-center justify-between py-1.5 px-2 hover:bg-[#FAF8F5] transition-colors rounded-sm text-left group cursor-pointer"
-            >
-              <div className="flex items-center gap-2.5 min-w-0">
-                <Users className="w-4 h-4 text-primary shrink-0" />
-                <span className="text-sm font-semibold text-[#18191C] truncate">{selectedSeats}</span>
-              </div>
-              <ChevronDown className="w-3.5 h-3.5 text-[#5C5D61] shrink-0" />
-            </button>
-
-            <AnimatePresence>
-              {seatsOpen && (
-                <>
-                  <div className="fixed inset-0 z-40" onClick={() => setSeatsOpen(false)} />
-                  <motion.div
-                    initial={{ opacity: 0, y: 4 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 4 }}
-                    className="absolute left-0 top-full mt-2 w-full min-w-[190px] bg-white border border-[#E3DDD3] rounded-sm shadow-xl z-50 p-1.5"
-                  >
-                    {TEAM_SIZES.map((size) => (
-                      <button
-                        key={size}
-                        onClick={() => {
-                          setSelectedSeats(size);
-                          setSeatsOpen(false);
-                        }}
-                        className={`w-full text-left px-3 py-2 text-xs font-medium rounded-sm transition-colors text-[#18191C] ${
-                          selectedSeats === size ? "bg-[#F3EFEA] text-primary font-semibold" : "hover:bg-[#FAF8F5]"
-                        }`}
-                      >
-                        {size}
-                      </button>
-                    ))}
-                  </motion.div>
-                </>
-              )}
-            </AnimatePresence>
-          </div>
-
         </div>
 
         {/* Action Bar */}
-        <div className="mt-3 pt-3 border-t border-[#E3DDD3] flex items-center justify-between gap-4">
-          <div className="hidden sm:flex items-center gap-2 text-xs text-[#5C5D61]">
-            <span>Popular areas:</span>
+        <div className="mt-3.5 pt-3 border-t border-[#E3DDD3] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="flex flex-wrap items-center gap-2 text-xs text-[#5C5D61]">
+            <span className="font-medium text-[#18191C]">Popular:</span>
             {["Gurugram", "Noida", "Bangalore", "Mumbai"].map((city) => (
               <button
                 key={city}
+                type="button"
                 onClick={() => handleQuickCitySelect(city)}
                 className="hover:text-primary transition-colors cursor-pointer font-medium underline underline-offset-2"
               >
@@ -207,11 +198,12 @@ export function AdvancedSearch({ className = "" }: { className?: string }) {
           </div>
 
           <button
+            type="button"
             onClick={handleSearch}
-            className="w-full sm:w-auto bg-primary hover:bg-[#A93E1B] text-white px-6 py-2.5 rounded-sm text-xs font-semibold flex items-center justify-center gap-2 transition-all shadow-sm group ml-auto cursor-pointer"
+            className="w-full sm:w-auto bg-primary hover:bg-[#A93E1B] text-white px-6 h-10 rounded-sm text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 transition-all shadow-sm group sm:ml-auto cursor-pointer"
           >
             <span>Explore spaces</span>
-            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </button>
         </div>
       </div>

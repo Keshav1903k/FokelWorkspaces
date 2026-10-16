@@ -217,7 +217,7 @@ export const WORKSPACES: WorkspaceSpace[] = [
     type: "Coworking Space",
     rating: 4.7,
     amenities: ["Ergonomic Seating", "Pantry Access", "Secure Lockers", "High-speed Internet"],
-    image: "https://images.unsplash.com/photo-1542744094-3a31f103e35f?auto=format&fit=crop&q=80&w=800"
+    image: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80&w=800"
   },
   {
     id: "cowork-4",

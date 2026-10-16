@@ -48,7 +48,7 @@ const LARGE_SERVICES = [
 
 export function PremiumServices() {
   return (
-    <section id="services" className="py-24 border-t border-slate-200/50 bg-background-alt relative">
+    <section id="services" className="pt-28 pb-20 md:pt-32 md:pb-24 bg-[#FAF8F5] relative">
       <div className="container mx-auto px-6 max-w-7xl relative z-10">
         
         {/* Header */}

@@ -10,6 +10,7 @@ export async function POST(request: Request) {
       email = "",
       phone = "",
       interest = "",
+      teamSize = "",
       city = "",
       details = "",
       sourceUrl = ""
@@ -22,7 +23,9 @@ export async function POST(request: Request) {
       email,
       phone,
       interest: interest || details,
+      teamSize,
       city,
+      details,
       sourceUrl
     };
 

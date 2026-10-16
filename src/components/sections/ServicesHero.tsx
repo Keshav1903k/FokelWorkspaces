@@ -8,8 +8,8 @@ export function ServicesHero() {
       id="services-search-header"
       className="w-full bg-[#18191C] py-6 flex items-center justify-center border-b border-[#282A2E] relative z-20 -mt-6"
     >
-      <div className="w-full max-w-4xl px-6">
-        <AdvancedSearch className="max-w-full" />
+      <div className="w-full max-w-2xl px-6">
+        <AdvancedSearch />
       </div>
     </section>
   );

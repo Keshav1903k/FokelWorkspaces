@@ -10,6 +10,7 @@ export function ContactForm() {
     name: "",
     email: "",
     phone: "",
+    teamSize: "1-10",
     interest: "virtual-office",
     message: "",
   });
@@ -28,6 +29,7 @@ export function ContactForm() {
           name: formData.name,
           email: formData.email,
           phone: formData.phone,
+          teamSize: formData.teamSize,
           interest: formData.interest,
           details: formData.message,
           sourceUrl: typeof window !== "undefined" ? window.location.href : ""
@@ -160,19 +162,33 @@ export function ContactForm() {
                     </div>
 
                     <div className="flex flex-col gap-1.5">
-                      <label className="text-[11px] font-semibold text-slate-600 ml-1">Interested In*</label>
+                      <label className="text-[11px] font-semibold text-slate-600 ml-1">Team Size*</label>
                       <select
                         required
-                        value={formData.interest}
-                        onChange={(e) => setFormData({ ...formData, interest: e.target.value })}
+                        value={formData.teamSize}
+                        onChange={(e) => setFormData({ ...formData, teamSize: e.target.value })}
                         className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2.5 text-slate-800 focus:outline-none focus:border-primary/45 focus:ring-1 focus:ring-primary/45 transition-all text-sm cursor-pointer"
                       >
-                        <option value="virtual-office">Virtual Office (Business Address)</option>
-                        <option value="coworking">Coworking Spaces (Desk/Cabin)</option>
-                        <option value="private-office">Private Managed Office</option>
-                        <option value="enterprise">Custom Floor / Enterprise Solution</option>
+                        <option value="1-10">1-10</option>
+                        <option value="10-50">10-50</option>
+                        <option value="50+">50+</option>
                       </select>
                     </div>
+                  </div>
+
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-[11px] font-semibold text-slate-600 ml-1">Interested In*</label>
+                    <select
+                      required
+                      value={formData.interest}
+                      onChange={(e) => setFormData({ ...formData, interest: e.target.value })}
+                      className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2.5 text-slate-800 focus:outline-none focus:border-primary/45 focus:ring-1 focus:ring-primary/45 transition-all text-sm cursor-pointer"
+                    >
+                      <option value="virtual-office">Virtual Office (Business Address)</option>
+                      <option value="coworking">Coworking Spaces (Desk/Cabin)</option>
+                      <option value="private-office">Private Managed Office</option>
+                      <option value="enterprise">Custom Floor / Enterprise Solution</option>
+                    </select>
                   </div>
 
                   <div className="flex flex-col gap-1.5">
@@ -188,9 +204,10 @@ export function ContactForm() {
 
                   <button
                     type="submit"
-                    className="w-full mt-2 bg-primary text-white font-semibold rounded-lg px-6 py-3 hover:bg-primary-hover transition-colors flex items-center justify-center gap-2 cursor-pointer text-sm shadow-sm"
+                    disabled={isSubmitting}
+                    className="w-full mt-2 bg-primary text-white font-semibold rounded-lg px-6 py-3 hover:bg-primary-hover transition-colors flex items-center justify-center gap-2 cursor-pointer text-sm shadow-sm disabled:opacity-70"
                   >
-                    Submit Inquiry
+                    {isSubmitting ? "Submitting..." : "Submit Request"}
                   </button>
                 </form>
               )}

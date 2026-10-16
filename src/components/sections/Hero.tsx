@@ -7,12 +7,12 @@ import Link from "next/link";
 
 export function Hero() {
   return (
-    <section className="relative bg-[#121316] pt-8 pb-16 md:pt-12 md:pb-20 border-b border-[#2E2F34] overflow-hidden text-white">
-      <div className="container mx-auto px-6 max-w-7xl">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-stretch">
+    <section className="relative bg-[#121316] -mt-[88px] pt-28 pb-16 md:pt-32 md:pb-20 border-b border-[#2E2F34] overflow-hidden text-white">
+      <div className="container mx-auto px-6 max-w-7xl xl:max-w-[1380px] 2xl:max-w-[1480px]">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-stretch">
           
           {/* Left Column: Clean Sans Headline & Search */}
-          <div className="lg:col-span-7 flex flex-col items-start gap-6 z-10">
+          <div className="lg:col-span-6 xl:col-span-5 flex flex-col items-start gap-6 z-10">
             
             {/* Eyebrow */}
             <motion.div
@@ -58,33 +58,10 @@ export function Hero() {
               <AdvancedSearch />
             </motion.div>
 
-            {/* Trust Stats Bar */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.7, delay: 0.4 }}
-              className="flex flex-wrap items-center gap-8 pt-2 text-xs text-[#9E9EA5]"
-            >
-              <div>
-                <span className="text-lg font-bold text-white block">120+</span>
-                <span>Verified workspaces</span>
-              </div>
-              <div className="w-px h-7 bg-[#2E2F34]" />
-              <div>
-                <span className="text-lg font-bold text-white block">25+</span>
-                <span>Cities covered</span>
-              </div>
-              <div className="w-px h-7 bg-[#2E2F34]" />
-              <div>
-                <span className="text-lg font-bold text-white block">0%</span>
-                <span>Brokerage fee</span>
-              </div>
-            </motion.div>
-
           </div>
 
           {/* Right Column: Architectural Workspace Photography Frame */}
-          <div className="lg:col-span-5 relative flex flex-col h-full">
+          <div className="lg:col-span-6 xl:col-span-7 relative flex flex-col h-full">
             <motion.div
               initial={{ opacity: 0, scale: 0.97 }}
               animate={{ opacity: 1, scale: 1 }}

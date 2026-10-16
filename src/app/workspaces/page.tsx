@@ -5,9 +5,7 @@ import {
   Building2, 
   MapPin, 
   FilterX, 
-  ChevronDown,
-  ShieldCheck,
-  CheckCircle2
+  ChevronDown
 } from "lucide-react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Suspense, useEffect } from "react";
@@ -86,14 +84,14 @@ function WorkspacesPageContent() {
           
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 pb-4 border-b border-[#E3DDD3]">
             <div>
-              <h2 className="text-2xl font-bold text-[#18191C] tracking-tight">
-                {selectedCity !== "All" || selectedType !== "All"
-                  ? `Showing results for ${selectedCity !== "All" ? selectedCity : ""} ${selectedType !== "All" ? selectedType : ""}`
-                  : "All verified workspaces"}
-              </h2>
-              <span className="text-xs text-[#5C5D61]">
-                {filteredWorkspaces.length} workspace listings available
-              </span>
+              {selectedCity === "All" && selectedType === "All" && (
+                <h2 className="text-2xl font-bold text-[#18191C] tracking-tight">
+                  All verified workspaces
+                </h2>
+              )}
+              <p className="text-xs sm:text-sm font-medium text-[#5C5D61]">
+                <span className="font-semibold text-[#18191C]">{filteredWorkspaces.length}</span> workspace listings available
+              </p>
             </div>
 
             <div className="flex flex-wrap items-center gap-3">
@@ -152,57 +150,30 @@ function WorkspacesPageContent() {
                       alt={space.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
-                    <div className="absolute top-3 left-3 flex items-center gap-2">
-                      <span className="bg-[#18191C] text-white text-xs font-medium px-2 py-0.5 rounded-sm flex items-center gap-1">
-                        <ShieldCheck className="w-3.5 h-3.5 text-primary" /> Verified
-                      </span>
-                      <span className="bg-white/95 text-[#18191C] text-xs font-medium px-2 py-0.5 rounded-sm border border-[#E3DDD3]">
-                        {space.type}
-                      </span>
-                    </div>
-
-                    <div className="absolute bottom-3 right-3 bg-white/95 px-3 py-1 rounded-sm border border-[#E3DDD3]">
-                      <span className="text-sm font-bold text-[#18191C]">
-                        {space.price}
-                      </span>
-                    </div>
                   </Link>
 
-                  <div className="p-5 flex flex-col justify-between flex-1">
+                  <div className="p-4 sm:p-5 flex flex-col justify-between flex-1">
                     <div>
-                      <div className="flex items-center justify-between mb-1">
-                        <span className="text-xs font-semibold text-primary">
-                          {space.city}
-                        </span>
-                        <span className="text-xs font-bold text-[#18191C]">
+                      <div className="flex items-start justify-between gap-2 mb-1.5">
+                        <h3 className="text-base sm:text-lg font-bold text-[#18191C] group-hover:text-primary transition-colors tracking-tight line-clamp-1">
+                          <Link href={`/workspaces/${space.id}`}>
+                            {space.title}
+                          </Link>
+                        </h3>
+                        <div className="flex items-center gap-0.5 text-xs font-bold text-[#18191C] shrink-0 pt-0.5">
                           ★ {space.rating}
-                        </span>
+                        </div>
                       </div>
-
-                      <h3 className="text-lg font-bold text-[#18191C] mb-1 group-hover:text-primary transition-colors tracking-tight">
-                        <Link href={`/workspaces/${space.id}`}>
-                          {space.title}
-                        </Link>
-                      </h3>
                       
-                      <p className="text-xs text-[#5C5D61] flex items-center gap-1 mb-4">
-                        <MapPin className="w-3 h-3 text-primary shrink-0" /> {space.location}
+                      <p className="text-xs text-[#5C5D61] flex items-center gap-1.5 line-clamp-1">
+                        <MapPin className="w-3.5 h-3.5 text-primary shrink-0" /> {space.location}
                       </p>
-
-                      <div className="flex flex-wrap gap-1.5 mb-4">
-                        {space.amenities.map((amenity) => (
-                          <span
-                            key={amenity}
-                            className="text-xs text-[#18191C] bg-[#FAF8F5] border border-[#E3DDD3] px-2 py-0.5 rounded-sm flex items-center gap-1"
-                          >
-                            <CheckCircle2 className="w-2.5 h-2.5 text-primary" /> {amenity}
-                          </span>
-                        ))}
-                      </div>
                     </div>
 
-                    <div className="pt-3 border-t border-[#E3DDD3] flex items-center justify-between text-xs">
-                      <span className="text-[#5C5D61]">Instant booking</span>
+                    <div className="pt-3.5 mt-4 border-t border-[#E3DDD3] flex items-center justify-between">
+                      <span className="text-sm sm:text-base font-bold text-[#18191C]">
+                        {space.price}
+                      </span>
                       <Link
                         href={`/workspaces/${space.id}`}
                         className="bg-primary hover:bg-[#A93E1B] text-white px-3.5 py-1.5 rounded-sm font-semibold text-xs transition-colors"
