@@ -1,65 +1,36 @@
 import { NextResponse } from "next/server";
+import { createInquiry } from "@/server/services/inquiry.service";
+import { inquirySchema } from "@/lib/validations/inquiry.schema";
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
 
-    const {
-      type = "Consultation Request",
-      name = "",
-      email = "",
-      phone = "",
-      interest = "",
-      teamSize = "",
-      city = "",
-      details = "",
-      sourceUrl = ""
-    } = body;
+    const parsed = inquirySchema.safeParse({
+      type: body.type || "LEAD",
+      name: body.name || "Inquirer",
+      email: body.email,
+      phone: body.phone,
+      interest: body.interest || body.details,
+      teamSize: body.teamSize,
+      city: body.city,
+      details: body.details,
+      sourceUrl: body.sourceUrl,
+    });
 
-    const payload = {
-      createdAt: new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }),
-      type,
-      name,
-      email,
-      phone,
-      interest: interest || details,
-      teamSize,
-      city,
-      details,
-      sourceUrl
-    };
-
-    console.log("[Officera Lead Received]:", payload);
-
-    // If Google Sheet Webhook URL is set in environment variables
-    const webhookUrl = process.env.GOOGLE_SHEET_WEBHOOK_URL;
-
-    if (webhookUrl && webhookUrl.trim() !== "") {
-      try {
-        const response = await fetch(webhookUrl, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(payload),
-          redirect: "follow"
-        });
-
-        if (!response.ok) {
-          console.warn("[Officera Lead] Google Sheet responded with status:", response.status);
-        } else {
-          console.log("[Officera Lead] Successfully synced to Google Sheet!");
-        }
-      } catch (sheetError) {
-        console.error("[Officera Lead] Error posting to Google Sheet webhook:", sheetError);
-      }
-    } else {
-      console.info("[Officera Lead] Note: GOOGLE_SHEET_WEBHOOK_URL is not set in .env.local yet. Run setup to connect your sheet.");
+    if (!parsed.success) {
+      return NextResponse.json(
+        { success: false, error: "Validation failed", details: parsed.error.flatten() },
+        { status: 400 }
+      );
     }
+
+    const inquiry = await createInquiry(parsed.data);
 
     return NextResponse.json({
       success: true,
-      message: "Lead recorded successfully"
+      message: "Lead recorded successfully in database & synced to sheet",
+      data: inquiry,
     });
   } catch (error: any) {
     console.error("[Officera Lead Error]:", error);

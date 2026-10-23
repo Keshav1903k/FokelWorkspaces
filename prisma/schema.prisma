@@ -1,0 +1,235 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  PARTNER
+  ADMIN
+}
+
+enum WorkspaceType {
+  COWORKING
+  MANAGED_OFFICE
+  COMMERCIAL_OFFICE
+  VIRTUAL_OFFICE
+}
+
+enum ListingStatus {
+  DRAFT
+  PENDING_APPROVAL
+  APPROVED
+  REJECTED
+  ARCHIVED
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+}
+
+model User {
+  id              String           @id @default(cuid())
+  name            String?
+  email           String           @unique
+  emailVerified   DateTime?
+  passwordHash    String?
+  image           String?
+  role            Role             @default(USER)
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+
+  bookings        TourBooking[]
+  inquiries       Inquiry[]
+  serviceRequests ServiceRequest[]
+  reviews         Review[]
+  listings        Workspace[]      @relation("PartnerListings")
+  auditLogs       AuditLog[]
+
+  @@map("users")
+}
+
+model Workspace {
+  id           String             @id @default(cuid())
+  slug         String             @unique
+  title        String
+  description  String?            @db.Text
+  type         WorkspaceType
+  location     String             // e.g. "Indiranagar, Bangalore"
+  city         String             // e.g. "Bangalore"
+  state        String?
+  pincode      String?
+  address      String?
+  latitude     Float?
+  longitude    Float?
+  capacity     Int?
+  priceDisplay String             // e.g. "₹8,500/seat" or "₹12,000/desk"
+  priceMonthly Decimal?           @db.Decimal(10, 2)
+  priceDaily   Decimal?           @db.Decimal(10, 2)
+  priceHourly  Decimal?           @db.Decimal(10, 2)
+  rating       Float              @default(4.8)
+  isFeatured   Boolean            @default(false)
+  status       ListingStatus      @default(APPROVED)
+  
+  partnerId    String?
+  partner      User?              @relation("PartnerListings", fields: [partnerId], references: [id], onDelete: SetNull)
+
+  images       WorkspaceImage[]
+  amenities    WorkspaceAmenity[]
+  bookings     TourBooking[]
+  reviews      Review[]
+
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
+
+  @@index([city, type, status])
+  @@index([status, priceMonthly])
+  @@map("workspaces")
+}
+
+model WorkspaceImage {
+  id          String    @id @default(cuid())
+  workspaceId String
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  url         String
+  altText     String?
+  order       Int       @default(0)
+  isPrimary   Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+
+  @@index([workspaceId])
+  @@map("workspace_images")
+}
+
+model Amenity {
+  id         String             @id @default(cuid())
+  name       String             @unique
+  icon       String?
+  category   String?
+  workspaces WorkspaceAmenity[]
+
+  @@map("amenities")
+}
+
+model WorkspaceAmenity {
+  workspaceId String
+  amenityId   String
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  amenity     Amenity   @relation(fields: [amenityId], references: [id], onDelete: Cascade)
+
+  @@id([workspaceId, amenityId])
+  @@index([workspaceId])
+  @@index([amenityId])
+  @@map("workspace_amenities")
+}
+
+model TourBooking {
+  id          String        @id @default(cuid())
+  workspaceId String
+  workspace   Workspace     @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  
+  userId      String?
+  user        User?         @relation(fields: [userId], references: [id], onDelete: SetNull)
+  
+  guestName   String
+  guestEmail  String
+  guestPhone  String
+  teamSize    String?
+  visitDate   DateTime
+  timeSlot    String?
+  status      BookingStatus @default(PENDING)
+  notes       String?       @db.Text
+  
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@index([workspaceId, visitDate])
+  @@index([guestEmail])
+  @@map("tour_bookings")
+}
+
+model Inquiry {
+  id        String   @id @default(cuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  type      String   @default("GENERAL") // LEAD, CONSULTATION, VIRTUAL_OFFICE, ENTERPRISE
+  name      String
+  email     String
+  phone     String?
+  interest  String?
+  teamSize  String?
+  city      String?
+  details   String?  @db.Text
+  sourceUrl String?
+  status    String   @default("NEW") // NEW, CONTACTED, QUALIFIED, RESOLVED
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([email])
+  @@index([city])
+  @@map("inquiries")
+}
+
+model ServiceRequest {
+  id          String   @id @default(cuid())
+  userId      String?
+  user        User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  serviceType String   // GST, COMPANY_INCORPORATION, TRADEMARK, LEGAL, PORTFOLIO
+  companyName String?
+  contactName String
+  email       String
+  phone       String
+  status      String   @default("PENDING") // PENDING, IN_PROGRESS, COMPLETED, CANCELLED
+  notes       String?  @db.Text
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([email])
+  @@map("service_requests")
+}
+
+model NewsletterSubscriber {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  @@map("newsletter_subscribers")
+}
+
+model Review {
+  id          String    @id @default(cuid())
+  workspaceId String
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  userId      String?
+  user        User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
+  authorName  String
+  rating      Int       @default(5)
+  comment     String    @db.Text
+  createdAt   DateTime  @default(now())
+
+  @@index([workspaceId])
+  @@map("reviews")
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  userId     String?
+  user       User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  action     String
+  entityType String
+  entityId   String?
+  details    String?  @db.Text
+  ipAddress  String?
+  createdAt  DateTime @default(now())
+
+  @@index([entityType, entityId])
+  @@map("audit_logs")
+}
