@@ -5,13 +5,23 @@ import { submitPartnerListing } from "@/server/services/partner.service";
 import { auth } from "@/auth";
 import { db } from "@/server/db";
 
+function normalizeWorkspaceType(typeStr?: string | null): string | undefined {
+  if (!typeStr || typeStr === "All") return undefined;
+  const upper = typeStr.toUpperCase().replace(/\s+/g, "_");
+  if (upper === "COWORKING_SPACE" || upper === "COWORKING") return "COWORKING";
+  if (upper === "MANAGED_OFFICE" || upper === "MANAGED_OFFICES") return "MANAGED_OFFICE";
+  if (upper === "COMMERCIAL_OFFICE" || upper === "COMMERCIAL_SPACES" || upper === "COMMERCIAL_SPACE") return "COMMERCIAL_OFFICE";
+  if (upper === "VIRTUAL_OFFICE" || upper === "VIRTUAL_OFFICES") return "VIRTUAL_OFFICE";
+  return upper;
+}
+
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
 
     const queryObj = {
       city: searchParams.get("city") || undefined,
-      type: searchParams.get("type") || undefined,
+      type: normalizeWorkspaceType(searchParams.get("type")),
       minPrice: searchParams.get("minPrice") || undefined,
       maxPrice: searchParams.get("maxPrice") || undefined,
       capacity: searchParams.get("capacity") || undefined,

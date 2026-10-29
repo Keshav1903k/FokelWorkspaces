@@ -170,7 +170,7 @@ const WORKSPACES_DATA = [
     rating: 4.6,
     description: "Highly efficient column-free floor plates within minutes of Hyderabad Financial District and ORR expressway.",
     amenities: ["Customizable Floor Plate", "Zero Maintenance Overhead", "High Security", "Metro Proximity"],
-    image: "https://images.unsplash.com/photo-1512403754473-278556139b0a?auto=format&fit=crop&q=80&w=800"
+    image: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&q=80&w=800"
   },
   {
     id: "virtual-1",
@@ -226,7 +226,7 @@ const WORKSPACES_DATA = [
     rating: 4.7,
     description: "Fast-track ROC & GST compliant virtual office package in the heart of Hyderabad's technology center.",
     amenities: ["Business Registration NOC", "Utility Bill Copies", "Courier Alerts", "Reception Answering"],
-    image: "https://images.unsplash.com/photo-1549923746-c502d488f3aa?auto=format&fit=crop&q=80&w=800"
+    image: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80&w=800"
   },
   {
     id: "kolkata-cowork",
