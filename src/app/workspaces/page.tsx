@@ -8,7 +8,7 @@ import {
   ChevronDown
 } from "lucide-react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { Suspense, useEffect } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { WORKSPACES, CITIES, WORKSPACE_TYPES } from "@/constants/data";
 import { AdvancedSearch } from "@/components/search/AdvancedSearch";
 import Link from "next/link";
@@ -23,6 +23,9 @@ function WorkspacesPageContent() {
   const selectedCity = cityParam || "All";
   const selectedType = typeParam || "All";
 
+  const [liveWorkspaces, setLiveWorkspaces] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     if (cityParam || typeParam || searchParams.get("scroll")) {
       const el = document.getElementById("listings");
@@ -34,11 +37,70 @@ function WorkspacesPageContent() {
     }
   }, [cityParam, typeParam, searchParams]);
 
-  const filteredWorkspaces = WORKSPACES.filter((w) => {
-    const matchesCity = selectedCity === "All" || w.city === selectedCity;
-    const matchesType = selectedType === "All" || w.type === selectedType;
-    return matchesCity && matchesType;
-  });
+  useEffect(() => {
+    let isMounted = true;
+    async function fetchListings() {
+      setIsLoading(true);
+      try {
+        const params = new URLSearchParams();
+        if (selectedCity !== "All") params.set("city", selectedCity);
+        if (selectedType !== "All") params.set("type", selectedType);
+
+        const res = await fetch(`/api/workspaces?${params.toString()}`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data.items && Array.isArray(data.items) && data.items.length > 0) {
+            if (isMounted) {
+              setLiveWorkspaces(
+                data.items.map((item: any) => ({
+                  id: item.id,
+                  title: item.title,
+                  city: item.city,
+                  locality: item.location,
+                  location: item.location,
+                  type:
+                    item.type === "COWORKING"
+                      ? "Coworking Space"
+                      : item.type === "VIRTUAL_OFFICE"
+                      ? "Virtual Office"
+                      : item.type === "MANAGED_OFFICE"
+                      ? "Managed Office"
+                      : item.type,
+                  price: item.priceDisplay || `₹${item.priceMonthly}/mo`,
+                  rating: item.rating || 4.8,
+                  image:
+                    item.primaryImage ||
+                    item.images?.[0]?.url ||
+                    "https://images.unsplash.com/photo-1497215728101-856f4ea42174",
+                }))
+              );
+              setIsLoading(false);
+              return;
+            }
+          }
+        }
+      } catch (err) {
+        console.warn("Failed to fetch live workspaces, using fallback data:", err);
+      }
+
+      if (isMounted) {
+        const fallback = WORKSPACES.filter((w) => {
+          const matchesCity = selectedCity === "All" || w.city === selectedCity;
+          const matchesType = selectedType === "All" || w.type === selectedType;
+          return matchesCity && matchesType;
+        });
+        setLiveWorkspaces(fallback);
+        setIsLoading(false);
+      }
+    }
+
+    fetchListings();
+    return () => {
+      isMounted = false;
+    };
+  }, [selectedCity, selectedType]);
+
+  const filteredWorkspaces = liveWorkspaces;
 
   const updateFilters = (city: string, type: string) => {
     const params = new URLSearchParams();
@@ -134,7 +196,23 @@ function WorkspacesPageContent() {
             </div>
           </div>
 
-          {filteredWorkspaces.length > 0 ? (
+          {isLoading ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[1, 2, 3, 4, 5, 6].map((n) => (
+                <div key={n} className="bg-white border border-[#E3DDD3] rounded-sm overflow-hidden animate-pulse">
+                  <div className="aspect-[16/10] bg-[#EAE5DD]" />
+                  <div className="p-4 sm:p-5">
+                    <div className="h-5 bg-[#EAE5DD] rounded-xs w-3/4 mb-3" />
+                    <div className="h-3.5 bg-[#EAE5DD] rounded-xs w-1/2 mb-4" />
+                    <div className="pt-3.5 mt-4 border-t border-[#E3DDD3] flex items-center justify-between">
+                      <div className="h-4 bg-[#EAE5DD] rounded-xs w-1/3" />
+                      <div className="h-7 bg-[#EAE5DD] rounded-xs w-24" />
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : filteredWorkspaces.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredWorkspaces.map((space, idx) => (
                 <motion.div

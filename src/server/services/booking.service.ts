@@ -1,6 +1,7 @@
 import { db } from "../db";
 import { BookingStatus } from "@prisma/client";
 import { CreateBookingInput } from "@/lib/validations/booking.schema";
+import { notifyBookingCreated } from "./notification.service";
 
 export async function createTourBooking(input: CreateBookingInput, userId?: string) {
   // Check if workspace exists
@@ -38,7 +39,7 @@ export async function createTourBooking(input: CreateBookingInput, userId?: stri
       visitDate: input.visitDate,
       timeSlot: input.timeSlot,
       notes: input.notes,
-      status: BookingStatus.CONFIRMED, // Auto-confirm initial tour visits
+      status: BookingStatus.REQUESTED, // Default to REQUESTED for admin review
     },
     include: {
       workspace: {
@@ -49,6 +50,16 @@ export async function createTourBooking(input: CreateBookingInput, userId?: stri
         },
       },
     },
+  });
+
+  // Non-blocking notification dispatch
+  notifyBookingCreated({
+    bookingId: booking.id,
+    userName: booking.guestName,
+    userEmail: booking.guestEmail,
+    userPhone: booking.guestPhone,
+    workspaceTitle: workspace.title,
+    visitDate: booking.visitDate,
   });
 
   return booking;

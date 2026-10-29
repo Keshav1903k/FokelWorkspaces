@@ -16,7 +16,7 @@ export async function getWorkspaces(filters: WorkspaceFilterInput) {
   } = filters;
 
   const where: Prisma.WorkspaceWhereInput = {
-    status: ListingStatus.APPROVED,
+    status: { in: [ListingStatus.APPROVED, ListingStatus.PUBLISHED] },
   };
 
   if (city && city.toLowerCase() !== "all") {
@@ -155,7 +155,7 @@ export async function getWorkspaceByIdOrSlug(idOrSlug: string) {
 export async function getDistinctCities() {
   const cities = await db.workspace.groupBy({
     by: ["city"],
-    where: { status: ListingStatus.APPROVED },
+    where: { status: { in: [ListingStatus.APPROVED, ListingStatus.PUBLISHED] } },
     _count: {
       id: true,
     },

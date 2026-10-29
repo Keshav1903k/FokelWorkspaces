@@ -18,6 +18,7 @@ import {
   Plus
 } from "lucide-react";
 import { getCurrentUser, logoutUser, User as AuthUser } from "@/utils/auth";
+import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
 
 const RECOMMENDED_SPACES = [
@@ -52,25 +53,27 @@ const RECOMMENDED_SPACES = [
 
 export default function ProfilePage() {
   const router = useRouter();
+  const { data: session, status: sessionStatus } = useSession();
   const [user, setUser] = useState<AuthUser | null>(null);
   const [listedProperties, setListedProperties] = useState<any[]>([]);
   const [activeBookings, setActiveBookings] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Check user on mount
-    const currentUser = getCurrentUser();
+    if (sessionStatus === "loading") return;
+
+    const currentUser = (session?.user as any) || getCurrentUser();
     setUser(currentUser);
     setLoading(false);
 
-    if (currentUser) {
+    if (currentUser?.email) {
       loadData(currentUser.email);
     }
 
     const handleAuthChange = () => {
-      const u = getCurrentUser();
+      const u = (session?.user as any) || getCurrentUser();
       setUser(u);
-      if (u) {
+      if (u?.email) {
         loadData(u.email);
       } else {
         setListedProperties([]);
@@ -82,26 +85,66 @@ export default function ProfilePage() {
     return () => {
       window.removeEventListener("auth-change", handleAuthChange);
     };
-  }, []);
+  }, [session, sessionStatus]);
 
-  const loadData = (email: string) => {
-    // Load properties
-    const props = localStorage.getItem("listed_properties");
-    if (props) {
-      try {
-        const parsed = JSON.parse(props);
-        const filtered = parsed.filter((p: any) => p.ownerEmail === email);
-        setListedProperties(filtered);
-      } catch (e) {}
+  const loadData = async (email: string) => {
+    // 1. Fetch live bookings from API
+    try {
+      const res = await fetch("/api/bookings");
+      if (res.ok) {
+        const data = await res.json();
+        if (data.bookings && Array.isArray(data.bookings) && data.bookings.length > 0) {
+          setActiveBookings(
+            data.bookings.map((b: any) => ({
+              id: b.id,
+              userEmail: b.guestEmail,
+              title: b.workspace?.title || "Office Tour Booking",
+              locality: b.workspace?.locality || "",
+              city: b.workspace?.city || "",
+              type: b.workspace?.type || "Tour Visit",
+              price: b.workspace?.price || "Free Tour",
+              image: b.workspace?.images?.[0] || RECOMMENDED_SPACES[0].image,
+              dateBooked: new Date(b.visitDate).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+              }),
+              timeSlot: b.timeSlot,
+              status: b.status || "CONFIRMED",
+            }))
+          );
+        } else {
+          loadLocalBookings(email);
+        }
+      } else {
+        loadLocalBookings(email);
+      }
+    } catch (e) {
+      loadLocalBookings(email);
     }
 
-    // Load bookings
+    // 2. Load listed properties
+    loadLocalProperties(email);
+  };
+
+  const loadLocalBookings = (email: string) => {
     const bookings = localStorage.getItem("active_bookings");
     if (bookings) {
       try {
         const parsed = JSON.parse(bookings);
         const filtered = parsed.filter((b: any) => b.userEmail === email);
         setActiveBookings(filtered);
+      } catch (e) {}
+    }
+  };
+
+  const loadLocalProperties = (email: string) => {
+    const props = localStorage.getItem("listed_properties");
+    if (props) {
+      try {
+        const parsed = JSON.parse(props);
+        const filtered = parsed.filter((p: any) => p.ownerEmail === email);
+        setListedProperties(filtered);
       } catch (e) {}
     }
   };
@@ -155,14 +198,16 @@ export default function ProfilePage() {
     }
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     if (!confirm("Are you sure you want to log out?")) return;
     logoutUser();
+    await signOut({ redirect: false });
     router.push("/");
+    router.refresh();
   };
 
   const handleOpenSignup = () => {
-    window.dispatchEvent(new Event("open-signup-modal"));
+    window.dispatchEvent(new Event("open-login-modal"));
   };
 
   if (loading) {

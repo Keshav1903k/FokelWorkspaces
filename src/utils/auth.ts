@@ -1,8 +1,11 @@
 "use client";
 
 export interface User {
+  id?: string;
   name: string;
   email: string;
+  role?: string;
+  image?: string | null;
 }
 
 export function getCurrentUser(): User | null {
@@ -16,9 +19,9 @@ export function getCurrentUser(): User | null {
   }
 }
 
-export function loginUser(name: string, email: string) {
+export function loginUser(name: string, email: string, id?: string, role?: string, image?: string | null) {
   if (typeof window === "undefined") return;
-  const user: User = { name, email };
+  const user: User = { name, email, id, role, image };
   localStorage.setItem("officera_user", JSON.stringify(user));
   window.dispatchEvent(new Event("auth-change"));
 }

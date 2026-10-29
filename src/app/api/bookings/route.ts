@@ -2,11 +2,26 @@ import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { createTourBooking, getUserBookings } from "@/server/services/booking.service";
 import { createBookingSchema } from "@/lib/validations/booking.schema";
+import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 
 export async function POST(req: Request) {
   try {
+    const ip = getClientIp(req);
+    const rateCheck = checkRateLimit(`bookings_${ip}`, { limit: 10, interval: 60 });
+    if (!rateCheck.isAllowed) {
+      return NextResponse.json(
+        { error: "Too many requests. Please try again shortly." },
+        { status: 429 }
+      );
+    }
+
     const session = await auth();
     const body = await req.json();
+
+    // Honeypot check
+    if (body._hp || body.honeypot) {
+      return NextResponse.json({ success: true, message: "Booking requested" }, { status: 201 });
+    }
 
     const parsed = createBookingSchema.safeParse(body);
     if (!parsed.success) {

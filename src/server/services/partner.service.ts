@@ -1,6 +1,7 @@
 import { db } from "../db";
 import { ListingStatus, WorkspaceType } from "@prisma/client";
 import { WorkspaceCreateInput } from "@/lib/validations/workspace.schema";
+import { notifyTeamNewListing } from "./notification.service";
 
 export async function saveListingDraft(partnerId: string, data: Partial<WorkspaceCreateInput>, draftId?: string) {
   const slug =
@@ -115,6 +116,19 @@ export async function submitPartnerListing(partnerId: string, data: WorkspaceCre
       });
     }
   }
+
+  // Non-blocking team notification
+  const partnerUser = await db.user.findUnique({
+    where: { id: partnerId },
+    select: { email: true },
+  });
+
+  notifyTeamNewListing({
+    listingId: workspace.id,
+    title: workspace.title,
+    city: workspace.city,
+    partnerEmail: partnerUser?.email,
+  });
 
   return workspace;
 }

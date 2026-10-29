@@ -163,6 +163,43 @@ export default function ListSpacePage() {
     propertiesArray.push(newProperty);
     localStorage.setItem("listed_properties", JSON.stringify(propertiesArray));
 
+    // 1. Submit to live /api/workspaces backend
+    try {
+      const priceVal =
+        Number(formData.pricingCoworking) ||
+        Number(formData.pricingCabins) ||
+        Number(formData.pricingVirtualOffice) ||
+        8000;
+
+      const spaceType = formData.pricingVirtualOffice
+        ? "VIRTUAL_OFFICE"
+        : formData.pricingCabins
+        ? "MANAGED_OFFICE"
+        : "COWORKING";
+
+      await fetch("/api/workspaces", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          title: formData.spaceName,
+          type: spaceType,
+          location: `${formData.locality}, ${formData.city}`,
+          city: formData.city,
+          address: formData.address,
+          capacity: Number(formData.capacitySeats) || 10,
+          priceDisplay: `₹${priceVal.toLocaleString("en-IN")}/seat`,
+          priceMonthly: priceVal,
+          description: formData.description || `Commercial workspace offering ${formData.capacitySeats} seats in ${formData.locality}, ${formData.city}.`,
+          amenities: formData.amenities || [],
+          images: uploadedPhotos.length > 0 ? uploadedPhotos : ["https://images.unsplash.com/photo-1497366216548-37526070297c"],
+          status: "PENDING_APPROVAL"
+        })
+      });
+    } catch (err) {
+      console.warn("Could not save to /api/workspaces directly:", err);
+    }
+
+    // 2. Submit lead record for CRM follow-up
     try {
       await fetch("/api/leads", {
         method: "POST",

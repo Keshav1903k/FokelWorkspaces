@@ -20,9 +20,11 @@ import {
 } from "lucide-react";
 import { NAV_LINKS, CITY_HUBS, NavLinkItem } from "@/constants/data";
 import { getCurrentUser, logoutUser } from "@/utils/auth";
+import { useSession, signOut } from "next-auth/react";
 
 export function Navbar() {
   const router = useRouter();
+  const { data: session } = useSession();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
@@ -61,6 +63,8 @@ export function Navbar() {
     };
   }, []);
 
+  const activeUser = session?.user || currentUser;
+
   // Close menus on route change
   useEffect(() => {
     setActiveCityMenu(null);
@@ -72,16 +76,18 @@ export function Navbar() {
     setMobileMenuOpen(false);
   };
 
-  const handleOpenSignup = () => {
-    window.dispatchEvent(new Event("open-signup-modal"));
+  const handleOpenLogin = () => {
+    window.dispatchEvent(new Event("open-login-modal"));
     setMobileMenuOpen(false);
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     if (!confirm("Are you sure you want to log out?")) return;
     logoutUser();
     setDropdownOpen(false);
+    await signOut({ redirect: false });
     router.push("/");
+    router.refresh();
   };
 
   const handleSelectCity = (cityName: string, spaceType: "Coworking Space" | "Virtual Office") => {
@@ -191,16 +197,16 @@ export function Navbar() {
 
           {/* User Account / CTA Actions */}
           <div className="flex items-center gap-4">
-            {currentUser ? (
+            {activeUser ? (
               <div className="relative">
                 <button
                   onClick={() => setDropdownOpen(!dropdownOpen)}
                   className="flex items-center gap-2 px-3 py-1.5 rounded-sm border border-[#E3DDD3] bg-white text-xs font-semibold text-[#18191C] hover:bg-[#F3EFEA] transition-all cursor-pointer"
                 >
                   <div className="w-5 h-5 rounded-full bg-primary text-white flex items-center justify-center font-bold text-[10px]">
-                    {currentUser.name ? currentUser.name[0].toUpperCase() : "U"}
+                    {activeUser.name ? activeUser.name[0].toUpperCase() : "U"}
                   </div>
-                  <span className="hidden sm:inline max-w-[110px] truncate">{currentUser.name}</span>
+                  <span className="hidden sm:inline max-w-[110px] truncate">{activeUser.name}</span>
                   <ChevronDown className="w-3.5 h-3.5 opacity-60" />
                 </button>
 
@@ -216,7 +222,12 @@ export function Navbar() {
                       >
                         <div className="px-3 py-2 bg-[#FAF8F5] border-b border-[#E3DDD3] mb-1">
                           <p className="text-xs text-[#5C5D61]">Signed in as</p>
-                          <p className="text-xs font-bold text-[#18191C] truncate">{currentUser.name}</p>
+                          <p className="text-xs font-bold text-[#18191C] truncate">{activeUser.name}</p>
+                          {(activeUser as any)?.role === "ADMIN" && (
+                            <span className="inline-block mt-1 px-1.5 py-0.5 rounded-xs text-[9px] font-bold uppercase tracking-wider bg-amber-100 text-amber-800">
+                              Admin
+                            </span>
+                          )}
                         </div>
                         <Link
                           href="/profile"
@@ -237,7 +248,7 @@ export function Navbar() {
                         <div className="h-px bg-[#E3DDD3] my-1" />
                         <button
                           onClick={handleLogout}
-                          className="w-full flex items-center gap-2.5 px-3 py-2 text-xs font-medium text-rose-600 hover:bg-rose-50 rounded-sm transition-colors text-left"
+                          className="w-full flex items-center gap-2.5 px-3 py-2 text-xs font-medium text-rose-600 hover:bg-rose-50 rounded-sm transition-colors text-left cursor-pointer"
                         >
                           <LogOut className="w-3.5 h-3.5 opacity-70" />
                           Sign out
@@ -250,7 +261,7 @@ export function Navbar() {
             ) : (
               <div className="hidden sm:flex items-center gap-3">
                 <button
-                  onClick={handleOpenSignup}
+                  onClick={handleOpenLogin}
                   className="text-sm font-medium text-[#18191C] hover:text-primary transition-colors px-3 py-2 cursor-pointer"
                 >
                   Sign in
@@ -461,22 +472,51 @@ export function Navbar() {
               })}
 
               <div className="pt-4 border-t border-[#E3DDD3] flex flex-col gap-3">
-                {!currentUser && (
+                {activeUser ? (
+                  <div className="flex flex-col gap-2">
+                    <div className="flex items-center gap-2.5 px-3 py-2 bg-white rounded-sm border border-[#E3DDD3]">
+                      <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold text-xs shrink-0">
+                        {activeUser.name ? activeUser.name[0].toUpperCase() : "U"}
+                      </div>
+                      <div className="flex flex-col min-w-0">
+                        <span className="text-xs font-bold text-[#18191C] truncate">{activeUser.name}</span>
+                        <span className="text-[11px] text-[#5C5D61] truncate">{activeUser.email}</span>
+                      </div>
+                    </div>
+                    <Link
+                      href="/profile"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center gap-2.5 px-3 py-2 text-xs font-semibold rounded-sm bg-white border border-[#E3DDD3] text-[#18191C]"
+                    >
+                      <LayoutDashboard className="w-3.5 h-3.5 opacity-70" />
+                      Dashboard
+                    </Link>
+                    <Link
+                      href="/workspaces/list-space"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center gap-2.5 px-3 py-2 text-xs font-semibold rounded-sm bg-white border border-[#E3DDD3] text-[#18191C]"
+                    >
+                      <PlusCircle className="w-3.5 h-3.5 opacity-70" />
+                      List a workspace
+                    </Link>
+                    <button
+                      onClick={handleLogout}
+                      className="w-full flex items-center justify-center gap-2 py-2 text-xs font-semibold text-rose-600 border border-rose-200 bg-rose-50 rounded-sm cursor-pointer"
+                    >
+                      <LogOut className="w-3.5 h-3.5" />
+                      Sign out
+                    </button>
+                  </div>
+                ) : (
                   <>
                     <button
-                      onClick={() => {
-                        handleOpenSignup();
-                        setMobileMenuOpen(false);
-                      }}
-                      className="w-full text-center py-2.5 border border-[#E3DDD3] rounded-sm text-sm font-medium text-[#18191C] cursor-pointer"
+                      onClick={handleOpenLogin}
+                      className="w-full text-center py-2.5 border border-[#E3DDD3] bg-white rounded-sm text-sm font-medium text-[#18191C] cursor-pointer"
                     >
                       Sign in
                     </button>
                     <button
-                      onClick={() => {
-                        handleGetStarted();
-                        setMobileMenuOpen(false);
-                      }}
+                      onClick={handleGetStarted}
                       className="w-full text-center py-2.5 bg-primary text-white rounded-sm text-sm font-semibold cursor-pointer"
                     >
                       Find a workspace

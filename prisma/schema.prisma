@@ -3,8 +3,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 enum Role {
@@ -23,35 +24,46 @@ enum WorkspaceType {
 enum ListingStatus {
   DRAFT
   PENDING_APPROVAL
+  PENDING_REVIEW
   APPROVED
+  PUBLISHED
   REJECTED
   ARCHIVED
 }
 
 enum BookingStatus {
   PENDING
+  REQUESTED
   CONFIRMED
-  CANCELLED
+  RESCHEDULED
   COMPLETED
+  CANCELLED
+}
+
+enum CallbackStatus {
+  NEW
+  CONTACTED
+  CLOSED
 }
 
 model User {
-  id              String           @id @default(cuid())
-  name            String?
-  email           String           @unique
-  emailVerified   DateTime?
-  passwordHash    String?
-  image           String?
-  role            Role             @default(USER)
-  createdAt       DateTime         @default(now())
-  updatedAt       DateTime         @updatedAt
+  id               String           @id @default(cuid())
+  name             String?
+  email            String           @unique
+  emailVerified    DateTime?
+  passwordHash     String?
+  image            String?
+  role             Role             @default(USER)
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
 
-  bookings        TourBooking[]
-  inquiries       Inquiry[]
-  serviceRequests ServiceRequest[]
-  reviews         Review[]
-  listings        Workspace[]      @relation("PartnerListings")
-  auditLogs       AuditLog[]
+  bookings         TourBooking[]
+  inquiries        Inquiry[]
+  serviceRequests  ServiceRequest[]
+  reviews          Review[]
+  listings         Workspace[]      @relation("PartnerListings")
+  reviewedListings Workspace[]      @relation("ListingReviewer")
+  auditLogs        AuditLog[]
 
   @@map("users")
 }
@@ -77,6 +89,12 @@ model Workspace {
   rating       Float              @default(4.8)
   isFeatured   Boolean            @default(false)
   status       ListingStatus      @default(APPROVED)
+
+  reviewNotes  String?            @db.Text
+  reviewedById String?
+  reviewedBy   User?              @relation("ListingReviewer", fields: [reviewedById], references: [id], onDelete: SetNull)
+  reviewedAt   DateTime?
+  publishedAt  DateTime?
   
   partnerId    String?
   partner      User?              @relation("PartnerListings", fields: [partnerId], references: [id], onDelete: SetNull)
@@ -85,10 +103,12 @@ model Workspace {
   amenities    WorkspaceAmenity[]
   bookings     TourBooking[]
   reviews      Review[]
+  callbacks    CallbackRequest[]
 
   createdAt    DateTime           @default(now())
   updatedAt    DateTime           @updatedAt
 
+  @@index([status, city])
   @@index([city, type, status])
   @@index([status, priceMonthly])
   @@map("workspaces")
@@ -131,28 +151,47 @@ model WorkspaceAmenity {
 }
 
 model TourBooking {
-  id          String        @id @default(cuid())
-  workspaceId String
-  workspace   Workspace     @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  id            String        @id @default(cuid())
+  workspaceId   String
+  workspace     Workspace     @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
   
-  userId      String?
-  user        User?         @relation(fields: [userId], references: [id], onDelete: SetNull)
+  userId        String?
+  user          User?         @relation(fields: [userId], references: [id], onDelete: SetNull)
   
-  guestName   String
-  guestEmail  String
-  guestPhone  String
-  teamSize    String?
-  visitDate   DateTime
-  timeSlot    String?
-  status      BookingStatus @default(PENDING)
-  notes       String?       @db.Text
+  guestName     String
+  guestEmail    String
+  guestPhone    String
+  teamSize      String?
+  visitDate     DateTime
+  timeSlot      String?
+  status        BookingStatus @default(PENDING)
+  rescheduledTo DateTime?
+  notes         String?       @db.Text
   
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
 
+  @@index([status, visitDate])
   @@index([workspaceId, visitDate])
   @@index([guestEmail])
   @@map("tour_bookings")
+}
+
+model CallbackRequest {
+  id            String         @id @default(cuid())
+  name          String
+  phone         String
+  preferredTime String?
+  workspaceId   String?
+  workspace     Workspace?     @relation(fields: [workspaceId], references: [id], onDelete: SetNull)
+  status        CallbackStatus @default(NEW)
+  notes         String?        @db.Text
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  @@index([status])
+  @@index([createdAt])
+  @@map("callback_requests")
 }
 
 model Inquiry {
@@ -223,13 +262,16 @@ model AuditLog {
   id         String   @id @default(cuid())
   userId     String?
   user       User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  actorId    String?
   action     String
   entityType String
   entityId   String?
+  metadata   Json?
   details    String?  @db.Text
   ipAddress  String?
   createdAt  DateTime @default(now())
 
   @@index([entityType, entityId])
+  @@index([createdAt])
   @@map("audit_logs")
 }

@@ -1,10 +1,28 @@
 import { NextResponse } from "next/server";
 import { createInquiry } from "@/server/services/inquiry.service";
 import { inquirySchema } from "@/lib/validations/inquiry.schema";
+import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 
 export async function POST(request: Request) {
   try {
+    const ip = getClientIp(request);
+    const rateCheck = checkRateLimit(`leads_${ip}`, { limit: 10, interval: 60 });
+    if (!rateCheck.isAllowed) {
+      return NextResponse.json(
+        { error: "Too many requests. Please try again in a few moments." },
+        { status: 429 }
+      );
+    }
+
     const body = await request.json();
+
+    // Honeypot check
+    if (body._hp || body.honeypot) {
+      return NextResponse.json({
+        success: true,
+        message: "Lead recorded successfully in database & synced to sheet",
+      });
+    }
 
     const parsed = inquirySchema.safeParse({
       type: body.type || "LEAD",

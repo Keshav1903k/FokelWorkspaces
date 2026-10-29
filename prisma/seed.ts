@@ -1,4 +1,5 @@
 import { PrismaClient, WorkspaceType, ListingStatus, Role } from "@prisma/client";
+import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
 
@@ -286,19 +287,34 @@ const WORKSPACES_DATA = [
 ];
 
 async function main() {
-  console.log("🌱 Starting database seeding...");
+  console.log("Starting database seeding...");
+
+  const adminEmail = process.env.ADMIN_EMAIL || "admin@officera.in";
+  const rawAdminPassword = process.env.ADMIN_PASSWORD || "Admin@Officera2025!";
+  const passwordHash = await bcrypt.hash(rawAdminPassword, 10);
 
   // 1. Seed Admin User
   const adminUser = await prisma.user.upsert({
-    where: { email: "admin@officera.in" },
-    update: {},
+    where: { email: adminEmail },
+    update: {
+      role: Role.ADMIN,
+      passwordHash,
+    },
     create: {
       name: "Officera Admin",
-      email: "admin@officera.in",
+      email: adminEmail,
       role: Role.ADMIN,
+      passwordHash,
     },
   });
-  console.log(`👤 Admin user ready: ${adminUser.email}`);
+  console.log(`Admin user ready: ${adminUser.email}`);
+
+  // In production, only seed the admin user as required by Step 1 of Phase 4
+  const isProduction = process.env.NODE_ENV === "production" || process.env.VERCEL_ENV === "production";
+  if (isProduction) {
+    console.log("Production environment detected: Skipping fake test data seeding.");
+    return;
+  }
 
   // 2. Extract & Seed All Unique Amenities
   const allAmenities = new Set<string>();
@@ -315,7 +331,7 @@ async function main() {
     });
     amenityMap.set(name, amenity.id);
   }
-  console.log(`✨ Seeded ${amenityMap.size} unique amenities.`);
+  console.log(`Seeded ${amenityMap.size} unique amenities.`);
 
   // 3. Seed Workspaces, Images & Amenities
   for (const item of WORKSPACES_DATA) {
@@ -381,13 +397,13 @@ async function main() {
     }
   }
 
-  console.log(`🏢 Seeded ${WORKSPACES_DATA.length} workspaces successfully.`);
-  console.log("✅ Database seeding completed successfully!");
+  console.log(`Seeded ${WORKSPACES_DATA.length} workspaces successfully.`);
+  console.log("Database seeding completed successfully!");
 }
 
 main()
   .catch((e) => {
-    console.error("❌ Seeding error:", e);
+    console.error("Seeding error:", e);
     process.exit(1);
   })
   .finally(async () => {
