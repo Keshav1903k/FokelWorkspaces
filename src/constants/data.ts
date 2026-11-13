@@ -668,15 +668,13 @@ export const NAV_LINKS: NavLinkItem[] = [
     name: "Coworking Spaces", 
     href: "/coworking-spaces", 
     isCityDropdown: true, 
-    spaceType: "Coworking Space",
-    badge: "Hot"
+    spaceType: "Coworking Space"
   },
   { 
     name: "Virtual Offices", 
     href: "/virtual-offices", 
     isCityDropdown: true, 
-    spaceType: "Virtual Office",
-    badge: "Popular"
+    spaceType: "Virtual Office"
   },
   { name: "Explore", href: "/workspaces" },
   { name: "Solutions", href: "/solutions" },
