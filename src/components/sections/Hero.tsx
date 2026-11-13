@@ -13,20 +13,6 @@ export function Hero() {
           
           {/* Left Column: Clean Sans Headline & Search */}
           <div className="lg:col-span-6 xl:col-span-5 flex flex-col items-start gap-6 z-10">
-            
-            {/* Eyebrow */}
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="flex items-center gap-2.5"
-            >
-              <span className="w-6 h-px bg-primary" />
-              <span className="text-xs font-semibold text-primary uppercase tracking-wider">
-                Flexible workspaces across India
-              </span>
-            </motion.div>
-
             {/* Clean Sans Headline */}
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
