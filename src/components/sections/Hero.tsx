@@ -10,7 +10,7 @@ export function Hero() {
     <section className="relative bg-[#121316] -mt-[88px] pt-28 pb-16 md:pt-32 md:pb-20 border-b border-[#2E2F34] overflow-hidden text-white">
       <div className="container mx-auto px-6 max-w-7xl xl:max-w-[1380px] 2xl:max-w-[1480px]">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-stretch">
-          
+
           {/* Left Column: Clean Sans Headline & Search */}
           <div className="lg:col-span-6 xl:col-span-5 flex flex-col items-start gap-6 z-10">
             {/* Clean Sans Headline */}
@@ -57,12 +57,12 @@ export function Hero() {
               <div className="relative border border-[#2E2F34] bg-[#1C1D22] p-2.5 sm:p-3 shadow-2xl rounded-sm h-full flex flex-col">
                 <div className="relative flex-1 min-h-[360px] lg:min-h-0 overflow-hidden bg-[#18191C] rounded-sm">
                   <img
-                    src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200"
-                    alt="Executive office space in Cyber City Gurugram"
+                    src="/images/properties/cowrks-dlf-cyber-city/image-1.jpg"
+                    alt="Executive workspace in DLF Cyber City, Gurugram"
                     className="w-full h-full object-cover object-center filter saturate-[0.95] contrast-[1.02]"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" />
-                  
+
                   {/* Photo Caption Overlay */}
                   <div className="absolute bottom-4 left-4 right-4 text-white flex items-end justify-between">
                     <div>
@@ -74,7 +74,7 @@ export function Hero() {
                       </p>
                     </div>
                     <Link
-                      href="/workspaces"
+                      href="/coworking/gurugram/dlf-cyber-city/ofchr01"
                       className="w-8 h-8 bg-white/20 hover:bg-white text-white hover:text-[#18191C] backdrop-blur-md rounded-sm flex items-center justify-center transition-colors"
                       aria-label="View workspace details"
                     >

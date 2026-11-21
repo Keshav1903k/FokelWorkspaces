@@ -21,7 +21,7 @@ const WORKSPACE_FORMATS: FormatItem[] = [
     title: "Coworking & hot desks",
     description: "Flexible shared workstations in energetic, fully serviced professional environments with high-speed fiber internet and community perks.",
     idealFor: "Freelancers, remote teams and early-stage startups",
-    image: "https://images.unsplash.com/photo-1527192491265-7e15c55b1ed2?auto=format&fit=crop&q=80&w=1000"
+    image: "/images/properties/wework-prestige-cube-koramangala/image-1.jpg"
   },
   {
     id: "managed",
@@ -29,7 +29,7 @@ const WORKSPACE_FORMATS: FormatItem[] = [
     title: "Managed office suites",
     description: "Bespoke, brand-tailored corporate floors fully operational with dedicated reception, IT infrastructure, and zero capital expenditure.",
     idealFor: "Growing teams and enterprise divisions",
-    image: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80&w=1000"
+    image: "/images/properties/smartworks-worldmark-4-aerocity/image-1.jpg"
   },
   {
     id: "private",
@@ -37,7 +37,7 @@ const WORKSPACE_FORMATS: FormatItem[] = [
     title: "Private cabins & offices",
     description: "Secure, lockable private offices for individual teams seeking quiet focus, sound isolation, and dedicated administrative support.",
     idealFor: "Teams of 4 to 30 people",
-    image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&q=80&w=1000"
+    image: "/images/properties/91springboard-dlf-building-7a/image-2.jpg"
   },
   {
     id: "virtual",
@@ -45,7 +45,7 @@ const WORKSPACE_FORMATS: FormatItem[] = [
     title: "Virtual office address",
     description: "Prestigious corporate GST business addresses in top commercial districts complete with mail forwarding and official documentation.",
     idealFor: "Company registration and remote businesses",
-    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1000"
+    image: "/images/properties/international-trade-tower-nehru-place/image-2.jpg"
   },
   {
     id: "meeting",
@@ -53,7 +53,7 @@ const WORKSPACE_FORMATS: FormatItem[] = [
     title: "On-demand meeting rooms",
     description: "Boardrooms and conference suites equipped with 4K AV displays, acoustic paneling, video conferencing, and hospitality catering.",
     idealFor: "Client pitches, board meetings and workshops",
-    image: "https://images.unsplash.com/photo-1517502884422-41eaead166d4?auto=format&fit=crop&q=80&w=1000"
+    image: "/images/properties/22-workspace-corporate-house/image-2.jpg"
   }
 ];
 

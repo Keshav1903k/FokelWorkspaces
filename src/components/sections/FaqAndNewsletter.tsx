@@ -13,8 +13,8 @@ export function FaqAndNewsletter() {
 
   const FAQS = [
     {
-      question: "How does Officera make money as an aggregator?",
-      answer: "Officera charges zero brokerage fees to tenants or businesses. Space operators and building owners pay a standardized referral fee when a lease is signed."
+      question: "How does Officera work as an aggregator?",
+      answer: "Officera aggregates verified commercial workspaces and business centers across top cities. Space operators partner with us to list verified office spaces and assist clients with dedicated onboarding."
     },
     {
       question: "How are workspace listings verified?",

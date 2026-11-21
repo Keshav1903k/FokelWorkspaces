@@ -39,7 +39,7 @@ const AGGREGATOR_FLOW: StepItem[] = [
   {
     number: "05",
     title: "Schedule a tour",
-    subtitle: "Book physical or virtual walkthroughs directly with zero brokerage fee.",
+    subtitle: "Book physical or virtual walkthroughs directly with dedicated advisor assistance.",
     icon: Calendar
   }
 ];

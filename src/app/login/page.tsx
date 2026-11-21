@@ -55,9 +55,17 @@ function LoginForm() {
     }
   };
 
-  const handleAutofillAdmin = () => {
-    setEmail("admin@officera.in");
-    setPassword("Admin@Officera2025!");
+  const handleAutofill = (role: "admin" | "partner" | "user") => {
+    if (role === "admin") {
+      setEmail("admin@officera.in");
+      setPassword("Admin@Officera2025!");
+    } else if (role === "partner") {
+      setEmail("partner@officera.in");
+      setPassword("Partner@Officera2025!");
+    } else {
+      setEmail("user@officera.in");
+      setPassword("User@Officera2025!");
+    }
     setErrorMessage("");
   };
 
@@ -147,15 +155,34 @@ function LoginForm() {
       </form>
 
       {/* Demo Quick Fill Helper */}
-      <div className="pt-2">
-        <button
-          type="button"
-          onClick={handleAutofillAdmin}
-          className="w-full py-2 px-3 rounded-xl border border-zinc-800 hover:border-zinc-700 bg-zinc-950 text-xs text-zinc-400 hover:text-zinc-200 transition-colors flex items-center justify-center gap-1.5"
-        >
-          <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-          Autofill Default Admin Credentials
-        </button>
+      <div className="pt-2 space-y-2">
+        <p className="text-[11px] text-zinc-400 text-center font-medium">Quick Fill Credentials:</p>
+        <div className="grid grid-cols-3 gap-2">
+          <button
+            type="button"
+            onClick={() => handleAutofill("admin")}
+            className="py-2 px-2 rounded-xl border border-zinc-800 hover:border-amber-500/50 bg-zinc-950 text-xs text-zinc-300 hover:text-white transition-colors flex items-center justify-center gap-1.5"
+          >
+            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+            Admin
+          </button>
+          <button
+            type="button"
+            onClick={() => handleAutofill("partner")}
+            className="py-2 px-2 rounded-xl border border-zinc-800 hover:border-blue-500/50 bg-zinc-950 text-xs text-zinc-300 hover:text-white transition-colors flex items-center justify-center gap-1.5"
+          >
+            <ShieldCheck className="w-3.5 h-3.5 text-blue-400" />
+            Partner
+          </button>
+          <button
+            type="button"
+            onClick={() => handleAutofill("user")}
+            className="py-2 px-2 rounded-xl border border-zinc-800 hover:border-emerald-500/50 bg-zinc-950 text-xs text-zinc-300 hover:text-white transition-colors flex items-center justify-center gap-1.5"
+          >
+            <Mail className="w-3.5 h-3.5 text-emerald-400" />
+            User
+          </button>
+        </div>
       </div>
 
       {/* Footer */}

@@ -11,6 +11,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 import { WORKSPACES, CITIES, WORKSPACE_TYPES } from "@/constants/data";
 import { AdvancedSearch } from "@/components/search/AdvancedSearch";
+import { getWorkspaceUrl } from "@/lib/workspace-url";
 import Link from "next/link";
 
 function WorkspacesPageContent() {
@@ -19,6 +20,7 @@ function WorkspacesPageContent() {
 
   const cityParam = searchParams.get("city");
   const typeParam = searchParams.get("type");
+  const searchParam = searchParams.get("search");
 
   const selectedCity = cityParam || "All";
   const selectedType = typeParam || "All";
@@ -27,7 +29,7 @@ function WorkspacesPageContent() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (cityParam || typeParam || searchParams.get("scroll")) {
+    if (cityParam || typeParam || searchParam || searchParams.get("scroll")) {
       const el = document.getElementById("listings");
       if (el) {
         setTimeout(() => {
@@ -35,7 +37,7 @@ function WorkspacesPageContent() {
         }, 150);
       }
     }
-  }, [cityParam, typeParam, searchParams]);
+  }, [cityParam, typeParam, searchParam, searchParams]);
 
   useEffect(() => {
     let isMounted = true;
@@ -45,6 +47,7 @@ function WorkspacesPageContent() {
         const params = new URLSearchParams();
         if (selectedCity !== "All") params.set("city", selectedCity);
         if (selectedType !== "All") params.set("type", selectedType);
+        if (searchParam) params.set("search", searchParam);
 
         const res = await fetch(`/api/workspaces?${params.toString()}`);
         if (res.ok) {
@@ -54,6 +57,7 @@ function WorkspacesPageContent() {
               setLiveWorkspaces(
                 data.items.map((item: any) => ({
                   id: item.id,
+                  slug: item.slug || item.id,
                   title: item.title,
                   city: item.city,
                   locality: item.location,
@@ -87,7 +91,11 @@ function WorkspacesPageContent() {
         const fallback = WORKSPACES.filter((w) => {
           const matchesCity = selectedCity === "All" || w.city === selectedCity;
           const matchesType = selectedType === "All" || w.type === selectedType;
-          return matchesCity && matchesType;
+          const matchesSearch = !searchParam || 
+            w.title.toLowerCase().includes(searchParam.toLowerCase()) || 
+            (w.locality && w.locality.toLowerCase().includes(searchParam.toLowerCase())) ||
+            (w.location && w.location.toLowerCase().includes(searchParam.toLowerCase()));
+          return matchesCity && matchesType && matchesSearch;
         });
         setLiveWorkspaces(fallback);
         setIsLoading(false);
@@ -98,7 +106,7 @@ function WorkspacesPageContent() {
     return () => {
       isMounted = false;
     };
-  }, [selectedCity, selectedType]);
+  }, [selectedCity, selectedType, searchParam]);
 
   const filteredWorkspaces = liveWorkspaces;
 
@@ -222,7 +230,7 @@ function WorkspacesPageContent() {
                   transition={{ duration: 0.4, delay: idx * 0.05 }}
                   className="bg-white border border-[#E3DDD3] rounded-sm overflow-hidden flex flex-col justify-between group hover:border-primary transition-all shadow-sm"
                 >
-                  <Link href={`/workspaces/${space.id}`} className="relative aspect-[16/10] overflow-hidden bg-[#F3EFEA] block">
+                  <Link href={getWorkspaceUrl(space)} className="relative aspect-[16/10] overflow-hidden bg-[#F3EFEA] block">
                     <img
                       src={space.image}
                       alt={space.title}
@@ -234,7 +242,7 @@ function WorkspacesPageContent() {
                     <div>
                       <div className="flex items-start justify-between gap-2 mb-1.5">
                         <h3 className="text-base sm:text-lg font-bold text-[#18191C] group-hover:text-primary transition-colors tracking-tight line-clamp-1">
-                          <Link href={`/workspaces/${space.id}`}>
+                          <Link href={getWorkspaceUrl(space)}>
                             {space.title}
                           </Link>
                         </h3>
@@ -253,7 +261,7 @@ function WorkspacesPageContent() {
                         {space.price}
                       </span>
                       <Link
-                        href={`/workspaces/${space.id}`}
+                        href={getWorkspaceUrl(space)}
                         className="bg-primary hover:bg-[#A93E1B] text-white px-3.5 py-1.5 rounded-sm font-semibold text-xs transition-colors"
                       >
                         View details →

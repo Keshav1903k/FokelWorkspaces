@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Quote } from "lucide-react";
+import { Star } from "lucide-react";
 import { TESTIMONIALS } from "@/constants/data";
 
 export function Testimonials() {
@@ -48,8 +48,10 @@ export function Testimonials() {
                 className="w-[320px] sm:w-[400px] bg-white border border-[#E3DDD3] rounded-lg p-6 flex flex-col justify-between shadow-xs hover:border-primary/50 transition-colors shrink-0 group"
               >
                 <div>
-                  <div className="flex items-center justify-end mb-4">
-                    <Quote className="w-5 h-5 text-primary/30 group-hover:text-primary transition-colors" />
+                  <div className="flex items-center gap-1 text-amber-500 mb-4">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-3.5 h-3.5 fill-current" />
+                    ))}
                   </div>
 
                   <p className="text-sm text-[#18191C] leading-relaxed mb-6 font-normal">
@@ -57,20 +59,10 @@ export function Testimonials() {
                   </p>
                 </div>
 
-                <div className="flex items-center gap-3 pt-4 border-t border-[#E3DDD3]/60">
-                  <img
-                    src={item.avatar}
-                    alt={item.name}
-                    className="w-10 h-10 rounded-full object-cover border border-[#E3DDD3]"
-                  />
-                  <div>
-                    <h4 className="text-sm font-bold text-[#18191C] leading-none">
-                      {item.name}
-                    </h4>
-                    <p className="text-xs text-[#5C5D61] mt-1">
-                      {item.role} · <span className="font-medium text-[#18191C]">{item.company}</span>
-                    </p>
-                  </div>
+                <div className="pt-4 border-t border-[#E3DDD3]/60">
+                  <h4 className="text-sm font-bold text-[#18191C] leading-none">
+                    {item.name}
+                  </h4>
                 </div>
               </div>
             ))}

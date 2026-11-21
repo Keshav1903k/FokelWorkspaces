@@ -7,7 +7,11 @@ export const registerSchema = z.object({
     .string()
     .min(6, "Password must be at least 6 characters")
     .max(100, "Password is too long"),
+  confirmPassword: z.string().optional(),
   role: z.enum(["USER", "PARTNER", "ADMIN"]).default("USER"),
+}).refine((data) => !data.confirmPassword || data.password === data.confirmPassword, {
+  message: "Passwords do not match",
+  path: ["confirmPassword"],
 });
 
 export const loginSchema = z.object({

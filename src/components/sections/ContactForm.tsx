@@ -79,7 +79,7 @@ export function ContactForm() {
                 </div>
                 <div>
                   <p className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Email Us</p>
-                  <p className="text-sm font-semibold text-slate-800">support@officera.com</p>
+                  <p className="text-sm font-semibold text-slate-800">officera.spaces@gmail.com</p>
                 </div>
               </div>
 

@@ -84,7 +84,7 @@ export default function VirtualOfficesPage() {
                   </div>
                   <div className="absolute bottom-3 left-3 right-3 text-white">
                     <h3 className="text-lg font-bold">{city.name}</h3>
-                    <p className="text-xs text-white/80 line-clamp-1">{city.popularAreas}</p>
+                    <p className="text-xs text-white/90 line-clamp-1 font-medium">{city.stateBreakdown || city.popularAreas}</p>
                   </div>
                 </div>
 

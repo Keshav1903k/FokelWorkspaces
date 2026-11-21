@@ -14,41 +14,45 @@ interface SpaceSpec {
   meetingCredits: string;
   accessHours: string;
   gstRegistration: boolean;
+  href?: string;
 }
 
 const COMPARISON_DATA: SpaceSpec[] = [
   {
-    name: "The Zenith Cyber City",
+    name: "DLF Cyber City Coworking 01",
     city: "Gurugram",
-    type: "Managed Office",
-    pricePerSeat: "₹18,500 / mo",
-    lockInPeriod: "6 Months",
+    type: "Coworking Space",
+    pricePerSeat: "₹19,999 / mo",
+    lockInPeriod: "3 Months (Flex)",
     metroDistance: "200m from Rapid Metro",
     meetingCredits: "20 hours / seat",
     accessHours: "24/7 Unlimited",
-    gstRegistration: true
+    gstRegistration: true,
+    href: "/coworking/gurugram/dlf-cyber-city/ofchr01"
   },
   {
-    name: "AeroHub Workspaces",
+    name: "Aerocity Coworking 01",
     city: "Delhi Aerocity",
     type: "Coworking Space",
-    pricePerSeat: "₹14,200 / mo",
+    pricePerSeat: "₹24,999 / mo",
     lockInPeriod: "3 Months",
     metroDistance: "400m from Airport Express",
     meetingCredits: "12 hours / seat",
     accessHours: "24/7 Unlimited",
-    gstRegistration: true
+    gstRegistration: true,
+    href: "/coworking/delhi/aerocity/ofcdl13"
   },
   {
-    name: "Indiranagar Executive Suite",
+    name: "Koramangala Coworking 01",
     city: "Bangalore",
-    type: "Private Cabin",
-    pricePerSeat: "₹16,000 / mo",
+    type: "Private Office / Coworking",
+    pricePerSeat: "₹27,699 / mo",
     lockInPeriod: "1 Month (Flex)",
-    metroDistance: "150m from Purple Line",
+    metroDistance: "300m from Hosur Road Metro Hub",
     meetingCredits: "15 hours / seat",
     accessHours: "24/7 Unlimited",
-    gstRegistration: true
+    gstRegistration: true,
+    href: "/coworking/bangalore/koramangala/ofcka02"
   }
 ];
 
@@ -82,7 +86,16 @@ export function ComparisonPanel() {
                   {COMPARISON_DATA.map((space) => (
                     <th key={space.name} className="p-4 border-l border-[#E3DDD3] w-1/4">
                       <span className="text-xs font-semibold text-primary block">{space.city} · {space.type}</span>
-                      <span className="text-base font-bold text-[#18191C]">{space.name}</span>
+                      {space.href ? (
+                        <Link
+                          href={space.href}
+                          className="text-base font-bold text-[#18191C] hover:text-primary hover:underline transition-colors block"
+                        >
+                          {space.name}
+                        </Link>
+                      ) : (
+                        <span className="text-base font-bold text-[#18191C]">{space.name}</span>
+                      )}
                     </th>
                   ))}
                 </tr>

@@ -113,7 +113,7 @@ export default function ContactPage() {
                       <div>
                         <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-0.5">Support Desk</p>
                         <p className="text-sm font-semibold text-foreground leading-relaxed">
-                          <a href="mailto:support@officera.com" className="hover:text-primary transition-colors">support@officera.com</a>
+                          <a href="mailto:officera.spaces@gmail.com" className="hover:text-primary transition-colors">officera.spaces@gmail.com</a>
                         </p>
                       </div>
                     </div>

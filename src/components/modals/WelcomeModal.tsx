@@ -12,6 +12,7 @@ export function WelcomeModal() {
   const [isOpen, setIsOpen] = useState(false);
   const [mode, setMode] = useState<"consultation" | "signup" | "login">("consultation");
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -22,6 +23,7 @@ export function WelcomeModal() {
     email: "",
     interest: "virtual-office",
     password: "",
+    confirmPassword: "",
   });
 
   useEffect(() => {
@@ -50,17 +52,10 @@ export function WelcomeModal() {
     window.addEventListener("open-signup-modal", handleOpenSignup);
     window.addEventListener("open-login-modal", handleOpenLogin);
 
-    const timer = setTimeout(() => {
-      const hasSeenModal = sessionStorage.getItem("hasSeenWelcomeModal");
-      if (!hasSeenModal) {
-        setMode("consultation");
-        setIsOpen(true);
-        sessionStorage.setItem("hasSeenWelcomeModal", "true");
-      }
-    }, 2000);
+    // Note: Automatic popup upon opening website has been removed per requirements.
+    // Consultation requests and account access are triggered on-demand by the user.
 
     return () => {
-      clearTimeout(timer);
       window.removeEventListener("open-welcome-modal", handleOpenConsultation);
       window.removeEventListener("open-signup-modal", handleOpenSignup);
       window.removeEventListener("open-login-modal", handleOpenLogin);
@@ -90,7 +85,7 @@ export function WelcomeModal() {
         // Successfully logged in
         loginUser(formData.email.split("@")[0], formData.email);
         setIsOpen(false);
-        setFormData({ name: "", phone: "", email: "", interest: "virtual-office", password: "" });
+        setFormData({ name: "", phone: "", email: "", interest: "virtual-office", password: "", confirmPassword: "" });
         router.refresh();
         return;
       }
@@ -102,6 +97,12 @@ export function WelcomeModal() {
           return;
         }
 
+        if (formData.password !== formData.confirmPassword) {
+          setErrorMsg("Passwords do not match. Please ensure both passwords are identical.");
+          setIsSubmitting(false);
+          return;
+        }
+
         const regRes = await fetch("/api/auth/register", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -109,6 +110,7 @@ export function WelcomeModal() {
             name: formData.name.trim(),
             email: formData.email.trim().toLowerCase(),
             password: formData.password,
+            confirmPassword: formData.confirmPassword,
             role: "USER",
           }),
         });
@@ -135,7 +137,7 @@ export function WelcomeModal() {
         );
 
         setIsOpen(false);
-        setFormData({ name: "", phone: "", email: "", interest: "virtual-office", password: "" });
+        setFormData({ name: "", phone: "", email: "", interest: "virtual-office", password: "", confirmPassword: "" });
         router.refresh();
         return;
       }
@@ -159,7 +161,7 @@ export function WelcomeModal() {
       setTimeout(() => {
         setIsOpen(false);
         setSuccessMsg("");
-        setFormData({ name: "", phone: "", email: "", interest: "virtual-office", password: "" });
+        setFormData({ name: "", phone: "", email: "", interest: "virtual-office", password: "", confirmPassword: "" });
       }, 1500);
 
     } catch (err: any) {
@@ -351,6 +353,29 @@ export function WelcomeModal() {
                       className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 cursor-pointer"
                     >
                       {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {mode === "signup" && (
+                <div className="flex flex-col gap-1 relative">
+                  <label className="text-xs font-semibold text-slate-700 ml-0.5">Confirm Password*</label>
+                  <div className="relative w-full">
+                    <input
+                      type={showConfirmPassword ? "text" : "password"}
+                      required
+                      value={formData.confirmPassword}
+                      onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
+                      placeholder="Confirm your password"
+                      className="w-full bg-slate-50 border border-slate-200 rounded-lg pl-3.5 pr-10 py-2.5 text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-xs"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 cursor-pointer"
+                    >
+                      {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                     </button>
                   </div>
                 </div>

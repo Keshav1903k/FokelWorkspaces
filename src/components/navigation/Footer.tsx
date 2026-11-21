@@ -1,10 +1,13 @@
 "use client";
 
 import Link from "next/link";
+import { CityLocationTags } from "./CityLocationTags";
 
 export function Footer() {
   return (
-    <footer className="bg-[#151619] text-[#FAF8F5] pt-16 pb-12 border-t border-[#282A2E]">
+    <>
+      <CityLocationTags />
+      <footer className="bg-[#151619] text-[#FAF8F5] pt-16 pb-12 border-t border-[#282A2E]">
       <div className="container mx-auto px-6 max-w-7xl">
         
         {/* Header */}
@@ -99,7 +102,13 @@ export function Footer() {
           <p className="mt-2 sm:mt-0">Designed for Indian business districts</p>
         </div>
 
+        {/* Disclaimer Note */}
+        <div className="pt-4 text-[9px] text-white/25 leading-relaxed text-center sm:text-left select-none">
+          <p>* Disclaimer: Property details, pricing, and specifications listed on this platform are not fully verified and are subject to change. Please verify all information directly with the respective workspace operator prior to booking.</p>
+        </div>
+
       </div>
     </footer>
+    </>
   );
 }

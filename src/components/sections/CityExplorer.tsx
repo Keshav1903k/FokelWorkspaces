@@ -90,12 +90,6 @@ export function CityExplorer() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
                   
-                  <div className="absolute top-3 left-3">
-                    <span className="bg-white/90 backdrop-blur-md text-[#18191C] text-xs font-semibold px-2.5 py-1 rounded-sm shadow-xs">
-                      {city.name}
-                    </span>
-                  </div>
-
                   <div className="absolute bottom-3 right-3">
                     <div className="w-8 h-8 rounded-sm bg-white/20 group-hover:bg-primary text-white flex items-center justify-center transition-colors backdrop-blur-xs">
                       <ArrowUpRight className="w-4 h-4" />
@@ -103,7 +97,8 @@ export function CityExplorer() {
                   </div>
                 </div>
 
-                <div className="p-3.5 bg-white border-t border-[#E3DDD3] flex items-center justify-end text-xs text-[#18191C]">
+                <div className="p-3.5 bg-white border-t border-[#E3DDD3] flex items-center justify-between text-xs text-[#18191C]">
+                  <span className="font-semibold text-sm text-[#18191C]">{city.name}</span>
                   <span className="text-primary font-semibold group-hover:underline">Explore location →</span>
                 </div>
               </Link>

@@ -371,8 +371,8 @@ export function Navbar() {
                           <span className="text-[10px] font-bold text-primary block">
                             {activeCityMenu === "Coworking Space" ? city.coworkingCount : city.virtualCount}
                           </span>
-                          <p className="text-[11px] text-[#5C5D61] line-clamp-1 mt-0.5">
-                            {city.popularAreas}
+                          <p className="text-[10px] text-[#5C5D61] line-clamp-1 mt-0.5 font-medium">
+                            {city.stateBreakdown || city.popularAreas}
                           </p>
                         </div>
 

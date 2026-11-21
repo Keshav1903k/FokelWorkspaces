@@ -49,7 +49,7 @@ export function ForBusinesses() {
             <div className="border border-[#282A2E] p-3 bg-[#1C1D22] rounded-sm">
               <div className="relative aspect-[16/11] overflow-hidden bg-black rounded-sm">
                 <img
-                  src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80&w=1200"
+                  src="/images/properties/cowrks-aerocity-worldmark-1a/image-2.jpg"
                   alt="Enterprise managed office suite"
                   className="w-full h-full object-cover filter saturate-[0.9] contrast-[1.05]"
                 />

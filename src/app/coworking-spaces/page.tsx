@@ -33,7 +33,7 @@ export default function CoworkingSpacesPage() {
               Find Coworking Spaces Across India
             </h1>
             <p className="text-sm sm:text-base text-[#9E9EA5] leading-relaxed max-w-2xl">
-              Choose your city to explore verified hot desks, dedicated seats, and private team suites in India's top commercial hubs. No long lock-ins or brokerage fees.
+              Choose your city to explore verified hot desks, dedicated seats, and private team suites in India's top commercial hubs with flexible leases and move-in support.
             </p>
           </div>
         </div>
@@ -84,7 +84,7 @@ export default function CoworkingSpacesPage() {
                   </div>
                   <div className="absolute bottom-3 left-3 right-3 text-white">
                     <h3 className="text-lg font-bold">{city.name}</h3>
-                    <p className="text-xs text-white/80 line-clamp-1">{city.popularAreas}</p>
+                    <p className="text-xs text-white/90 line-clamp-1 font-medium">{city.stateBreakdown || city.popularAreas}</p>
                   </div>
                 </div>
 

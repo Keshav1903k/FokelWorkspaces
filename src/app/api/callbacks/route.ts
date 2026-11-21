@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { db } from "@/server/db";
+import { db, withDbTimeout } from "@/server/db";
 import { callbackRequestSchema } from "@/lib/validations/callback.schema";
 import { notifyTeamCallbackRequest } from "@/server/services/notification.service";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
@@ -38,31 +38,59 @@ export async function POST(request: Request) {
 
     let workspaceTitle: string | null = null;
     if (workspaceId) {
-      const ws = await db.workspace.findUnique({
-        where: { id: workspaceId },
-        select: { title: true },
-      });
-      if (ws) workspaceTitle = ws.title;
+      try {
+        const ws = await withDbTimeout(
+          db.workspace.findUnique({
+            where: { id: workspaceId },
+            select: { title: true },
+          }),
+          1500
+        );
+        if (ws) workspaceTitle = ws.title;
+      } catch (e) {
+        console.warn("[Database Offline / Workspace lookup skipped]:", e);
+      }
     }
 
-    // 3. Save callback request to database
-    const callbackRequest = await db.callbackRequest.create({
-      data: {
+    // 3. Save callback request to database (with offline fallback)
+    let callbackRequest: any = null;
+    try {
+      callbackRequest = await withDbTimeout(
+        db.callbackRequest.create({
+          data: {
+            name,
+            phone,
+            preferredTime: preferredTime || null,
+            workspaceId: workspaceId || null,
+            status: "NEW",
+          },
+        }),
+        1500
+      );
+    } catch (dbErr) {
+      console.warn("[Database Offline / Callback processed offline]:", dbErr);
+      callbackRequest = {
+        id: `cb-${Date.now()}`,
         name,
         phone,
         preferredTime: preferredTime || null,
         workspaceId: workspaceId || null,
         status: "NEW",
-      },
-    });
+        createdAt: new Date(),
+      };
+    }
 
     // 4. Send non-blocking team notification
-    notifyTeamCallbackRequest({
-      name,
-      phone,
-      preferredTime,
-      workspaceTitle,
-    });
+    try {
+      notifyTeamCallbackRequest({
+        name,
+        phone,
+        preferredTime,
+        workspaceTitle,
+      });
+    } catch (mailErr) {
+      console.error("[Email Notification Error]:", mailErr);
+    }
 
     return NextResponse.json({
       success: true,

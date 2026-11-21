@@ -11,9 +11,10 @@ interface SendEmailParams {
   text?: string;
 }
 
+export const OFFICIAL_EMAIL = "officera.spaces@gmail.com";
 const RESEND_API_KEY = process.env.EMAIL_API_KEY || process.env.RESEND_API_KEY;
-const NOTIFY_EMAIL = process.env.NOTIFY_EMAIL || "admin@officera.in";
-const FROM_EMAIL = process.env.FROM_EMAIL || "Officera <notifications@officera.in>";
+const NOTIFY_EMAIL = process.env.NOTIFY_EMAIL || OFFICIAL_EMAIL;
+const FROM_EMAIL = process.env.FROM_EMAIL || `Officera Spaces <${OFFICIAL_EMAIL}>`;
 
 /**
  * Low-level non-blocking email dispatcher.
@@ -207,5 +208,130 @@ export function notifyTeamCallbackRequest(data: {
       <p><strong>Preferred Time:</strong> ${data.preferredTime || "Anytime"}</p>
       <p><strong>Interested In:</strong> ${data.workspaceTitle || "General Inquiry"}</p>
     `,
+  }).catch((e) => console.error(e));
+}
+
+// 7. Workspace Inquiry & Lead Notification (To User & Team)
+export function notifyInquiryCreated(data: {
+  type?: string;
+  name: string;
+  email: string;
+  phone?: string;
+  interest?: string;
+  city?: string;
+  teamSize?: string;
+  details?: string;
+}) {
+  // Confirmation email to the User from officera.spaces@gmail.com
+  sendEmailSafely({
+    to: data.email,
+    subject: `We've received your request - Officera Workspaces`,
+    html: `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; border: 1px solid #e2e8f0; border-radius: 8px;">
+        <h2 style="color: #BA431E; margin-top: 0;">Officera Workspaces</h2>
+        <p>Hi ${data.name},</p>
+        <p>Thank you for reaching out to us. We have received your inquiry for <strong>${data.interest || data.type || "Commercial Workspaces"}</strong>${data.city ? ` in <strong>${data.city}</strong>` : ""}.</p>
+        <p>Our workspace advisory team is reviewing your requirements and will connect with you shortly with verified availability and tailored quotations.</p>
+        <div style="margin: 20px 0; padding: 16px; background: #faf8f5; border-left: 4px solid #BA431E; border-radius: 4px;">
+          <p style="margin: 0 0 8px 0; font-size: 13px; font-weight: bold; color: #18191c;">Your Submission Summary:</p>
+          <p style="margin: 0; font-size: 13px; line-height: 1.6; color: #475569;">
+            <strong>Name:</strong> ${data.name}<br/>
+            <strong>Email:</strong> ${data.email}<br/>
+            ${data.phone ? `<strong>Phone:</strong> ${data.phone}<br/>` : ""}
+            ${data.teamSize ? `<strong>Team Size:</strong> ${data.teamSize}<br/>` : ""}
+            ${data.details ? `<strong>Notes:</strong> ${data.details}` : ""}
+          </p>
+        </div>
+        <p style="font-size: 13px; color: #64748b; line-height: 1.5;">
+          If you have any questions or additional requirements, you can reply directly to this email at <a href="mailto:${OFFICIAL_EMAIL}" style="color: #BA431E; font-weight: bold;">${OFFICIAL_EMAIL}</a>.
+        </p>
+        <p style="margin-top: 24px; font-size: 12px; color: #94a3b8; border-top: 1px solid #e2e8f0; pt: 16px;">
+          Best regards,<br/><strong>Officera Workspaces Concierge</strong><br/>
+          <a href="mailto:${OFFICIAL_EMAIL}" style="color: #94a3b8;">${OFFICIAL_EMAIL}</a>
+        </p>
+      </div>
+    `,
+  }).catch((e) => console.error(e));
+
+  // Alert notification to the Officera Team at officera.spaces@gmail.com
+  sendEmailSafely({
+    to: NOTIFY_EMAIL,
+    subject: `[New Inquiry] ${data.type || "Workspace Request"} - ${data.name}`,
+    html: `
+      <h2>New Customer Inquiry Received</h2>
+      <p><strong>Type:</strong> ${data.type || "Lead"}</p>
+      <p><strong>Name:</strong> ${data.name}</p>
+      <p><strong>Email:</strong> ${data.email}</p>
+      <p><strong>Phone:</strong> ${data.phone || "N/A"}</p>
+      <p><strong>Interest:</strong> ${data.interest || "N/A"}</p>
+      <p><strong>City:</strong> ${data.city || "N/A"}</p>
+      <p><strong>Team Size:</strong> ${data.teamSize || "N/A"}</p>
+      <p><strong>Details / Message:</strong> ${data.details || "N/A"}</p>
+    `,
+  }).catch((e) => console.error(e));
+}
+
+// 8. Service Request Notification (To User & Team)
+export function notifyServiceRequestCreated(data: {
+  serviceType: string;
+  companyName?: string;
+  contactName: string;
+  email: string;
+  phone: string;
+  notes?: string;
+}) {
+  // To User
+  sendEmailSafely({
+    to: data.email,
+    subject: `Service Request Received: ${data.serviceType} | Officera`,
+    html: `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; border: 1px solid #e2e8f0; border-radius: 8px;">
+        <h2 style="color: #BA431E; margin-top: 0;">Officera Workspaces</h2>
+        <p>Hi ${data.contactName},</p>
+        <p>Thank you for choosing Officera for <strong>${data.serviceType}</strong>${data.companyName ? ` for <strong>${data.companyName}</strong>` : ""}.</p>
+        <p>Our corporate solutions team has logged your request and will contact you directly via phone or email to initiate the onboarding process.</p>
+        <p style="font-size: 13px; color: #64748b;">For any immediate assistance, reach us at <a href="mailto:${OFFICIAL_EMAIL}" style="color: #BA431E;">${OFFICIAL_EMAIL}</a>.</p>
+        <p style="margin-top: 24px; font-size: 12px; color: #94a3b8;">Best regards,<br/>The Officera Team</p>
+      </div>
+    `,
+  }).catch((e) => console.error(e));
+
+  // To Team
+  sendEmailSafely({
+    to: NOTIFY_EMAIL,
+    subject: `[New Service Request] ${data.serviceType} - ${data.companyName || data.contactName}`,
+    html: `
+      <h2>New Enterprise / Business Service Request</h2>
+      <p><strong>Service Type:</strong> ${data.serviceType}</p>
+      <p><strong>Company Name:</strong> ${data.companyName || "N/A"}</p>
+      <p><strong>Contact Person:</strong> ${data.contactName}</p>
+      <p><strong>Email:</strong> ${data.email}</p>
+      <p><strong>Phone:</strong> ${data.phone}</p>
+      <p><strong>Notes:</strong> ${data.notes || "None"}</p>
+    `,
+  }).catch((e) => console.error(e));
+}
+
+// 9. Newsletter Subscription Notification
+export function notifyNewsletterSubscribed(subscriberEmail: string) {
+  // Welcome email to subscriber
+  sendEmailSafely({
+    to: subscriberEmail,
+    subject: `Welcome to Officera Workspace Insights`,
+    html: `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; border: 1px solid #e2e8f0; border-radius: 8px;">
+        <h2 style="color: #BA431E; margin-top: 0;">Officera Workspaces</h2>
+        <p>Thank you for subscribing to Officera's monthly workspace insights.</p>
+        <p>You'll receive curated updates on prime commercial office developments, pricing trends, and new premium hub launches across India.</p>
+        <p style="font-size: 12px; color: #94a3b8; margin-top: 24px;">Sent by Officera (<a href="mailto:${OFFICIAL_EMAIL}">${OFFICIAL_EMAIL}</a>)</p>
+      </div>
+    `,
+  }).catch((e) => console.error(e));
+
+  // Notify team
+  sendEmailSafely({
+    to: NOTIFY_EMAIL,
+    subject: `[Newsletter] New Subscriber: ${subscriberEmail}`,
+    html: `<p>New subscriber registered for newsletter: <strong>${subscriberEmail}</strong></p>`,
   }).catch((e) => console.error(e));
 }
