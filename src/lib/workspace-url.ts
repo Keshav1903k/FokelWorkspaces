@@ -5,6 +5,9 @@ export function getWorkspaceUrl(space: { id: string; slug?: string; type?: strin
   const slug = space.shortId?.toLowerCase() || space.slug || space.id;
   const t = (space.type || "").toLowerCase();
 
+  if (t.includes("virtual")) {
+    return `/virtual-office/${slug}`;
+  }
   if (t.includes("coworking")) {
     return `/coworking/${slug}`;
   }
@@ -13,9 +16,6 @@ export function getWorkspaceUrl(space: { id: string; slug?: string; type?: strin
   }
   if (t.includes("commercial") || t.includes("office")) {
     return `/office-space/${slug}`;
-  }
-  if (t.includes("virtual")) {
-    return `/virtual-office/${slug}`;
   }
   return `/workspaces/${slug}`;
 }
