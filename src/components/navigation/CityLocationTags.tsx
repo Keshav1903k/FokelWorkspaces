@@ -92,7 +92,7 @@ const TAG_SECTIONS: TagSection[] = [
 ];
 
 export function CityLocationTags() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
 
   return (
     <section className="bg-[#121316] text-[#FAF8F5] border-t border-[#282A2E]">
