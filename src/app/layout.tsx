@@ -16,6 +16,16 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Officera | Find Coworking & Managed Offices in India",
   description: "Discover, compare, and lease coworking spaces, managed offices, private suites, and virtual offices across India's top business districts.",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.png", type: "image/png", sizes: "32x32" },
+      { url: "/icon-192.png", type: "image/png", sizes: "192x192" },
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
 };
 
 export default function RootLayout({
