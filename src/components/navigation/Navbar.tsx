@@ -16,7 +16,8 @@ import {
   MapPin, 
   ArrowRight,
   Building2,
-  Sparkles
+  Sparkles,
+  ShieldCheck
 } from "lucide-react";
 import { NAV_LINKS, CITY_HUBS, NavLinkItem } from "@/constants/data";
 import { getCurrentUser, logoutUser } from "@/utils/auth";
@@ -237,6 +238,16 @@ export function Navbar() {
                           <LayoutDashboard className="w-3.5 h-3.5 opacity-70" />
                           Dashboard
                         </Link>
+                        {(activeUser as any)?.role === "ADMIN" && (
+                          <Link
+                            href="/admin"
+                            onClick={() => setDropdownOpen(false)}
+                            className="flex items-center gap-2.5 px-3 py-2 text-xs font-semibold text-amber-800 bg-amber-50 rounded-sm hover:bg-amber-100 transition-colors"
+                          >
+                            <ShieldCheck className="w-3.5 h-3.5 text-amber-600" />
+                            Admin Console
+                          </Link>
+                        )}
                         <Link
                           href="/workspaces/list-space"
                           onClick={() => setDropdownOpen(false)}

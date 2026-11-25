@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import { db, withDbTimeout } from "@/server/db";
 import { registerSchema } from "@/lib/validations/auth.schema";
 import { Role } from "@prisma/client";
+import { findStoredUserByEmail, saveStoredUser } from "@/server/user-store";
 
 export async function POST(req: Request) {
   try {
@@ -19,7 +20,7 @@ export async function POST(req: Request) {
     const { name, email, password, role } = result.data;
     const normalizedEmail = email.toLowerCase().trim();
 
-    // Check if user already exists
+    // Check if user already exists in DB or fallback store
     let existingUser = null;
     try {
       existingUser = await withDbTimeout(
@@ -29,7 +30,11 @@ export async function POST(req: Request) {
         1500
       );
     } catch (dbErr) {
-      console.warn("[Database Offline / User check skipped]:", dbErr);
+      console.warn("[Database Offline / User check skipped in DB]:", dbErr);
+    }
+
+    if (!existingUser) {
+      existingUser = findStoredUserByEmail(normalizedEmail);
     }
 
     if (existingUser) {
@@ -41,6 +46,8 @@ export async function POST(req: Request) {
 
     // Hash password securely
     const passwordHash = await bcrypt.hash(password, 12);
+    const userId = `user-${Date.now()}`;
+    const userRole = (role as Role) || Role.USER;
 
     let user: any = null;
     try {
@@ -50,7 +57,7 @@ export async function POST(req: Request) {
             name,
             email: normalizedEmail,
             passwordHash,
-            role: (role as Role) || Role.USER,
+            role: userRole,
           },
           select: {
             id: true,
@@ -63,15 +70,25 @@ export async function POST(req: Request) {
         1500
       );
     } catch (dbErr) {
-      console.warn("[Database Offline / Registration completed offline]:", dbErr);
+      console.warn("[Database Offline / Registration saved to local store]:", dbErr);
       user = {
-        id: `user-${Date.now()}`,
+        id: userId,
         name,
         email: normalizedEmail,
-        role: role || "USER",
+        role: userRole,
         createdAt: new Date(),
       };
     }
+
+    // Always guarantee user is also persisted in local store for seamless authentication
+    saveStoredUser({
+      id: user.id || userId,
+      name,
+      email: normalizedEmail,
+      passwordHash,
+      role: String(userRole),
+      createdAt: new Date().toISOString(),
+    });
 
     return NextResponse.json(
       { message: "Account created successfully", user },

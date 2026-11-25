@@ -5,7 +5,6 @@ import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import {
-  ShieldCheck,
   Mail,
   Lock,
   ArrowRight,
@@ -13,183 +12,365 @@ import {
   AlertCircle,
   Eye,
   EyeOff,
-  Sparkles,
+  User,
+  CheckCircle2,
 } from "lucide-react";
+import { loginUser } from "@/utils/auth";
 
 function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") || "/admin";
+  const callbackUrl = searchParams.get("callbackUrl");
   const errorParam = searchParams.get("error");
+  const initialMode = searchParams.get("mode") === "signup" ? "signup" : "login";
 
+  const [mode, setMode] = useState<"login" | "signup">(initialMode);
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(
-    errorParam ? "Authentication error. Please check your credentials." : ""
+    errorParam ? "Authentication failed. Please check your credentials." : ""
   );
+  const [successMessage, setSuccessMessage] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     setErrorMessage("");
+    setSuccessMessage("");
+
+    const normalizedEmail = email.trim().toLowerCase();
 
     try {
+      if (mode === "signup") {
+        if (!password || password.length < 8) {
+          setErrorMessage("Password must be at least 8 characters long.");
+          setIsLoading(false);
+          return;
+        }
+
+        if (password !== confirmPassword) {
+          setErrorMessage("Passwords do not match. Please ensure both passwords match.");
+          setIsLoading(false);
+          return;
+        }
+
+        const regRes = await fetch("/api/auth/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: name.trim(),
+            email: normalizedEmail,
+            password,
+            confirmPassword,
+            role: "USER",
+          }),
+        });
+
+        const regData = await regRes.json();
+        if (!regRes.ok) {
+          setErrorMessage(regData.error || "Failed to create account. Please try again.");
+          setIsLoading(false);
+          return;
+        }
+
+        // Auto sign-in
+        const res = await signIn("credentials", {
+          email: normalizedEmail,
+          password,
+          redirect: false,
+        });
+
+        if (res?.error) {
+          setSuccessMessage("Account created successfully! Please sign in with your password.");
+          setMode("login");
+          setIsLoading(false);
+          return;
+        }
+
+        loginUser(
+          regData.user?.name || name.trim(),
+          regData.user?.email || normalizedEmail,
+          regData.user?.id,
+          regData.user?.role || "USER"
+        );
+
+        setSuccessMessage("Account created! Redirecting to your dashboard...");
+        setTimeout(() => {
+          router.push("/profile");
+          router.refresh();
+        }, 800);
+        return;
+      }
+
+      // Login mode
       const res = await signIn("credentials", {
-        email: email.trim().toLowerCase(),
+        email: normalizedEmail,
         password,
         redirect: false,
       });
 
       if (res?.error) {
-        setErrorMessage("Invalid email or password. Please try again.");
-      } else {
-        router.push(callbackUrl);
-        router.refresh();
+        setErrorMessage("Invalid email or password. Please check your credentials and try again.");
+        setIsLoading(false);
+        return;
       }
+
+      // Fetch user profile session
+      const meRes = await fetch("/api/me").catch(() => null);
+      let userName = normalizedEmail.split("@")[0];
+      let userRole = "USER";
+      let userId = undefined;
+
+      if (meRes && meRes.ok) {
+        const meData = await meRes.json();
+        if (meData?.user) {
+          userName = meData.user.name || userName;
+          userRole = meData.user.role || "USER";
+          userId = meData.user.id;
+        }
+      }
+
+      loginUser(userName, normalizedEmail, userId, userRole);
+
+      // Safe redirect: only admins go to /admin; regular users go to profile or intended page
+      let targetUrl = "/profile";
+      if (callbackUrl && callbackUrl !== "/admin") {
+        targetUrl = callbackUrl;
+      } else if (userRole === "ADMIN") {
+        targetUrl = "/admin";
+      }
+
+      setSuccessMessage("Signed in successfully! Loading...");
+      setTimeout(() => {
+        router.push(targetUrl);
+        router.refresh();
+      }, 500);
     } catch (err: any) {
-      setErrorMessage(err.message || "An unexpected error occurred.");
-    } finally {
+      setErrorMessage(err.message || "An unexpected error occurred. Please try again.");
       setIsLoading(false);
     }
   };
 
-  const handleAutofill = (role: "admin" | "partner" | "user") => {
-    if (role === "admin") {
-      setEmail("admin@officera.in");
-      setPassword("Admin@Officera2025!");
-    } else if (role === "partner") {
-      setEmail("partner@officera.in");
-      setPassword("Partner@Officera2025!");
-    } else {
-      setEmail("user@officera.in");
-      setPassword("User@Officera2025!");
-    }
-    setErrorMessage("");
-  };
-
   return (
-    <div className="w-full max-w-md bg-zinc-900/80 border border-zinc-800 backdrop-blur-xl rounded-3xl p-8 shadow-2xl relative z-10 space-y-6">
+    <div className="w-full max-w-md bg-white border border-[#E3DDD3] rounded-3xl p-8 shadow-xl relative z-10 space-y-6 text-[#18191C]">
       {/* Brand Header */}
       <div className="text-center space-y-2">
-        <Link href="/" className="inline-flex items-center gap-2 group mb-2">
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-orange-600 to-amber-500 flex items-center justify-center font-bold text-white shadow-lg shadow-orange-500/20 group-hover:scale-105 transition-transform">
-            <ShieldCheck className="w-5 h-5" />
-          </div>
-          <span className="font-extrabold text-2xl tracking-tight text-white">Officera</span>
+        <Link href="/" className="inline-block mb-1">
+          <img
+            src="/images/logo-light.png"
+            alt="Officera"
+            className="h-8 w-auto object-contain mx-auto"
+          />
         </Link>
-        <h1 className="text-xl font-bold text-white tracking-tight">Portal Access</h1>
-        <p className="text-xs text-zinc-400">
-          Sign in to access your administrative operations or partner console
+        <h1 className="text-2xl font-bold tracking-tight text-[#18191C]">
+          {mode === "login" ? "Welcome Back" : "Create an Account"}
+        </h1>
+        <p className="text-xs text-[#5C5D61]">
+          {mode === "login"
+            ? "Sign in to access your workspace bookings and saved offices"
+            : "Register to schedule visits, compare verified spaces, and manage bookings"}
         </p>
       </div>
 
-      {/* Error Callout */}
+      {/* Tabs */}
+      <div className="flex items-center gap-1 p-1 bg-[#F5F2EB] rounded-xl text-xs font-semibold">
+        <button
+          type="button"
+          onClick={() => {
+            setMode("login");
+            setErrorMessage("");
+            setSuccessMessage("");
+          }}
+          className={`flex-1 py-2 rounded-lg transition-all cursor-pointer text-center ${
+            mode === "login"
+              ? "bg-white text-[#18191C] shadow-xs"
+              : "text-[#5C5D61] hover:text-[#18191C]"
+          }`}
+        >
+          Sign In
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            setMode("signup");
+            setErrorMessage("");
+            setSuccessMessage("");
+          }}
+          className={`flex-1 py-2 rounded-lg transition-all cursor-pointer text-center ${
+            mode === "signup"
+              ? "bg-white text-[#18191C] shadow-xs"
+              : "text-[#5C5D61] hover:text-[#18191C]"
+          }`}
+        >
+          Create Account
+        </button>
+      </div>
+
+      {/* Feedback Messages */}
       {errorMessage && (
-        <div className="p-3.5 rounded-2xl bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs flex items-center gap-2.5">
-          <AlertCircle className="w-4 h-4 shrink-0" />
+        <div className="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs flex items-center gap-2.5">
+          <AlertCircle className="w-4 h-4 shrink-0 text-rose-500" />
           <span>{errorMessage}</span>
         </div>
       )}
+      {successMessage && (
+        <div className="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-center gap-2.5">
+          <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600" />
+          <span>{successMessage}</span>
+        </div>
+      )}
 
-      {/* Login Form */}
+      {/* Form */}
       <form onSubmit={handleSubmit} className="space-y-4">
+        {mode === "signup" && (
+          <div>
+            <label className="block text-xs font-semibold text-[#18191C] uppercase tracking-wider mb-1.5">
+              Full Name*
+            </label>
+            <div className="relative">
+              <User className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+              <input
+                type="text"
+                required
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="e.g. Rahul Sharma"
+                className="w-full bg-[#FAF8F5] border border-[#E3DDD3] rounded-xl pl-10 pr-3.5 py-2.5 text-sm text-[#18191C] placeholder-slate-400 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
+              />
+            </div>
+          </div>
+        )}
+
         <div>
-          <label className="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">
-            Email Address
+          <label className="block text-xs font-semibold text-[#18191C] uppercase tracking-wider mb-1.5">
+            Email Address*
           </label>
           <div className="relative">
-            <Mail className="w-4 h-4 text-zinc-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
+            <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
               type="email"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="name@officera.in"
-              className="w-full bg-zinc-950 border border-zinc-800 rounded-xl pl-10 pr-3.5 py-2.5 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none focus:border-orange-500 transition-colors"
+              placeholder="name@company.com"
+              className="w-full bg-[#FAF8F5] border border-[#E3DDD3] rounded-xl pl-10 pr-3.5 py-2.5 text-sm text-[#18191C] placeholder-slate-400 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
             />
           </div>
         </div>
 
         <div>
-          <div className="flex items-center justify-between mb-1.5">
-            <label className="text-xs font-semibold text-zinc-300 uppercase tracking-wider">
-              Password
-            </label>
-          </div>
+          <label className="block text-xs font-semibold text-[#18191C] uppercase tracking-wider mb-1.5">
+            Password*
+          </label>
           <div className="relative">
-            <Lock className="w-4 h-4 text-zinc-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
+            <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
               type={showPassword ? "text" : "password"}
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••••••"
-              className="w-full bg-zinc-950 border border-zinc-800 rounded-xl pl-10 pr-10 py-2.5 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none focus:border-orange-500 transition-colors"
+              placeholder={mode === "signup" ? "At least 8 characters" : "••••••••••••"}
+              className="w-full bg-[#FAF8F5] border border-[#E3DDD3] rounded-xl pl-10 pr-10 py-2.5 text-sm text-[#18191C] placeholder-slate-400 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
             />
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3.5 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-300"
+              className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 cursor-pointer"
             >
               {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
             </button>
           </div>
         </div>
 
+        {mode === "signup" && (
+          <div>
+            <label className="block text-xs font-semibold text-[#18191C] uppercase tracking-wider mb-1.5">
+              Confirm Password*
+            </label>
+            <div className="relative">
+              <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+              <input
+                type={showConfirmPassword ? "text" : "password"}
+                required
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                placeholder="Confirm your password"
+                className="w-full bg-[#FAF8F5] border border-[#E3DDD3] rounded-xl pl-10 pr-10 py-2.5 text-sm text-[#18191C] placeholder-slate-400 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
+              />
+              <button
+                type="button"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 cursor-pointer"
+              >
+                {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+              </button>
+            </div>
+          </div>
+        )}
+
         <button
           type="submit"
           disabled={isLoading}
-          className="w-full py-3 px-4 rounded-xl font-bold text-sm bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white shadow-lg shadow-orange-600/20 hover:scale-[1.01] transition-all flex items-center justify-center gap-2"
+          className="w-full py-3 px-4 rounded-xl font-bold text-sm bg-primary hover:bg-[#A93E1B] text-white shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
         >
           {isLoading ? (
             <Loader2 className="w-4 h-4 animate-spin" />
           ) : (
             <>
-              Sign In to Console
+              {mode === "login" ? "Sign In to Account" : "Create Account & Sign In"}
               <ArrowRight className="w-4 h-4" />
             </>
           )}
         </button>
       </form>
 
-      {/* Demo Quick Fill Helper */}
-      <div className="pt-2 space-y-2">
-        <p className="text-[11px] text-zinc-400 text-center font-medium">Quick Fill Credentials:</p>
-        <div className="grid grid-cols-3 gap-2">
-          <button
-            type="button"
-            onClick={() => handleAutofill("admin")}
-            className="py-2 px-2 rounded-xl border border-zinc-800 hover:border-amber-500/50 bg-zinc-950 text-xs text-zinc-300 hover:text-white transition-colors flex items-center justify-center gap-1.5"
-          >
-            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-            Admin
-          </button>
-          <button
-            type="button"
-            onClick={() => handleAutofill("partner")}
-            className="py-2 px-2 rounded-xl border border-zinc-800 hover:border-blue-500/50 bg-zinc-950 text-xs text-zinc-300 hover:text-white transition-colors flex items-center justify-center gap-1.5"
-          >
-            <ShieldCheck className="w-3.5 h-3.5 text-blue-400" />
-            Partner
-          </button>
-          <button
-            type="button"
-            onClick={() => handleAutofill("user")}
-            className="py-2 px-2 rounded-xl border border-zinc-800 hover:border-emerald-500/50 bg-zinc-950 text-xs text-zinc-300 hover:text-white transition-colors flex items-center justify-center gap-1.5"
-          >
-            <Mail className="w-3.5 h-3.5 text-emerald-400" />
-            User
-          </button>
-        </div>
+      {/* Switch Mode Prompt */}
+      <div className="text-center pt-2">
+        <p className="text-xs text-[#5C5D61]">
+          {mode === "login" ? (
+            <>
+              Don&apos;t have an account yet?{" "}
+              <button
+                type="button"
+                onClick={() => {
+                  setMode("signup");
+                  setErrorMessage("");
+                  setSuccessMessage("");
+                }}
+                className="text-primary font-semibold hover:underline cursor-pointer"
+              >
+                Create an account
+              </button>
+            </>
+          ) : (
+            <>
+              Already have an account?{" "}
+              <button
+                type="button"
+                onClick={() => {
+                  setMode("login");
+                  setErrorMessage("");
+                  setSuccessMessage("");
+                }}
+                className="text-primary font-semibold hover:underline cursor-pointer"
+              >
+                Sign In
+              </button>
+            </>
+          )}
+        </p>
       </div>
 
-      {/* Footer */}
-      <div className="text-center pt-4 border-t border-zinc-800">
+      {/* Footer Link */}
+      <div className="text-center pt-3 border-t border-[#E3DDD3]">
         <Link
           href="/"
-          className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors"
+          className="text-xs text-[#5C5D61] hover:text-[#18191C] transition-colors"
         >
           ← Return to Officera Marketplace
         </Link>
@@ -200,16 +381,12 @@ function LoginForm() {
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen bg-zinc-950 flex flex-col items-center justify-center p-4 relative overflow-hidden selection:bg-orange-500 selection:text-white">
-      {/* Decorative gradient glow */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-orange-600/15 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
-
+    <div className="min-h-screen bg-[#FAF8F5] flex flex-col items-center justify-center p-4 relative selection:bg-primary selection:text-white">
       <Suspense
         fallback={
-          <div className="w-full max-w-md bg-zinc-900/80 border border-zinc-800 rounded-3xl p-8 flex items-center justify-center text-zinc-400 text-sm">
-            <Loader2 className="w-5 h-5 animate-spin mr-2 text-orange-500" />
-            Loading portal...
+          <div className="w-full max-w-md bg-white border border-[#E3DDD3] rounded-3xl p-8 flex items-center justify-center text-[#5C5D61] text-sm">
+            <Loader2 className="w-5 h-5 animate-spin mr-2 text-primary" />
+            Loading sign in...
           </div>
         }
       >

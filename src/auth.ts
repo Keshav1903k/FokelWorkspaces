@@ -1,9 +1,10 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
-import { db } from "./server/db";
+import { db, withDbTimeout } from "./server/db";
 import { loginSchema } from "./lib/validations/auth.schema";
 import { authConfig } from "./auth.config";
+import { findStoredUserByEmail } from "./server/user-store";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   ...authConfig,
@@ -63,27 +64,39 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           };
         }
 
+        // 1. Try PostgreSQL via Prisma with timeout
+        let user: any = null;
         try {
-          const user = await db.user.findUnique({
-            where: { email },
-          });
-
-          if (!user || !user.passwordHash) return null;
-
-          const isValid = await bcrypt.compare(password, user.passwordHash);
-          if (!isValid) return null;
-
-          return {
-            id: user.id,
-            name: user.name,
-            email: user.email,
-            role: user.role,
-            image: user.image,
-          };
-        } catch (error) {
-          console.error("Auth database check encountered an error:", error);
-          return null;
+          user = await withDbTimeout(
+            db.user.findUnique({
+              where: { email },
+            }),
+            1500
+          );
+        } catch (dbErr) {
+          console.warn("[Auth] Database query timed out / offline, trying local store");
         }
+
+        // 2. Fallback to local stored user if DB was offline or user not found in DB
+        if (!user || !user.passwordHash) {
+          const storedUser = findStoredUserByEmail(email);
+          if (storedUser) {
+            user = storedUser;
+          }
+        }
+
+        if (!user || !user.passwordHash) return null;
+
+        const isValid = await bcrypt.compare(password, user.passwordHash);
+        if (!isValid) return null;
+
+        return {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          role: user.role,
+          image: user.image || null,
+        };
       },
     }),
   ],
