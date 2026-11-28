@@ -82,13 +82,10 @@ export function Navbar() {
     setMobileMenuOpen(false);
   };
 
-  const handleLogout = async () => {
-    if (!confirm("Are you sure you want to log out?")) return;
-    logoutUser();
+  const handleLogout = () => {
     setDropdownOpen(false);
-    await signOut({ redirect: false });
-    router.push("/");
-    router.refresh();
+    setMobileMenuOpen(false);
+    window.dispatchEvent(new Event("open-logout-modal"));
   };
 
   const handleSelectCity = (cityName: string, spaceType: "Coworking Space" | "Virtual Office") => {

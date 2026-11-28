@@ -320,14 +320,7 @@ function LoginForm() {
           </Link>
           <button
             type="button"
-            onClick={async () => {
-              logoutUser();
-              await signOut({ redirect: false });
-              setIsAlreadyLoggedIn(false);
-              setLoggedInUserName("");
-              router.push("/login");
-              router.refresh();
-            }}
+            onClick={() => window.dispatchEvent(new Event("open-logout-modal"))}
             className="py-3 px-4 border border-slate-200 text-slate-600 hover:text-slate-900 text-xs font-medium rounded-xl hover:bg-slate-50 transition-colors cursor-pointer"
           >
             Sign Out

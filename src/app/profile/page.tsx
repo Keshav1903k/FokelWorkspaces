@@ -198,12 +198,8 @@ export default function ProfilePage() {
     }
   };
 
-  const handleLogout = async () => {
-    if (!confirm("Are you sure you want to log out?")) return;
-    logoutUser();
-    await signOut({ redirect: false });
-    router.push("/");
-    router.refresh();
+  const handleLogout = () => {
+    window.dispatchEvent(new Event("open-logout-modal"));
   };
 
   const handleOpenSignup = () => {

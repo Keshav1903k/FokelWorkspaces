@@ -5,6 +5,7 @@ import { Providers } from "@/components/providers/Providers";
 import { Navbar } from "@/components/navigation/Navbar";
 import { Footer } from "@/components/navigation/Footer";
 import { WelcomeModal } from "@/components/modals/WelcomeModal";
+import { LogoutConfirmModal } from "@/components/modals/LogoutConfirmModal";
 import "./globals.css";
 
 const inter = Inter({
@@ -50,6 +51,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col font-sans bg-background text-foreground overflow-x-hidden selection:bg-primary/20 selection:text-primary">
         <WelcomeModal />
+        <LogoutConfirmModal />
         <Providers>
           <SmoothScrollProvider>
             <Navbar />
