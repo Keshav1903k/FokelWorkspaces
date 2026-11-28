@@ -8,7 +8,8 @@ import { findStoredUserByEmail } from "./server/user-store";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   ...authConfig,
-  secret: process.env.AUTH_SECRET,
+  trustHost: true,
+  secret: process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET || "7a8e2b9c3f1d4a6e5b0c9d8e7f6a5b4c3d2e1f0a9b8c7d6e5f4a3b2c1d0e9f8a",
   session: { strategy: "jwt" },
   providers: [
     Credentials({

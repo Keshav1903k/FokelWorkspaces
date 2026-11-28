@@ -14,7 +14,7 @@ import {
   KeyRound,
   RotateCcw,
 } from "lucide-react";
-import { loginUser } from "@/utils/auth";
+import { loginUser, getCurrentUser } from "@/utils/auth";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
@@ -42,6 +42,11 @@ export function WelcomeModal() {
 
   useEffect(() => {
     const handleOpenSignup = () => {
+      const current = getCurrentUser();
+      if (current && current.email) {
+        router.push("/profile");
+        return;
+      }
       setMode("signup");
       setErrorMsg("");
       setSuccessMsg("");
@@ -50,6 +55,11 @@ export function WelcomeModal() {
     };
 
     const handleOpenLogin = () => {
+      const current = getCurrentUser();
+      if (current && current.email) {
+        router.push("/profile");
+        return;
+      }
       setMode("login");
       setErrorMsg("");
       setSuccessMsg("");

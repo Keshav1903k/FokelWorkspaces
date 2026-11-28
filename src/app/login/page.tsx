@@ -1,7 +1,7 @@
 "use client";
 
-import { Suspense, useState } from "react";
-import { signIn } from "next-auth/react";
+import { Suspense, useState, useEffect } from "react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import {
@@ -17,7 +17,7 @@ import {
   KeyRound,
   RotateCcw,
 } from "lucide-react";
-import { loginUser } from "@/utils/auth";
+import { loginUser, getCurrentUser, logoutUser } from "@/utils/auth";
 
 function LoginForm() {
   const router = useRouter();
@@ -25,6 +25,10 @@ function LoginForm() {
   const callbackUrl = searchParams.get("callbackUrl");
   const errorParam = searchParams.get("error");
   const initialMode = searchParams.get("mode") === "signup" ? "signup" : searchParams.get("mode") === "forgot" ? "forgot" : "login";
+
+  const { data: session, status: sessionStatus } = useSession();
+  const [isAlreadyLoggedIn, setIsAlreadyLoggedIn] = useState(false);
+  const [loggedInUserName, setLoggedInUserName] = useState("");
 
   const [mode, setMode] = useState<"login" | "signup" | "forgot">(initialMode);
   const [name, setName] = useState("");
@@ -37,9 +41,30 @@ function LoginForm() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(
-    errorParam ? "Authentication failed. Please check your credentials." : ""
+    errorParam && errorParam !== "Configuration"
+      ? "Authentication failed. Please check your credentials."
+      : ""
   );
   const [successMessage, setSuccessMessage] = useState("");
+
+  // Check if user is already signed in on mount or session change
+  useEffect(() => {
+    const localUser = getCurrentUser();
+    const authUser = session?.user || localUser;
+    if (authUser?.email) {
+      setIsAlreadyLoggedIn(true);
+      setLoggedInUserName(authUser.name || localUser?.name || authUser.email || "Member");
+
+      const target = (callbackUrl && !callbackUrl.includes("/login") && callbackUrl !== "/admin")
+        ? callbackUrl
+        : (authUser.role === "ADMIN" ? "/admin" : "/profile");
+
+      const timer = setTimeout(() => {
+        router.replace(target);
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [session, sessionStatus, callbackUrl, router]);
 
   // 1. Handle Requesting OTP for Forgot Password
   const handleRequestOtp = async (e: React.FormEvent) => {
@@ -262,6 +287,64 @@ function LoginForm() {
       setIsLoading(false);
     }
   };
+
+  if (isAlreadyLoggedIn) {
+    return (
+      <div className="w-full max-w-md bg-white border border-[#E3DDD3] rounded-3xl p-8 shadow-xl relative z-10 space-y-6 text-[#18191C] text-center">
+        <Link href="/" className="inline-block mb-1">
+          <img
+            src="/images/logo-light.png"
+            alt="Officera"
+            className="h-8 w-auto object-contain mx-auto"
+          />
+        </Link>
+        <div className="w-14 h-14 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center justify-center mx-auto mt-2">
+          <CheckCircle2 className="w-7 h-7" />
+        </div>
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight text-[#18191C]">
+            Already Signed In
+          </h1>
+          <p className="text-xs text-[#5C5D61] mt-1.5 leading-relaxed">
+            You are signed in as <span className="font-semibold text-slate-800">{loggedInUserName}</span>.
+            <br />Redirecting to your dashboard...
+          </p>
+        </div>
+
+        <div className="flex flex-col sm:flex-row gap-3 pt-2">
+          <Link
+            href="/profile"
+            className="flex-1 py-3 px-4 bg-primary hover:bg-[#A93E1B] text-white text-xs font-semibold rounded-xl transition-colors flex items-center justify-center gap-1.5 shadow-sm"
+          >
+            Go to Dashboard <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+          <button
+            type="button"
+            onClick={async () => {
+              logoutUser();
+              await signOut({ redirect: false });
+              setIsAlreadyLoggedIn(false);
+              setLoggedInUserName("");
+              router.push("/login");
+              router.refresh();
+            }}
+            className="py-3 px-4 border border-slate-200 text-slate-600 hover:text-slate-900 text-xs font-medium rounded-xl hover:bg-slate-50 transition-colors cursor-pointer"
+          >
+            Sign Out
+          </button>
+        </div>
+
+        <div className="pt-2 border-t border-[#E3DDD3]/60">
+          <Link
+            href="/"
+            className="text-xs text-[#5C5D61] hover:text-primary transition-colors"
+          >
+            ← Return to Officera Marketplace
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full max-w-md bg-white border border-[#E3DDD3] rounded-3xl p-8 shadow-xl relative z-10 space-y-6 text-[#18191C]">
