@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: ["/admin", "/profile", "/api"],
     },
-    sitemap: "https://officera.in/sitemap.xml",
+    sitemap: "https://www.officera.in/sitemap.xml",
   };
 }

@@ -14,8 +14,17 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.officera.in"),
   title: "Officera | Find Coworking & Managed Offices in India",
   description: "Discover, compare, and lease coworking spaces, managed offices, private suites, and virtual offices across India's top business districts.",
+  alternates: {
+    canonical: "https://www.officera.in",
+  },
+  openGraph: {
+    url: "https://www.officera.in",
+    siteName: "Officera",
+    type: "website",
+  },
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },

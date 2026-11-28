@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { WORKSPACES } from "@/constants/data";
 import { getWorkspaceUrl } from "@/lib/workspace-url";
 
-const BASE_URL = "https://officera.in";
+const BASE_URL = "https://www.officera.in";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const currentDate = new Date();
@@ -13,7 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: number;
     changeFrequency: "always" | "hourly" | "daily" | "weekly" | "monthly" | "yearly" | "never";
   }[] = [
-    { path: "", priority: 1.0, changeFrequency: "daily" }, // Home (https://officera.in)
+    { path: "", priority: 1.0, changeFrequency: "daily" }, // Home (https://www.officera.in)
     { path: "/workspaces", priority: 0.9, changeFrequency: "daily" },
     { path: "/coworking-spaces", priority: 0.9, changeFrequency: "daily" },
     { path: "/virtual-offices", priority: 0.9, changeFrequency: "daily" },
